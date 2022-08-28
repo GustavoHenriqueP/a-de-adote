@@ -1,16 +1,24 @@
-# a_de_adote
+# A DE ADOTE - Ainda se encontra em fase de construção ✔️
 
-A new Flutter project.
+----------------------------------------------------------------------------------------------------
 
-## Getting Started
+💻 # Sobre o projeto
 
-This project is a starting point for a Flutter application.
+:shipit: O projeto está sendo desenvolvido com o intuito de ajudar ONGS regionais a divulgar seus pets disponíveis para a adoção e conectá-los a possiveis interessados 🐶 🐱 🐰 
+💡 # Ideia do Projeto
 
-A few resources to get you started if this is your first Flutter project:
+Realizar conexão entre interesses comuns das pessoas e ONGs.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Interessados em adotar um animal;
+- Interessados em contribuir com ONGs.
+- ONGs que queiram divulgar seus animais.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🤔 # Como contribuir
+
+    Faça um fork desse repositório;
+    Cria uma branch com a sua feature: git checkout -b minha-feature;
+    Faça commit das suas alterações: git commit -m 'feat: Minha nova feature';
+    Faça push para a sua branch: git push origin minha-feature.
+
+
+Depois que o merge da sua pull request for feito, você pode deletar a sua branch. 
