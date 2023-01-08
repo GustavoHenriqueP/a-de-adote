@@ -45,17 +45,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCRZwdfX0R0j_Wseh1ZXv6ev_2PZlCSdOE',
-    appId: '1:949956744656:web:fc6d7ac1bee8c6e224d5d5',
+    appId: '1:949956744656:web:499bde28cb10f86924d5d5',
     messagingSenderId: '949956744656',
     projectId: 'a-de-adote',
     authDomain: 'a-de-adote.firebaseapp.com',
     storageBucket: 'a-de-adote.appspot.com',
-    measurementId: 'G-2Q168DCKJT',
+    measurementId: 'G-WVMHWKGB9E',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCLY7ywL3fdQnepwaSpBsC30sq98uRc548',
-    appId: '1:949956744656:android:ff945cd84517c7f724d5d5',
+    appId: '1:949956744656:android:ee6901cd35c418b224d5d5',
     messagingSenderId: '949956744656',
     projectId: 'a-de-adote',
     storageBucket: 'a-de-adote.appspot.com',
@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDvFX5h79aDjIeHQkD4W28_lV_wMGYPHVA',
-    appId: '1:949956744656:ios:4b9c57c072b7569424d5d5',
+    appId: '1:949956744656:ios:6548f6724d3ed0e524d5d5',
     messagingSenderId: '949956744656',
     projectId: 'a-de-adote',
     storageBucket: 'a-de-adote.appspot.com',
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDvFX5h79aDjIeHQkD4W28_lV_wMGYPHVA',
-    appId: '1:949956744656:ios:4b9c57c072b7569424d5d5',
+    appId: '1:949956744656:ios:6548f6724d3ed0e524d5d5',
     messagingSenderId: '949956744656',
     projectId: 'a-de-adote',
     storageBucket: 'a-de-adote.appspot.com',
