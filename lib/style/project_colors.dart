@@ -11,6 +11,6 @@ class ProjectColors {
   static const Color lightDark = Color(0xFFEDE8E8);
   static const Color dark = Color(0xFF000000);
   static const Color darkLight = Color(0xFF424242);
-  static const Color danger = Color(0xFFFFA666);
+  static const Color danger = Color.fromARGB(255, 255, 0, 0);
   static const Color success = Color(0xFFBDFF9E);
 }

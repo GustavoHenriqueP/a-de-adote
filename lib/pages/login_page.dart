@@ -59,8 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               reverse: true,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height / 1.4
-                ),
+                    maxHeight: MediaQuery.of(context).size.height / 1.4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -81,52 +80,107 @@ class _LoginPageState extends State<LoginPage> {
                               TextFormField(
                                 controller: email,
                                 style: const TextStyle(
-                                    color: ProjectColors.light, fontSize: 16),
+                                  color: ProjectColors.light,
+                                  fontSize: 16,
+                                ),
                                 decoration: InputDecoration(
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.only(left: 14, top: 16, bottom: 16),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(6),
-                                      ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
                                     ),
-                                    filled: true,
-                                    fillColor:
-                                        ProjectColors.light.withOpacity(0.2),
-                                    labelText: 'E-mail',
-                                    labelStyle: const TextStyle(
-                                        color: ProjectColors.light,
-                                        fontSize: 16)),
+                                    borderSide: BorderSide(
+                                      color: ProjectColors.light,
+                                    ),
+                                  ),
+                                  errorBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: ProjectColors.danger,
+                                    ),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14, top: 16, bottom: 16),
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      ProjectColors.light.withOpacity(0.2),
+                                  labelText: 'E-mail',
+                                  labelStyle: const TextStyle(
+                                    color: ProjectColors.light,
+                                    fontSize: 16,
+                                  ),
+                                  errorStyle: const TextStyle(
+                                    color: ProjectColors.danger,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Informe o e-mail';
+                                    return 'Informe o e-mail!';
                                   }
                                   return null;
                                 },
                               ),
                               const SizedBox(
-                                height: 17,
+                                height: 15,
                               ),
                               TextFormField(
                                 controller: senha,
                                 style: const TextStyle(
                                     color: ProjectColors.light, fontSize: 16),
                                 decoration: InputDecoration(
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.only(left: 14, top: 16, bottom: 16),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(6),
-                                      ),
+                                  suffixIcon: IconButton(
+                                    color: ProjectColors.darkLight,
+                                    icon: const Icon(
+                                      Icons.visibility,
                                     ),
-                                    filled: true,
-                                    fillColor:
-                                        ProjectColors.light.withOpacity(0.2),
-                                    labelText: 'Senha',
-                                    labelStyle: const TextStyle(
-                                        color: ProjectColors.light,
-                                        fontSize: 16)),
+                                    onPressed: (() => null),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: ProjectColors.light,
+                                    ),
+                                  ),
+                                  errorBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: ProjectColors.danger,
+                                    ),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14, top: 16, bottom: 16),
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      ProjectColors.light.withOpacity(0.2),
+                                  labelText: 'Senha',
+                                  labelStyle: const TextStyle(
+                                    color: ProjectColors.light,
+                                    fontSize: 16,
+                                  ),
+                                  errorStyle: const TextStyle(
+                                    color: ProjectColors.danger,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
                                 obscureText: true,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -137,11 +191,30 @@ class _LoginPageState extends State<LoginPage> {
                                   return null;
                                 },
                               ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    child: TextButton(
+                                      onPressed: (() => null),
+                                      child: const Text(
+                                        'Esqueci minha senha.',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: ProjectColors.light,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               const SizedBox(
-                                height: 17,
+                                height: 15,
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
                                 decoration: const BoxDecoration(
                                   color: ProjectColors.primary,
                                   borderRadius: BorderRadius.all(
@@ -173,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 5,
+                                height: 2,
                               ),
                               TextButton(
                                 onPressed: (() => null),
