@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:a_de_adote/style/project_colors.dart';
+import 'package:a_de_adote/widgets/form_button.dart';
+import 'package:a_de_adote/widgets/form_input.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final senha = TextEditingController();
   bool isLoading = false;
+  bool visibility = true;
+  bool senhaFocused = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,9 @@ class _LoginPageState extends State<LoginPage> {
               reverse: true,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height / 1.4),
+                    maxHeight: (MediaQuery.of(context).viewInsets.bottom > 0)
+                        ? MediaQuery.of(context).size.height / 1.8
+                        : MediaQuery.of(context).size.height / 1.4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -71,187 +77,58 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 45),
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextFormField(
-                                controller: email,
-                                style: const TextStyle(
-                                  color: ProjectColors.light,
-                                  fontSize: 16,
-                                ),
-                                decoration: InputDecoration(
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ProjectColors.light,
-                                    ),
-                                  ),
-                                  errorBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ProjectColors.danger,
-                                    ),
-                                  ),
-                                  isCollapsed: true,
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 14, top: 16, bottom: 16),
-                                  border: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor:
-                                      ProjectColors.light.withOpacity(0.2),
-                                  labelText: 'E-mail',
-                                  labelStyle: const TextStyle(
-                                    color: ProjectColors.light,
-                                    fontSize: 16,
-                                  ),
-                                  errorStyle: const TextStyle(
-                                    color: ProjectColors.danger,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Informe o e-mail!';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              TextFormField(
-                                controller: senha,
-                                style: const TextStyle(
-                                    color: ProjectColors.light, fontSize: 16),
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    color: ProjectColors.darkLight,
-                                    icon: const Icon(
-                                      Icons.visibility,
-                                    ),
+                      padding: const EdgeInsets.symmetric(horizontal: 45),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FormInput(
+                              type: 'login',
+                              controller: email,
+                              labelText: 'E-mail',
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            FormInput(
+                              type: 'senha',
+                              controller: senha,
+                              labelText: 'Senha',
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                  height: 30,
+                                  child: TextButton(
                                     onPressed: (() => null),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ProjectColors.light,
-                                    ),
-                                  ),
-                                  errorBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ProjectColors.danger,
-                                    ),
-                                  ),
-                                  isCollapsed: true,
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 14, top: 16, bottom: 16),
-                                  border: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor:
-                                      ProjectColors.light.withOpacity(0.2),
-                                  labelText: 'Senha',
-                                  labelStyle: const TextStyle(
-                                    color: ProjectColors.light,
-                                    fontSize: 16,
-                                  ),
-                                  errorStyle: const TextStyle(
-                                    color: ProjectColors.danger,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                obscureText: true,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Informe a senha!';
-                                  } else if (value.length < 6) {
-                                    return 'Senha com menos de 6 caracteres';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  SizedBox(
-                                    height: 30,
-                                    child: TextButton(
-                                      onPressed: (() => null),
-                                      child: const Text(
-                                        'Esqueci minha senha.',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: ProjectColors.light,
-                                        ),
+                                    child: const Text(
+                                      'Esqueci minha senha.',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ProjectColors.light,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                decoration: const BoxDecoration(
-                                  color: ProjectColors.primary,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(6),
-                                  ),
                                 ),
-                                child: InkWell(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(5),
-                                  ),
-                                  hoverColor: ProjectColors.primaryDark,
-                                  onTap: () {
-                                    if (formKey.currentState!.validate()) {
-                                      isLoading = true;
-                                    }
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        'ENTRAR',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: ProjectColors.light),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              TextButton(
-                                onPressed: (() => null),
-                                child: RichText(
-                                  text: const TextSpan(children: [
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            FormButton(
+                              formKey: formKey,
+                              text: 'ENTRAR',
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            TextButton(
+                              onPressed: (() => null),
+                              child: RichText(
+                                text: const TextSpan(
+                                  children: [
                                     TextSpan(
                                       text: 'Ainda não possui cadastro? ',
                                       style: TextStyle(
@@ -267,12 +144,14 @@ class _LoginPageState extends State<LoginPage> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ]),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
