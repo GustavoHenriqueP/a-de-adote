@@ -28,7 +28,7 @@ class _InitialPageState extends State<InitialPage> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                'lib/assets/images/background/initial_page_dog.png',
+                'assets/images/background/initial_page_dog.png',
               ),
               fit: BoxFit.cover,
             ),
@@ -45,7 +45,7 @@ class _InitialPageState extends State<InitialPage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 40, right: 40),
                       child: Image.asset(
-                        'lib/assets/images/logos/logo_completo_withblue.png',
+                        'assets/images/logos/logo_completo_withblue.png',
                         fit: BoxFit.fill,
                       ),
                     ),

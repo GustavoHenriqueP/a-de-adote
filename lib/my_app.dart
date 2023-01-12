@@ -1,5 +1,4 @@
 import 'package:a_de_adote/pages/initial_page.dart';
-import 'package:a_de_adote/pages/login_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,11 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'A de Adote',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: ProjectColors.primary,
-        fontFamily: GoogleFonts.roboto().fontFamily
+        fontFamily: GoogleFonts.roboto().fontFamily,
+        useMaterial3: true,
       ),
       home: const InitialPage(),
     );
