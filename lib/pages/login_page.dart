@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'lib/assets/images/background/login_page_pets.png'),
+                      'assets/images/background/login_page_pets.png'),
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 40, right: 40),
                       child: Image.asset(
-                        'lib/assets/images/logos/logo_completo_white.png',
+                        'assets/images/logos/logo_completo_white.png',
                         fit: BoxFit.fill,
                       ),
                     ),
