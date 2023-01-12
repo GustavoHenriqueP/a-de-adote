@@ -1,6 +1,6 @@
-import 'dart:ui';
 import 'package:a_de_adote/pages/login_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
+import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:flutter/material.dart';
 
 class InitialPage extends StatefulWidget {
@@ -72,10 +72,10 @@ class _InitialPageState extends State<InitialPage> {
                                 SizedBox(width: 12),
                                 Text(
                                   'SOU ADOTANTE',
-                                  style: TextStyle(
+                                  style: ProjectFonts.h6LightBold/*TextStyle(
                                       fontSize: 19.2,
                                       fontWeight: FontWeight.bold,
-                                      color: ProjectColors.light),
+                                      color: ProjectColors.light)*/,
                                 ),
                               ],
                             ),
@@ -110,10 +110,10 @@ class _InitialPageState extends State<InitialPage> {
                                   SizedBox(width: 12),
                                   Text(
                                     'SOU UMA ONG',
-                                    style: TextStyle(
+                                    style: ProjectFonts.h6LightBold/*TextStyle(
                                         fontSize: 19.2,
                                         fontWeight: FontWeight.bold,
-                                        color: ProjectColors.light),
+                                        color: ProjectColors.light)*/,
                                   ),
                                 ],
                               ),

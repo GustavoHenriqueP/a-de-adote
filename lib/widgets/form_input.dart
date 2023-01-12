@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../style/project_colors.dart';
+import '../style/project_fonts.dart';
 
 class FormInput extends StatefulWidget {
   final String type;
@@ -32,7 +33,7 @@ class _FormInputState extends State<FormInput> {
         },
         child: TextFormField(
           controller: widget.controller,
-          style: const TextStyle(color: ProjectColors.light, fontSize: 16),
+          style: ProjectFonts.pLight,
           decoration: InputDecoration(
             suffixIcon: widget.type == 'login'
                 ? null
@@ -75,22 +76,21 @@ class _FormInputState extends State<FormInput> {
             filled: true,
             fillColor: ProjectColors.light.withOpacity(0.2),
             labelText: widget.labelText,
-            labelStyle: const TextStyle(
-              color: ProjectColors.light,
-              fontSize: 16,
-            ),
+            labelStyle: ProjectFonts.pLight,
             errorStyle: const TextStyle(
-                color: ProjectColors.danger, fontWeight: FontWeight.bold),
+              color: ProjectColors.danger,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           obscureText: (widget.type == 'login') ? false : visibility,
-          keyboardType: (widget.type == 'login') ? TextInputType.emailAddress : null,
+          keyboardType:
+              (widget.type == 'login') ? TextInputType.emailAddress : null,
           validator: (value) {
             if (widget.type == 'login') {
               if (value!.isEmpty) {
                 return 'Informe um e-mail válido!';
               }
-            } 
-            else if (widget.type == 'senha') {
+            } else if (widget.type == 'senha') {
               if (value!.isEmpty || value.length < 6) {
                 return 'Informe uma senha válida!';
               }
