@@ -104,11 +104,14 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(
                                   height: 30,
                                   child: TextButton(
-                                    onPressed: (() => null),
-                                    child: const Text(
-                                      'Esqueci minha senha.',
-                                      style: ProjectFonts.smallLight
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                        ProjectColors.primary.withOpacity(0.1),
+                                      ),
                                     ),
+                                    onPressed: (() => null),
+                                    child: const Text('Esqueci minha senha.',
+                                        style: ProjectFonts.smallLight),
                                   ),
                                 ),
                               ],
@@ -125,13 +128,17 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             TextButton(
                               onPressed: (() => null),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all(
+                                  ProjectColors.primary.withOpacity(0.1),
+                                ),
+                              ),
                               child: RichText(
                                 text: const TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Ainda não possui cadastro? ',
-                                      style: ProjectFonts.smallLight
-                                    ),
+                                        text: 'Ainda não possui cadastro? ',
+                                        style: ProjectFonts.smallLight),
                                     TextSpan(
                                       text: 'Crie uma conta.',
                                       style: TextStyle(
