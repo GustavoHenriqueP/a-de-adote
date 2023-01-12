@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../style/project_colors.dart';
+import '../style/project_fonts.dart';
 
 class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -18,7 +19,7 @@ class _FormButtonState extends State<FormButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 15.5),
       decoration: const BoxDecoration(
         color: ProjectColors.primary,
         borderRadius: BorderRadius.all(
@@ -44,14 +45,11 @@ class _FormButtonState extends State<FormButton> {
               ? Text(
                   widget.text,
                   // ignore: prefer_const_constructors
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: ProjectColors.light),
+                  style: ProjectFonts.pLightBold,
                 )
               : const SizedBox(
-                  height: 16,
-                  width: 16,
+                  height: 23,
+                  width: 23,
                   child: CircularProgressIndicator(
                     color: ProjectColors.light,
                     strokeWidth: 2,

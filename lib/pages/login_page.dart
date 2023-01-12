@@ -4,6 +4,8 @@ import 'package:a_de_adote/widgets/form_button.dart';
 import 'package:a_de_adote/widgets/form_input.dart';
 import 'package:flutter/material.dart';
 
+import '../style/project_fonts.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -105,10 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                     onPressed: (() => null),
                                     child: const Text(
                                       'Esqueci minha senha.',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: ProjectColors.light,
-                                      ),
+                                      style: ProjectFonts.smallLight
                                     ),
                                   ),
                                 ),
@@ -131,10 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                   children: [
                                     TextSpan(
                                       text: 'Ainda não possui cadastro? ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: ProjectColors.light,
-                                      ),
+                                      style: ProjectFonts.smallLight
                                     ),
                                     TextSpan(
                                       text: 'Crie uma conta.',
