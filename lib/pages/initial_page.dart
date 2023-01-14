@@ -11,7 +11,7 @@ class InitialPage extends StatefulWidget {
 }
 
 class _InitialPageState extends State<InitialPage> {
-  LoginOng() {
+  loginOng() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -50,72 +50,72 @@ class _InitialPageState extends State<InitialPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 45),
-                      child: Column(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: const BoxDecoration(
-                              color: ProjectColors.primary,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.favorite_outline_outlined,
-                                  size: 50,
-                                  color: ProjectColors.light,
+                          Expanded(
+                            child: Container(
+                              //width: 185,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: const BoxDecoration(
+                                color: ProjectColors.primary,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
                                 ),
-                                SizedBox(width: 12),
-                                Text(
-                                  'SOU ADOTANTE',
-                                  style: ProjectFonts.h6LightBold/*TextStyle(
-                                      fontSize: 19.2,
-                                      fontWeight: FontWeight.bold,
-                                      color: ProjectColors.light)*/,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: const BoxDecoration(
-                              color: ProjectColors.secundary,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
                               ),
-                            ),
-                            child: InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(6),
-                              ),
-                              onTap: (() {
-                                Navigator.pop(context);
-                                LoginOng();
-                              }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
                                   Icon(
-                                    Icons.home_outlined,
-                                    size: 50,
+                                    Icons.favorite,
+                                    size: 25,
                                     color: ProjectColors.light,
                                   ),
-                                  SizedBox(width: 12),
+                                  SizedBox(width: 5),
                                   Text(
-                                    'SOU UMA ONG',
-                                    style: ProjectFonts.h6LightBold/*TextStyle(
-                                        fontSize: 19.2,
-                                        fontWeight: FontWeight.bold,
-                                        color: ProjectColors.light)*/,
+                                    'SOU ADOTANTE',
+                                    style: ProjectFonts.pLightBold,
                                   ),
                                 ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: const BoxDecoration(
+                                color: ProjectColors.secundary,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+                                ),
+                              ),
+                              child: InkWell(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(6),
+                                ),
+                                onTap: (() {
+                                  Navigator.pop(context);
+                                  loginOng();
+                                }),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.pets,
+                                      size: 25,
+                                      color: ProjectColors.light,
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'SOU UMA ONG',
+                                      style: ProjectFonts.pLightBold,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
