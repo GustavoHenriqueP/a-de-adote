@@ -1,4 +1,5 @@
 import 'package:a_de_adote/pages/initial_page.dart';
+import 'package:a_de_adote/pages/onboarding_screen.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.roboto().fontFamily,
         useMaterial3: true,
       ),
-      home: const InitialPage(),
+      home: const OnboardingScreen(),
     );
   }
 }
