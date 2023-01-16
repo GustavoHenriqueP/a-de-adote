@@ -1,11 +1,9 @@
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:a_de_adote/widgets/animated_button.dart';
-import 'package:a_de_adote/widgets/form_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'initial_page.dart';
+import 'login_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -18,13 +16,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final int _numPages = 3;
   final PageController _pc = PageController(initialPage: 0);
   int _currentPage = 0;
-  bool _isLoading = false;
 
-  initialPage() {
+  loginOng() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const InitialPage(),
+        builder: (_) => const LoginPage(),
       ),
     );
   }
@@ -245,7 +242,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Align(
                             alignment: FractionalOffset.bottomCenter,
                             child: AnimatedButton(
-                              route: initialPage,
+                              route: loginOng,
                             ),
                           ),
                         ),
