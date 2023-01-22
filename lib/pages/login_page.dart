@@ -15,12 +15,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
-  bool isLoading = false;
-  bool visibility = true;
-  bool senhaFocused = false;
+  final _formKey = GlobalKey<FormState>();
+  final _email = TextEditingController();
+  final _senha = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +83,13 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 45),
                         child: Form(
-                          key: formKey,
+                          key: _formKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FormInput(
                                 type: 'login',
-                                controller: email,
+                                controller: _email,
                                 labelText: 'E-mail',
                               ),
                               const SizedBox(
@@ -100,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               FormInput(
                                 type: 'senha',
-                                controller: senha,
+                                controller: _senha,
                                 labelText: 'Senha',
                               ),
                               Row(
@@ -125,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 15,
                               ),
                               FormButton(
-                                formKey: formKey,
+                                formKey: _formKey,
                                 text: 'ENTRAR',
                               ),
                               const SizedBox(

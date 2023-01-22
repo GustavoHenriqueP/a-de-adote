@@ -1,12 +1,17 @@
+import 'package:a_de_adote/pages/cnpj_form_page.dart';
+import 'package:a_de_adote/pages/main_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:a_de_adote/widgets/animated_button.dart';
+import 'package:a_de_adote/widgets/cnpj_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  final String option;
+
+  const OnboardingScreen({super.key, required this.option});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -17,11 +22,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pc = PageController(initialPage: 0);
   int _currentPage = 0;
 
-  loginOng() {
+  void mainPage() {
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const LoginPage(),
+        builder: (_) => const MainPage(),
+      ),
+    );
+  }
+
+  void cadastroONG() {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const CNPJFormPage(),
       ),
     );
   }
@@ -109,25 +125,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Center(
+                            Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/logos/logo_icon_white_450.png',
+                                  widget.option == 'adotante'
+                                      ? 'assets/images/logos/logo_icon_white_450.png'
+                                      : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
                               ),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
-                              'Veja cada animalzinho disponível nas ONGs\nmais próximas de você',
+                            Text(
+                              widget.option == 'adotante'
+                                  ? 'Esse é um texto para quem selecionou que é Adotante!'
+                                  : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
                             ),
                             const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              'Lorem Ipsum' * 8,
+                              widget.option == 'adotante'
+                                  ? 'Um texto feito para quem quer adotar' * 3
+                                  : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
                             )
                           ],
@@ -139,25 +161,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Center(
+                            Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/logos/logo_icon_white_450.png',
+                                  widget.option == 'adotante'
+                                      ? 'assets/images/logos/logo_icon_white_450.png'
+                                      : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
                               ),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
-                              'Veja cada animalzinho disponível nas ONGs mais próximas de você',
+                            Text(
+                              widget.option == 'adotante'
+                                  ? 'Esse é um texto para quem selecionou que é Adotante!'
+                                  : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
                             ),
                             const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              'Lorem Ipsum' * 8,
+                              widget.option == 'adotante'
+                                  ? 'Um texto feito para quem quer adotar' * 3
+                                  : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
                             )
                           ],
@@ -169,30 +197,36 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Center(
+                            Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/logos/logo_icon_white_450.png',
+                                  widget.option == 'adotante'
+                                      ? 'assets/images/logos/logo_icon_white_450.png'
+                                      : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
                               ),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
-                              'Veja cada animalzinho disponível nas ONGs mais próximas de você',
+                            Text(
+                              widget.option == 'adotante'
+                                  ? 'Esse é um texto para quem selecionou que é Adotante!'
+                                  : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
                             ),
                             const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              'Lorem Ipsum' * 8,
+                              widget.option == 'adotante'
+                                  ? 'Um texto feito para quem quer adotar' * 3
+                                  : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -242,7 +276,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Align(
                             alignment: FractionalOffset.bottomCenter,
                             child: AnimatedButton(
-                              route: loginOng,
+                              route: widget.option == 'adotante'
+                                  ? mainPage
+                                  : cadastroONG,
                             ),
                           ),
                         ),

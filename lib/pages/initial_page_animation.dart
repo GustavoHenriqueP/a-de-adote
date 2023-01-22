@@ -15,11 +15,11 @@ class InitialPageAnimation extends StatefulWidget {
 class _InitialPageAnimationState extends State<InitialPageAnimation>
     with TickerProviderStateMixin {
 
-  onBoardingSreen() {
+  void onBoardingSreen(String option) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const OnboardingScreen(),
+        builder: (_) => OnboardingScreen(option: option) ,
       ),
     );
   }
@@ -89,20 +89,29 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                                 Radius.circular(6),
                               ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.favorite,
-                                  size: 25,
-                                  color: ProjectColors.light,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  'SOU ADOTANTE',
-                                  style: ProjectFonts.pLightBold,
-                                ),
-                              ],
+                            child: InkWell(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(6),
+                              ),
+                              onTap: (() {
+                                Navigator.pop(context);
+                                onBoardingSreen('adotante');
+                              }),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.favorite,
+                                    size: 25,
+                                    color: ProjectColors.light,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'SOU ADOTANTE',
+                                    style: ProjectFonts.pLightBold,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -124,7 +133,7 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                               ),
                               onTap: (() {
                                 Navigator.pop(context);
-                                onBoardingSreen();
+                                onBoardingSreen('ong');
                               }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
