@@ -14,7 +14,7 @@ class FormButton extends StatefulWidget {
 }
 
 class _FormButtonState extends State<FormButton> {
-  bool isLoading = false;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,14 @@ class _FormButtonState extends State<FormButton> {
         onTap: () {
           if (widget.formKey.currentState!.validate()) {
             setState(() {
-              isLoading = true;
+              _isLoading = true;
             });
           }
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            (!isLoading)
+            (!_isLoading)
               ? Text(
                   widget.text,
                   // ignore: prefer_const_constructors
