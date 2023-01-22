@@ -3,10 +3,8 @@ import 'package:a_de_adote/pages/main_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:a_de_adote/widgets/animated_button.dart';
-import 'package:a_de_adote/widgets/cnpj_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'login_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final String option;
