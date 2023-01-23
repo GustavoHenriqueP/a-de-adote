@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import '../style/project_colors.dart';
 import '../style/project_fonts.dart';
 
-class FormInput extends StatefulWidget {
+class LoginFormInput extends StatefulWidget {
   final String type;
   final TextEditingController controller;
   final String labelText;
 
-  const FormInput(
+  const LoginFormInput(
       {super.key,
       required this.type,
       required this.controller,
       required this.labelText});
 
   @override
-  State<FormInput> createState() => _FormInputState();
+  State<LoginFormInput> createState() => _LoginFormInputState();
 }
 
-class _FormInputState extends State<FormInput> {
+class _LoginFormInputState extends State<LoginFormInput> {
   bool visibility = true;
   bool senhaFocused = false;
 

@@ -1,4 +1,4 @@
-import 'package:a_de_adote/pages/cnpj_form_page.dart';
+import 'package:a_de_adote/pages/initial_page_animation.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const CNPJFormPage(),
+      home: const InitialPageAnimation(),
     );
   }
 }
