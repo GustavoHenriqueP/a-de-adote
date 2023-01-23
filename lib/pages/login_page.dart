@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/widgets/form_button.dart';
-import 'package:a_de_adote/widgets/form_input.dart';
+import 'package:a_de_adote/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,14 +19,15 @@ class _LoginPageState extends State<LoginPage> {
   final _email = TextEditingController();
   final _senha = TextEditingController();
 
+  void login() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secundary
-        ),
+            systemNavigationBarColor: ProjectColors.secundary),
         child: Stack(
           children: [
             ShaderMask(
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              FormInput(
+                              LoginFormInput(
                                 type: 'login',
                                 controller: _email,
                                 labelText: 'E-mail',
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              FormInput(
+                              LoginFormInput(
                                 type: 'senha',
                                 controller: _senha,
                                 labelText: 'Senha',
@@ -108,7 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                                     child: TextButton(
                                       style: ButtonStyle(
                                         overlayColor: MaterialStateProperty.all(
-                                          ProjectColors.primary.withOpacity(0.2),
+                                          ProjectColors.primary
+                                              .withOpacity(0.2),
                                         ),
                                       ),
                                       onPressed: (() => null),
@@ -124,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                               FormButton(
                                 formKey: _formKey,
                                 text: 'ENTRAR',
+                                route: login,
                               ),
                               const SizedBox(
                                 height: 2,
@@ -160,6 +163,42 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
+              ),
+            ),
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Divider(
+                    color: ProjectColors.lightDark,
+                  ),
+                  TextButton(
+                    onPressed: (() => null),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(
+                        ProjectColors.primary.withOpacity(0.2),
+                      ),
+                    ),
+                    child: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Não é uma ONG? ',
+                              style: ProjectFonts.smallLight),
+                          TextSpan(
+                            text: 'Entrar como Adotante.',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: ProjectColors.light,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

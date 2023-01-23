@@ -1,4 +1,4 @@
-import 'package:a_de_adote/pages/cnpj_form_page.dart';
+import 'package:a_de_adote/pages/ong_cnpj_form_page.dart';
 import 'package:a_de_adote/pages/main_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
@@ -35,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const CNPJFormPage(),
+        builder: (_) => const ONGCNPJFormPage(),
       ),
     );
   }
