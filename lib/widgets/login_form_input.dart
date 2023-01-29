@@ -7,12 +7,15 @@ class LoginFormInput extends StatefulWidget {
   final String type;
   final TextEditingController controller;
   final String labelText;
+  final String? Function(String?)? validator;
 
-  const LoginFormInput(
-      {super.key,
-      required this.type,
-      required this.controller,
-      required this.labelText});
+  const LoginFormInput({
+    super.key,
+    required this.type,
+    required this.controller,
+    required this.labelText,
+    this.validator,
+  });
 
   @override
   State<LoginFormInput> createState() => _LoginFormInputState();
@@ -35,7 +38,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
           controller: widget.controller,
           style: ProjectFonts.pLight,
           decoration: InputDecoration(
-            suffixIcon: widget.type == 'login'
+            suffixIcon: widget.type == 'login' || widget.type == 'signup_senha'
                 ? null
                 : IconButton(
                     color: senhaFocused
@@ -85,12 +88,12 @@ class _LoginFormInputState extends State<LoginFormInput> {
           obscureText: (widget.type == 'login') ? false : visibility,
           keyboardType:
               (widget.type == 'login') ? TextInputType.emailAddress : null,
-          validator: (value) {
+          validator: widget.validator ?? (value) {
             if (widget.type == 'login') {
               if (value!.isEmpty) {
                 return 'Informe um e-mail válido!';
               }
-            } else if (widget.type == 'senha') {
+            } else {
               if (value!.isEmpty || value.length < 6) {
                 return 'Informe uma senha válida!';
               }

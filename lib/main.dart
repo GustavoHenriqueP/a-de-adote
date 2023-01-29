@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'my_app.dart';
 
-//! Lembrar dos TODOs de: ong_signup_form.dart - ong_repository_impl.dart - ong_cnpj_form_page.dart
+//! Lembrar dos TODOs de: ong_cnpj_form_page.dart
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
