@@ -6,7 +6,7 @@ import '../style/project_fonts.dart';
 class StandardFormInput extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
-  final String hintText;
+  final String? hintText;
   final bool? fullSelectionText;
   final List<TextInputFormatter>? mask;
   final TextInputType? inputType;
@@ -17,7 +17,7 @@ class StandardFormInput extends StatefulWidget {
     super.key,
     required this.controller,
     required this.labelText,
-    required this.hintText,
+    this.hintText,
     this.fullSelectionText,
     this.mask,
     this.inputType,

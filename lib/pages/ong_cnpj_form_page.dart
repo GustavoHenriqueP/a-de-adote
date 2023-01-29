@@ -146,7 +146,6 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           StandardFormInput(
                             controller: _cnpj,
                             labelText: 'CNPJ',
-                            hintText: '00.000.000/0000-00',
                             mask: [maskCNPJFormatter],
                             inputType: TextInputType.number,
                             validator: (value) {

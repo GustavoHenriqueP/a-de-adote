@@ -13,22 +13,25 @@ class AnimatedButton extends StatefulWidget {
 
 class _AnimatedButtonState extends State<AnimatedButton>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 700),
-    vsync: this,
-  )..forward();
-  late final Animation<Offset> _animation = Tween<Offset>(
-    begin: const Offset(1.5, 0),
-    end: const Offset(0, 0),
-  ).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.fastOutSlowIn,
-    ),
-  );
+  late final AnimationController _controller;
+  late final Animation<Offset> _animation;
 
-  void initAnimation() async {
-    await _controller.animateTo(0);
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+    _controller.duration = const Duration(milliseconds: 700);
+    _controller.forward();
+
+    _animation = Tween<Offset>(
+      begin: const Offset(1.5, 0),
+      end: const Offset(0, 0),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
   }
 
   @override
@@ -39,7 +42,6 @@ class _AnimatedButtonState extends State<AnimatedButton>
 
   @override
   Widget build(BuildContext context) {
-    initAnimation;
     return SlideTransition(
       position: _animation,
       child: Container(

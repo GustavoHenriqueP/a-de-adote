@@ -3,7 +3,6 @@ import 'package:a_de_adote/models/ong_model.dart';
 import 'package:dio/dio.dart';
 import 'ong_repository.dart';
 
-//TODO Tratar execções corretamente
 class OngRepositoryImpl implements OngRepository {
   @override
   Future<OngModel> getOng(String cnpj) async {
