@@ -9,21 +9,33 @@ class OngRepositoryImpl implements OngRepository {
   Future<OngModel> getOng(String cnpj) async {
     try {
       final result = await Dio().get('https://receitaws.com.br/v1/cnpj/$cnpj');
-      if (result.data['status'] != 'ERROR' || result.statusCode != 404) {
+      if (result.data['situacao'] == 'ATIVA' &&
+          result.data['status'] != 'ERROR') {
         return OngModel.fromMap(result.data);
+      } else if (result.data['situacao'] != 'ATIVA' &&
+          result.data['status'] != 'ERROR') {
+        throw Exception(
+            'CNPJ com situação inapta. Por favor, insira um CNPJ ativo.');
+      } else {
+        throw Exception('CNPJ não encontrado.');
       }
-      return throw Exception('Erro ao buscar CNPJ');
-    } on DioError catch (e) {
+    } catch (e) {
       log('Erro ao buscar CNPJ', error: e);
-      if (e.error == DioErrorType.response) {
-        throw Exception('Servidores ocupados. Tente novamente daqui 1 min');
+      if (e is DioError) {
+        if (e.type == DioErrorType.response) {
+          return throw Exception(
+              'Servidores ocupados. Tente novamente daqui 1 min.');
+        }
+        if (e.type == DioErrorType.connectTimeout ||
+            e.type == DioErrorType.sendTimeout ||
+            e.type == DioErrorType.receiveTimeout) {
+          return throw Exception('Tempo de busca excedido. Tente novamente.');
+        }
+        if (e.type == DioErrorType.other) {
+          return throw Exception('Erro ao buscar CNPJ.');
+        }
       }
-      if (e.error == DioErrorType.connectTimeout ||
-          e.error == DioErrorType.sendTimeout ||
-          e.error == DioErrorType.receiveTimeout) {
-        throw Exception('Tempo de busca excedido. Tente novamente mais tarde');
-      }
-      throw Exception('Erro ao buscar CNPJ');
+      rethrow;
     }
   }
 }

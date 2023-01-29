@@ -6,14 +6,14 @@ import '../style/project_fonts.dart';
 class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final String text;
-  final Function()? route;
+  final Function()? action;
   bool? isLoading;
 
   FormButton({
     super.key,
     required this.formKey,
     required this.text,
-    required this.route,
+    required this.action,
     this.isLoading,
   });
 
@@ -37,7 +37,7 @@ class _FormButtonState extends State<FormButton> {
           Radius.circular(5),
         ),
         hoverColor: ProjectColors.primaryDark,
-        onTap: widget.route,
+        onTap: widget.action,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

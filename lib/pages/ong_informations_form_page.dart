@@ -347,7 +347,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           FormButton(
                             formKey: _formKey,
                             text: 'CONTINUAR',
-                            route: salvar,
+                            action: salvar,
                           ),
                         ],
                       ),

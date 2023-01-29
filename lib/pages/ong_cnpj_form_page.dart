@@ -56,12 +56,14 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
           _isLoading = false;
           ongModel = ong;
         });
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => ONGInformationsFormPage(
-              ongModel: ong,
+              ongModel: ongModel,
             ),
           ),
         );
@@ -71,8 +73,8 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
           ongModel = null;
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Erro ao buscar CNPJ.'),
+          SnackBar(
+            content: Text(e.toString().substring(11)),
           ),
         );
       }
@@ -87,7 +89,6 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Tratar excessões corretamente
     //TODO Passar gerência de estado para Bloc
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
@@ -161,7 +162,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           FormButton(
                             formKey: _formKey,
                             text: 'CONTINUAR',
-                            route: salvar,
+                            action: salvar,
                             isLoading: _isLoading,
                           ),
                         ],
