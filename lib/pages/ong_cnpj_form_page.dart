@@ -1,5 +1,7 @@
+import 'package:a_de_adote/models/ong_model.dart';
 import 'package:a_de_adote/pages/initial_page_animation.dart';
 import 'package:a_de_adote/pages/ong_informations_form_page.dart';
+import 'package:a_de_adote/repositories/ong_repository.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:a_de_adote/widgets/form_button.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../repositories/ong_repository_impl.dart';
+
 class ONGCNPJFormPage extends StatefulWidget {
   const ONGCNPJFormPage({super.key});
 
@@ -17,8 +21,11 @@ class ONGCNPJFormPage extends StatefulWidget {
 }
 
 class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
+  final OngRepository ongRepository = OngRepositoryImpl();
+  OngModel? ongModel;
   final _formKey = GlobalKey<FormState>();
   final _cnpj = TextEditingController();
+  var _isLoading = false;
 
   final maskCNPJFormatter = MaskTextInputFormatter(
       mask: 'xx.xxx.xxx/xxxx-xx',
@@ -35,20 +42,53 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
     );
   }
 
-  void salvar() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const ONGInformationsFormPage(),
-        ),
-      );
+  void salvar() async {
+    final valid = _formKey.currentState?.validate() ?? false;
+    if (valid) {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        final ong = await ongRepository.getOng(
+          _cnpj.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        );
+        setState(() {
+          _isLoading = false;
+          ongModel = ong;
+        });
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ONGInformationsFormPage(
+              ongModel: ong,
+            ),
+          ),
+        );
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+          ongModel = null;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Erro ao buscar CNPJ.'),
+          ),
+        );
+      }
     }
   }
 
   @override
+  void dispose() {
+    _cnpj.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //TODO Tratar excessões corretamente
+    //TODO Passar gerência de estado para Bloc
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
       appBar: StandardAppBar(
@@ -122,6 +162,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                             formKey: _formKey,
                             text: 'CONTINUAR',
                             route: salvar,
+                            isLoading: _isLoading,
                           ),
                         ],
                       ),

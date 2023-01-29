@@ -7,12 +7,14 @@ class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final String text;
   final Function()? route;
+  bool? isLoading;
 
-  const FormButton({
+  FormButton({
     super.key,
     required this.formKey,
     required this.text,
     required this.route,
+    this.isLoading,
   });
 
   @override
@@ -20,11 +22,8 @@ class FormButton extends StatefulWidget {
 }
 
 class _FormButtonState extends State<FormButton> {
-  bool _isLoading = false;
-
   @override
   Widget build(BuildContext context) {
-    //TODO Fazer o "isLoading" funcionar novamente, primeiro salvando no banco, carregando, e depois passando para a próxima página.
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15.5),
       decoration: const BoxDecoration(
@@ -38,18 +37,11 @@ class _FormButtonState extends State<FormButton> {
           Radius.circular(5),
         ),
         hoverColor: ProjectColors.primaryDark,
-        onTap: /*() {
-          if (widget.formKey.currentState!.validate()) {
-            widget.route;
-            setState(() {
-              _isLoading = true;
-            });
-          }
-        },*/widget.route,
+        onTap: widget.route,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            (!_isLoading)
+            (!(widget.isLoading ?? false))
                 ? Text(
                     widget.text,
                     // ignore: prefer_const_constructors
