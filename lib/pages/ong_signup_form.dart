@@ -117,7 +117,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
                           FormButton(
                             formKey: _formKey,
                             text: 'CADASTRAR',
-                            route: salvar,
+                            action: salvar,
                           ),
                         ],
                       ),
