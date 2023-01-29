@@ -4,13 +4,16 @@ import 'package:a_de_adote/widgets/standard_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import '../models/ong_model.dart';
 import '../style/project_colors.dart';
 import '../style/project_fonts.dart';
 import '../widgets/form_button.dart';
 import '../widgets/standard_appbar.dart';
 
 class ONGInformationsFormPage extends StatefulWidget {
-  const ONGInformationsFormPage({super.key});
+  final OngModel? ongModel;
+
+  const ONGInformationsFormPage({super.key, this.ongModel});
 
   @override
   State<ONGInformationsFormPage> createState() =>
@@ -43,16 +46,16 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   @override
   void initState() {
     super.initState();
-    _nomeFantasia.text = 'UPAR';
-    _razaoSocial.text = 'UNIAO PROTETORA AOS ANIMAIS DE RUA';
-    _telefone.text = '(19) 3875-0508';
-    _cep.text = '13.340-350';
-    _logradouro.text = 'EST DO TOMBADOURO';
-    _numero.text = '0';
-    _bairro.text = 'CH. ANTO ANTONIO';
-    _complemento.text = 'GLEBA B';
-    _cidade.text = 'INDAIATUBA';
-    _uf.text = 'SP';
+    _nomeFantasia.text = widget.ongModel?.fantasia ?? '';
+    _razaoSocial.text = widget.ongModel?.nome ?? '';
+    _telefone.text = widget.ongModel?.telefone ?? '';
+    _cep.text = widget.ongModel?.cep ?? '';
+    _logradouro.text = widget.ongModel?.logradouro ?? '';
+    _numero.text = widget.ongModel?.numero ?? '';
+    _bairro.text = widget.ongModel?.bairro ?? '';
+    _complemento.text = widget.ongModel?.complemento ?? '';
+    _cidade.text = widget.ongModel?.municipio ?? '';
+    _uf.text = widget.ongModel?.uf ?? '';
   }
 
   @override

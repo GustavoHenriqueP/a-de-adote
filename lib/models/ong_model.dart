@@ -3,15 +3,15 @@ import 'dart:convert';
 class OngModel {
   final String cnpj;
   final String email;
-  final String nomeFantasia;
-  final String razaoSocial;
+  final String fantasia;
+  final String nome;
   final String telefone;
   final String cep;
   final String logradouro;
   final String numero;
   final String bairro;
   final String? complemento;
-  final String cidade;
+  final String municipio;
   final String uf;
   final String? informacoes;
   final Map? pix;
@@ -19,15 +19,15 @@ class OngModel {
   OngModel({
     required this.cnpj,
     required this.email,
-    required this.nomeFantasia,
-    required this.razaoSocial,
+    required this.fantasia,
+    required this.nome,
     required this.telefone,
     required this.cep,
     required this.logradouro,
     required this.numero,
     required this.bairro,
     this.complemento,
-    required this.cidade,
+    required this.municipio,
     required this.uf,
     this.informacoes,
     this.pix,
@@ -37,15 +37,15 @@ class OngModel {
     return <String, dynamic>{
       'cnpj': cnpj,
       'email': email,
-      'nomeFantasia': nomeFantasia,
-      'razaoSocial': razaoSocial,
+      'fantasia': fantasia,
+      'nome': nome,
       'telefone': telefone,
       'cep': cep,
       'logradouro': logradouro,
       'numero': numero,
       'bairro': bairro,
       'complemento': complemento,
-      'cidade': cidade,
+      'municipio': municipio,
       'uf': uf,
       'informacoes': informacoes,
       'pix': pix,
@@ -56,15 +56,15 @@ class OngModel {
     return OngModel(
       cnpj: map['cnpj'] as String,
       email: map['email'] as String,
-      nomeFantasia: map['nomeFantasia'] as String,
-      razaoSocial: map['razaoSocial'] as String,
+      fantasia: map['fantasia'] as String,
+      nome: map['nome'] as String,
       telefone: map['telefone'] as String,
       cep: map['cep'] as String,
       logradouro: map['logradouro'] as String,
       numero: map['numero'] as String,
       bairro: map['bairro'] as String,
       complemento: map['complemento'] != null ? map['complemento'] as String : null,
-      cidade: map['cidade'] as String,
+      municipio: map['municipio'] as String,
       uf: map['uf'] as String,
       informacoes: map['informacoes'] != null ? map['informacoes'] as String : null,
       pix: map['pix'] != null ? map['pix'] as Map<String,dynamic> : null,
