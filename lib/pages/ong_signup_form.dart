@@ -52,7 +52,6 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Colocar um campo de "Confirmar senha" e fazê-lo funcionar.
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
       appBar: StandardAppBar(
@@ -65,6 +64,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
         ),
         child: Center(
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height / 2,
@@ -115,9 +115,23 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
                             height: 15,
                           ),
                           LoginFormInput(
-                            type: 'senha',
+                            type: 'signup_senha',
                             controller: _senha,
                             labelText: 'Senha',
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          LoginFormInput(
+                            type: 'signup_senha',
+                            controller: _confirmarSenha,
+                            labelText: 'Confirmar Senha',
+                            validator: (value) {
+                              if (value != _senha.text) {
+                                return 'Senhas não conferem!';
+                              }
+                              return null;
+                            },
                           ),
                           const SizedBox(
                             height: 15,

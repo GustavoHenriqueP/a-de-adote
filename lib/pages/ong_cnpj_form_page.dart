@@ -102,6 +102,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
         ),
         child: Center(
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height / 2.5,
