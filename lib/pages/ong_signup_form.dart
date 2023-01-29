@@ -19,6 +19,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _senha = TextEditingController();
+  final _confirmarSenha = TextEditingController();
 
   void backToInformationsPage() {
     Navigator.pop(context);
@@ -40,6 +41,13 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _senha.dispose();
+    super.dispose();
   }
 
   @override

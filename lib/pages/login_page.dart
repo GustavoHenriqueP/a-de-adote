@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                               FormButton(
                                 formKey: _formKey,
                                 text: 'ENTRAR',
-                                route: login,
+                                action: login,
                               ),
                               const SizedBox(
                                 height: 2,

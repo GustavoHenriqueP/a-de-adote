@@ -113,6 +113,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
               vertical: 30,
             ),
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -158,7 +159,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _nomeFantasia,
                             labelText: 'Nome Fantasia',
-                            hintText: 'O nome que será utilizado no App...',
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(50)],
                             validator: (value) {
@@ -174,7 +174,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _razaoSocial,
                             labelText: 'Razão Social',
-                            hintText: '',
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(150)],
                             validator: (value) {
@@ -190,7 +189,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _telefone,
                             labelText: 'Telefone',
-                            hintText: '(99) 99999-9999',
                             fullSelectionText: true,
                             mask: [maskTelFormatter],
                             inputType: TextInputType.phone,
@@ -207,7 +205,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _cep,
                             labelText: 'CEP',
-                            hintText: '00000-000',
                             fullSelectionText: true,
                             mask: [maskCEPFormatter],
                             inputType: TextInputType.number,
@@ -229,7 +226,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _logradouro,
                                   labelText: 'Logradouro',
-                                  hintText: 'Rua / Avenida / Rodovia...',
                                   fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(100)],
                                   validator: (value) {
@@ -247,7 +243,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _numero,
                                   labelText: 'N°',
-                                  hintText: '',
                                   fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -270,7 +265,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _bairro,
                             labelText: 'Bairro',
-                            hintText: '',
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(30)],
                             validator: (value) {
@@ -286,7 +280,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           StandardFormInput(
                             controller: _complemento,
                             labelText: 'Complemento',
-                            hintText: 'Campo não obrigatório...',
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(100)],
                           ),
@@ -301,7 +294,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _cidade,
                                   labelText: 'Cidade',
-                                  hintText: '',
                                   fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(30)],
                                   validator: (value) {
@@ -319,7 +311,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 child: StandardFormInput(
                                   controller: _uf,
                                   labelText: 'UF',
-                                  hintText: '',
                                   fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.allow(
