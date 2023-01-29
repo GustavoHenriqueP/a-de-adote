@@ -55,6 +55,21 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
     _uf.text = 'SP';
   }
 
+  @override
+  void dispose() {
+    _nomeFantasia.dispose();
+    _razaoSocial.dispose();
+    _telefone.dispose();
+    _cep.dispose();
+    _logradouro.dispose();
+    _numero.dispose();
+    _bairro.dispose();
+    _complemento.dispose();
+    _cidade.dispose();
+    _uf.dispose();
+    super.dispose();
+  }
+
   void backToCNPJPage() {
     Navigator.pop(context);
     Navigator.push(
