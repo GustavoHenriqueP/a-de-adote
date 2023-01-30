@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class OngModel {
@@ -32,6 +33,40 @@ class OngModel {
     this.informacoes,
     this.pix,
   });
+
+  OngModel copyWith({
+    String? cnpj,
+    String? email,
+    String? fantasia,
+    String? nome,
+    String? telefone,
+    String? cep,
+    String? logradouro,
+    String? numero,
+    String? bairro,
+    String? complemento,
+    String? municipio,
+    String? uf,
+    String? informacoes,
+    Map? pix,
+  }) {
+    return OngModel(
+      cnpj: cnpj ?? this.cnpj,
+      email: email ?? this.email,
+      fantasia: fantasia ?? this.fantasia,
+      nome: nome ?? this.nome,
+      telefone: telefone ?? this.telefone,
+      cep: cep ?? this.cep,
+      logradouro: logradouro ?? this.logradouro,
+      numero: numero ?? this.numero,
+      bairro: bairro ?? this.bairro,
+      complemento: complemento ?? this.complemento,
+      municipio: municipio ?? this.municipio,
+      uf: uf ?? this.uf,
+      informacoes: informacoes ?? this.informacoes,
+      pix: pix ?? this.pix,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -74,4 +109,9 @@ class OngModel {
   String toJson() => json.encode(toMap());
 
   factory OngModel.fromJson(String source) => OngModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'OngModel(cnpj: $cnpj, email: $email, fantasia: $fantasia, nome: $nome, telefone: $telefone, cep: $cep, logradouro: $logradouro, numero: $numero, bairro: $bairro, complemento: $complemento, municipio: $municipio, uf: $uf, informacoes: $informacoes, pix: $pix)';
+  }
 }

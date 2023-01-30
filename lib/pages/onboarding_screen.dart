@@ -1,5 +1,3 @@
-import 'package:a_de_adote/pages/ong_cnpj_form_page.dart';
-import 'package:a_de_adote/pages/main_page.dart';
 import 'package:a_de_adote/style/project_colors.dart';
 import 'package:a_de_adote/style/project_fonts.dart';
 import 'package:a_de_adote/widgets/animated_button.dart';
@@ -7,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  final String option;
-
-  const OnboardingScreen({super.key, required this.option});
+  const OnboardingScreen({super.key});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -19,26 +15,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final int _numPages = 3;
   final PageController _pc = PageController(initialPage: 0);
   int _currentPage = 0;
-
-  void mainPage() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const MainPage(),
-      ),
-    );
-  }
-
-  void cadastroONG() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const ONGCNPJFormPage(),
-      ),
-    );
-  }
+  late String _option;
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
@@ -66,7 +43,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
+  void dispose() {
+    _pc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _option = ModalRoute.of(context)?.settings.arguments as String;
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
@@ -126,7 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  widget.option == 'adotante'
+                                  _option == 'adotante'
                                       ? 'assets/images/logos/logo_icon_white_450.png'
                                       : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
@@ -136,7 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 20,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Esse é um texto para quem selecionou que é Adotante!'
                                   : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
@@ -145,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 15,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Um texto feito para quem quer adotar' * 3
                                   : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
@@ -162,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  widget.option == 'adotante'
+                                  _option == 'adotante'
                                       ? 'assets/images/logos/logo_icon_white_450.png'
                                       : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
@@ -172,7 +157,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 20,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Esse é um texto para quem selecionou que é Adotante!'
                                   : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
@@ -181,7 +166,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 15,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Um texto feito para quem quer adotar' * 3
                                   : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
@@ -198,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  widget.option == 'adotante'
+                                  _option == 'adotante'
                                       ? 'assets/images/logos/logo_icon_white_450.png'
                                       : 'assets/images/logos/logo_icon_white_450.png',
                                 ),
@@ -208,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 20,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Esse é um texto para quem selecionou que é Adotante!'
                                   : 'Esse é um texto para quem selecionou que é ONG!',
                               style: ProjectFonts.h5LightBold,
@@ -217,7 +202,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               height: 15,
                             ),
                             Text(
-                              widget.option == 'adotante'
+                              _option == 'adotante'
                                   ? 'Um texto feito para quem quer adotar' * 3
                                   : 'Um texto para elas, as ONGS!' * 3,
                               style: ProjectFonts.pLight,
@@ -274,9 +259,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Align(
                             alignment: FractionalOffset.bottomCenter,
                             child: AnimatedButton(
-                              route: widget.option == 'adotante'
-                                  ? mainPage
-                                  : cadastroONG,
+                              route: _option == 'adotante'
+                                  ? () => Navigator.pushNamed(
+                                        context,
+                                        '/main',
+                                      )
+                                  : () => Navigator.pushNamed(
+                                        context,
+                                        '/register',
+                                      ),
                             ),
                           ),
                         ),

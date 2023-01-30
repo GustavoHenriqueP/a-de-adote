@@ -7,6 +7,7 @@ class LoginFormInput extends StatefulWidget {
   final String type;
   final TextEditingController controller;
   final String labelText;
+  final bool? fullSelectionText;
   final String? Function(String?)? validator;
 
   const LoginFormInput({
@@ -14,6 +15,7 @@ class LoginFormInput extends StatefulWidget {
     required this.type,
     required this.controller,
     required this.labelText,
+    this.fullSelectionText,
     this.validator,
   });
 
@@ -24,6 +26,22 @@ class LoginFormInput extends StatefulWidget {
 class _LoginFormInputState extends State<LoginFormInput> {
   bool visibility = true;
   bool senhaFocused = false;
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    (widget.fullSelectionText == null || widget.fullSelectionText == false)
+        ? null
+        : _focusNode.addListener(() {
+            if (_focusNode.hasFocus) {
+              widget.controller.selection = TextSelection(
+                baseOffset: 0,
+                extentOffset: widget.controller.value.text.length,
+              );
+            }
+          });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +54,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
         },
         child: TextFormField(
           controller: widget.controller,
+          focusNode: _focusNode,
           style: ProjectFonts.pLight,
           decoration: InputDecoration(
             suffixIcon: widget.type == 'login' || widget.type == 'signup_senha'

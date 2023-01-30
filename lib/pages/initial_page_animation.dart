@@ -1,4 +1,3 @@
-import 'package:a_de_adote/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../style/project_colors.dart';
@@ -14,15 +13,6 @@ class InitialPageAnimation extends StatefulWidget {
 
 class _InitialPageAnimationState extends State<InitialPageAnimation>
     with TickerProviderStateMixin {
-
-  void onBoardingSreen(String option) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => OnboardingScreen(option: option) ,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +84,7 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                                 Radius.circular(6),
                               ),
                               onTap: (() {
-                                Navigator.pop(context);
-                                onBoardingSreen('adotante');
+                                Navigator.pushNamed(context, '/onboarding', arguments: 'adotante');
                               }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -132,8 +121,7 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                                 Radius.circular(6),
                               ),
                               onTap: (() {
-                                Navigator.pop(context);
-                                onBoardingSreen('ong');
+                                Navigator.pushNamed(context, '/onboarding', arguments: 'ong');
                               }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

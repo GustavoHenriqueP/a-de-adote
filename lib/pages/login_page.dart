@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO Não permitir voltar para a tela de cadastro ao clicar o BackButton
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(

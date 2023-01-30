@@ -1,5 +1,3 @@
-import 'package:a_de_adote/pages/ong_cnpj_form_page.dart';
-import 'package:a_de_adote/pages/ong_signup_form.dart';
 import 'package:a_de_adote/widgets/standard_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,12 +6,9 @@ import '../models/ong_model.dart';
 import '../style/project_colors.dart';
 import '../style/project_fonts.dart';
 import '../widgets/form_button.dart';
-import '../widgets/standard_appbar.dart';
 
 class ONGInformationsFormPage extends StatefulWidget {
-  final OngModel? ongModel;
-
-  const ONGInformationsFormPage({super.key, this.ongModel});
+  const ONGInformationsFormPage({super.key});
 
   @override
   State<ONGInformationsFormPage> createState() =>
@@ -33,6 +28,8 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   final _cidade = TextEditingController();
   final _uf = TextEditingController();
 
+  late OngModel? ongModel;
+
   final maskTelFormatter = MaskTextInputFormatter(
       mask: '(xx) xxxxx-xxxx',
       filter: {'x': RegExp(r'[0-9]')},
@@ -46,16 +43,19 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   @override
   void initState() {
     super.initState();
-    _nomeFantasia.text = widget.ongModel?.fantasia ?? '';
-    _razaoSocial.text = widget.ongModel?.nome ?? '';
-    _telefone.text = widget.ongModel?.telefone ?? '';
-    _cep.text = widget.ongModel?.cep ?? '';
-    _logradouro.text = widget.ongModel?.logradouro ?? '';
-    _numero.text = widget.ongModel?.numero ?? '';
-    _bairro.text = widget.ongModel?.bairro ?? '';
-    _complemento.text = widget.ongModel?.complemento ?? '';
-    _cidade.text = widget.ongModel?.municipio ?? '';
-    _uf.text = widget.ongModel?.uf ?? '';
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ongModel = ModalRoute.of(context)?.settings.arguments as OngModel;
+      _nomeFantasia.text = ongModel?.fantasia ?? '';
+      _razaoSocial.text = ongModel?.nome ?? '';
+      _telefone.text = ongModel?.telefone ?? '';
+      _cep.text = ongModel?.cep ?? '';
+      _logradouro.text = ongModel?.logradouro ?? '';
+      _numero.text = ongModel?.numero ?? '';
+      _bairro.text = ongModel?.bairro ?? '';
+      _complemento.text = ongModel?.complemento ?? '';
+      _cidade.text = ongModel?.municipio ?? '';
+      _uf.text = ongModel?.uf ?? '';
+    });
   }
 
   @override
@@ -73,25 +73,21 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
     super.dispose();
   }
 
-  void backToCNPJPage() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const ONGCNPJFormPage(),
-      ),
-    );
-  }
-
   void salvar() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const ONGSignUpForm(),
-        ),
+      var model = ongModel?.copyWith(
+        fantasia: _nomeFantasia.text,
+        nome: _razaoSocial.text,
+        telefone: _telefone.text,
+        cep: _cep.text,
+        logradouro: _logradouro.text,
+        numero: _numero.text,
+        bairro: _bairro.text,
+        complemento: _complemento.text,
+        municipio: _cidade.text,
+        uf: _uf.text,
       );
+      Navigator.pushNamed(context, '/usuario', arguments: model);
     }
   }
 
@@ -99,10 +95,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
-      appBar: StandardAppBar(
-        title: 'Cadastro',
-        route: backToCNPJPage,
-      ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           systemNavigationBarColor: ProjectColors.secundary,

@@ -3,6 +3,7 @@ import 'package:a_de_adote/pages/ong_informations_form_page.dart';
 import 'package:a_de_adote/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../models/ong_model.dart';
 import '../style/project_colors.dart';
 import '../style/project_fonts.dart';
 import '../widgets/form_button.dart';
@@ -21,32 +22,30 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
   final _senha = TextEditingController();
   final _confirmarSenha = TextEditingController();
 
-  void backToInformationsPage() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const ONGInformationsFormPage(),
-      ),
-    );
-  }
+  late OngModel ongModel;
 
   void salvar() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const LoginPage(),
-        ),
-      );
+      print(ongModel);
+      Navigator.of(context, rootNavigator: true).pushNamed('/login');
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ongModel =
+          ModalRoute.of(context)?.settings.arguments as OngModel;
+      _email.text = ongModel.email;
+    });
   }
 
   @override
   void dispose() {
     _email.dispose();
     _senha.dispose();
+    _confirmarSenha.dispose();
     super.dispose();
   }
 
@@ -54,10 +53,6 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
-      appBar: StandardAppBar(
-        title: 'Cadastro',
-        route: backToInformationsPage,
-      ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           systemNavigationBarColor: ProjectColors.secundary,
@@ -110,6 +105,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
                             type: 'login',
                             controller: _email,
                             labelText: 'E-mail',
+                            fullSelectionText: true,
                           ),
                           const SizedBox(
                             height: 15,
