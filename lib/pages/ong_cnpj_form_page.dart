@@ -32,16 +32,6 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
       filter: {'x': RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
-  void backToInitialPage() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const InitialPageAnimation(),
-      ),
-    );
-  }
-
   void salvar() async {
     final valid = _formKey.currentState?.validate() ?? false;
     if (valid) {
@@ -56,17 +46,8 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
           _isLoading = false;
           ongModel = ong;
         });
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ONGInformationsFormPage(
-              ongModel: ongModel,
-            ),
-          ),
-        );
+        //ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/informacoes', arguments: ongModel);
       } catch (e) {
         setState(() {
           _isLoading = false;
@@ -92,10 +73,6 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
     //TODO Passar gerência de estado para Bloc
     return Scaffold(
       backgroundColor: ProjectColors.secundary,
-      appBar: StandardAppBar(
-        title: 'Cadastro',
-        route: backToInitialPage,
-      ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           systemNavigationBarColor: ProjectColors.secundary,
