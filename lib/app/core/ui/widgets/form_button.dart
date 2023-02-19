@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
+import '../styles/project_colors.dart';
+import '../styles/project_fonts.dart';
 
 class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -24,20 +24,20 @@ class FormButton extends StatefulWidget {
 class _FormButtonState extends State<FormButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15.5),
-      decoration: const BoxDecoration(
-        color: ProjectColors.primary,
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
-        ),
+    return InkWell(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(5),
       ),
-      child: InkWell(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
+      hoverColor: ProjectColors.primaryDark,
+      onTap: widget.action,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15.5),
+        decoration: const BoxDecoration(
+          color: ProjectColors.primary,
+          borderRadius: BorderRadius.all(
+            Radius.circular(6),
+          ),
         ),
-        hoverColor: ProjectColors.primaryDark,
-        onTap: widget.action,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

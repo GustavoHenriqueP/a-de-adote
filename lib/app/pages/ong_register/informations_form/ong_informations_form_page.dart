@@ -1,11 +1,11 @@
-import 'package:a_de_adote/widgets/standard_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import '../models/ong_model.dart';
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
-import '../widgets/form_button.dart';
+import '../../../core/ui/styles/project_colors.dart';
+import '../../../core/ui/styles/project_fonts.dart';
+import '../../../core/ui/widgets/form_button.dart';
+import '../../../core/ui/widgets/standard_form_input.dart';
+import '../../../models/ong_model.dart';
 
 class ONGInformationsFormPage extends StatefulWidget {
   const ONGInformationsFormPage({super.key});

@@ -1,5 +1,5 @@
-import 'package:a_de_adote/style/project_colors.dart';
 import 'package:flutter/material.dart';
+import '../../core/ui/styles/project_colors.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

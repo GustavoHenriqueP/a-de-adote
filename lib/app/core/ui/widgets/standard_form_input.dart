@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
+import '../styles/project_colors.dart';
+import '../styles/project_fonts.dart';
 
 class StandardFormInput extends StatefulWidget {
   final TextEditingController controller;
