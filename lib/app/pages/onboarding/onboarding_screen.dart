@@ -1,8 +1,8 @@
-import 'package:a_de_adote/style/project_colors.dart';
-import 'package:a_de_adote/style/project_fonts.dart';
-import 'package:a_de_adote/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../core/ui/styles/project_colors.dart';
+import '../../core/ui/styles/project_fonts.dart';
+import '../../core/ui/widgets/animated_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -260,11 +260,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             alignment: FractionalOffset.bottomCenter,
                             child: AnimatedButton(
                               route: _option == 'adotante'
-                                  ? () => Navigator.pushNamed(
+                                  ? () => Navigator.popAndPushNamed(
                                         context,
                                         '/main',
                                       )
-                                  : () => Navigator.pushNamed(
+                                  : () => Navigator.popAndPushNamed(
                                         context,
                                         '/register',
                                       ),

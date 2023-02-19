@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
-import '../widgets/initial_animation.dart';
+import '../../core/ui/styles/project_colors.dart';
+import '../../core/ui/styles/project_fonts.dart';
+import 'widgets/initial_animation.dart';
 
-class InitialPageAnimation extends StatefulWidget {
+class InitialPageAnimation extends StatelessWidget {
   const InitialPageAnimation({super.key});
-
-  @override
-  State<InitialPageAnimation> createState() => _InitialPageAnimationState();
-}
-
-class _InitialPageAnimationState extends State<InitialPageAnimation>
-    with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +43,18 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Que bom te ver!\n',
-                              style: ProjectFonts.h5LightBold,
-                            ),
-                            TextSpan(
-                              text: 'Por favor, selecione uma das opções',
-                              style: ProjectFonts.h6Light,
-                            ),
-                          ],
-                        )
-                      ),
+                          text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Que bom te ver!\n',
+                            style: ProjectFonts.h5LightBold,
+                          ),
+                          TextSpan(
+                            text: 'Por favor, selecione uma das opções',
+                            style: ProjectFonts.h6Light,
+                          ),
+                        ],
+                      )),
                     ],
                   ),
                   Padding(
@@ -84,7 +76,8 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                                 Radius.circular(6),
                               ),
                               onTap: (() {
-                                Navigator.pushNamed(context, '/onboarding', arguments: 'adotante');
+                                Navigator.pushNamed(context, '/onboarding',
+                                    arguments: 'adotante');
                               }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +114,8 @@ class _InitialPageAnimationState extends State<InitialPageAnimation>
                                 Radius.circular(6),
                               ),
                               onTap: (() {
-                                Navigator.pushNamed(context, '/onboarding', arguments: 'ong');
+                                Navigator.pushNamed(context, '/onboarding',
+                                    arguments: 'ong');
                               }),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:a_de_adote/models/ong_model.dart';
 import 'package:dio/dio.dart';
+import '../models/ong_model.dart';
 import 'ong_repository.dart';
 
 class OngRepositoryImpl implements OngRepository {

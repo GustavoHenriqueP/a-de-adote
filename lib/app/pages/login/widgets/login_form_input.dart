@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
+import '../../../core/ui/styles/project_colors.dart';
+import '../../../core/ui/styles/project_fonts.dart';
 
 class LoginFormInput extends StatefulWidget {
   final String type;
@@ -107,18 +106,19 @@ class _LoginFormInputState extends State<LoginFormInput> {
           obscureText: (widget.type == 'login') ? false : visibility,
           keyboardType:
               (widget.type == 'login') ? TextInputType.emailAddress : null,
-          validator: widget.validator ?? (value) {
-            if (widget.type == 'login') {
-              if (value!.isEmpty) {
-                return 'Informe um e-mail válido!';
-              }
-            } else {
-              if (value!.isEmpty || value.length < 6) {
-                return 'Informe uma senha válida!';
-              }
-            }
-            return null;
-          },
+          validator: widget.validator ??
+              (value) {
+                if (widget.type == 'login') {
+                  if (value!.isEmpty) {
+                    return 'Informe um e-mail válido!';
+                  }
+                } else {
+                  if (value!.isEmpty || value.length < 6) {
+                    return 'Informe uma senha válida!';
+                  }
+                }
+                return null;
+              },
         ),
       ),
     );

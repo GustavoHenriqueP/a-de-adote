@@ -1,17 +1,17 @@
-import 'package:a_de_adote/pages/ong_cnpj_form_page.dart';
-import 'package:a_de_adote/pages/ong_informations_form_page.dart';
-import 'package:a_de_adote/pages/ong_signup_form.dart';
-import 'package:a_de_adote/widgets/standard_appbar.dart';
+import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form.dart';
 import 'package:flutter/material.dart';
+import '../../core/ui/widgets/standard_appbar.dart';
+import 'cnpj_form/ong_cnpj_form_page.dart';
+import 'informations_form/ong_informations_form_page.dart';
 
-class OngRegisterPage extends StatefulWidget {
-  const OngRegisterPage({Key? key}) : super(key: key);
+class OngRegisterRouter extends StatefulWidget {
+  const OngRegisterRouter({Key? key}) : super(key: key);
 
   @override
-  State<OngRegisterPage> createState() => _OngRegisterPageState();
+  State<OngRegisterRouter> createState() => _OngRegisterRouterState();
 }
 
-class _OngRegisterPageState extends State<OngRegisterPage> {
+class _OngRegisterRouterState extends State<OngRegisterRouter> {
   var navKey = GlobalKey<NavigatorState>();
 
   @override
@@ -23,7 +23,6 @@ class _OngRegisterPageState extends State<OngRegisterPage> {
           navKey.currentState?.pop();
           return false;
         } else {
-          Navigator.of(context, rootNavigator: true).popUntil(ModalRoute.withName('/'));
           return true;
         }
       },

@@ -1,13 +1,10 @@
-import 'package:a_de_adote/pages/login_page.dart';
-import 'package:a_de_adote/pages/ong_informations_form_page.dart';
-import 'package:a_de_adote/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../models/ong_model.dart';
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
-import '../widgets/form_button.dart';
-import '../widgets/standard_appbar.dart';
+import '../../../core/ui/styles/project_colors.dart';
+import '../../../core/ui/styles/project_fonts.dart';
+import '../../../core/ui/widgets/form_button.dart';
+import '../../../models/ong_model.dart';
+import '../../login/widgets/login_form_input.dart';
 
 class ONGSignUpForm extends StatefulWidget {
   const ONGSignUpForm({super.key});
@@ -35,8 +32,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ongModel =
-          ModalRoute.of(context)?.settings.arguments as OngModel;
+      ongModel = ModalRoute.of(context)?.settings.arguments as OngModel;
       _email.text = ongModel.email;
     });
   }

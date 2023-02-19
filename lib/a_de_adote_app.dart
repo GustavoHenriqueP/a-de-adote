@@ -1,14 +1,14 @@
-import 'package:a_de_adote/pages/initial_page_animation.dart';
-import 'package:a_de_adote/pages/login_page.dart';
-import 'package:a_de_adote/pages/main_page.dart';
-import 'package:a_de_adote/pages/onboarding_screen.dart';
-import 'package:a_de_adote/pages/ong_register_page.dart';
-import 'package:a_de_adote/style/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'app/core/ui/styles/project_colors.dart';
+import 'app/pages/home/main_page.dart';
+import 'app/pages/initial/initial_page_animation.dart';
+import 'app/pages/login/login_page.dart';
+import 'app/pages/onboarding/onboarding_screen.dart';
+import 'app/pages/ong_register/ong_register_router.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AdeAdoteApp extends StatelessWidget {
+  const AdeAdoteApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (_) => const InitialPageAnimation(),
         '/onboarding': (_) => const OnboardingScreen(),
-        '/register': (_) => const OngRegisterPage(),
+        '/register': (_) => const OngRegisterRouter(),
         '/login': (_) => const LoginPage(),
         '/main': (_) => const MainPage(),
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../style/project_colors.dart';
-import '../style/project_fonts.dart';
+import '../styles/project_colors.dart';
+import '../styles/project_fonts.dart';
 
 class AnimatedButton extends StatefulWidget {
   final Function()? route;
@@ -44,20 +44,20 @@ class _AnimatedButtonState extends State<AnimatedButton>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animation,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15.5),
-        decoration: const BoxDecoration(
-          color: ProjectColors.primary,
-          borderRadius: BorderRadius.all(
-            Radius.circular(6),
-          ),
+      child: InkWell(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5),
         ),
-        child: InkWell(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(5),
+        hoverColor: ProjectColors.primaryDark,
+        onTap: widget.route,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 15.5),
+          decoration: const BoxDecoration(
+            color: ProjectColors.primary,
+            borderRadius: BorderRadius.all(
+              Radius.circular(6),
+            ),
           ),
-          hoverColor: ProjectColors.primaryDark,
-          onTap: widget.route,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

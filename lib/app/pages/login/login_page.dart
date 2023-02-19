@@ -1,11 +1,10 @@
 import 'dart:ui';
-import 'package:a_de_adote/style/project_colors.dart';
-import 'package:a_de_adote/widgets/form_button.dart';
-import 'package:a_de_adote/widgets/login_form_input.dart';
+import 'package:a_de_adote/app/pages/login/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../style/project_fonts.dart';
+import '../../core/ui/styles/project_colors.dart';
+import '../../core/ui/styles/project_fonts.dart';
+import '../../core/ui/widgets/form_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
