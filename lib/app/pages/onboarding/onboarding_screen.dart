@@ -55,15 +55,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-            systemNavigationBarColor: ProjectColors.secundaryLight),
+            systemNavigationBarColor: ProjectColors.secondaryLight),
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  ProjectColors.secundary,
-                  ProjectColors.secundaryLight,
+                  ProjectColors.secondary,
+                  ProjectColors.secondaryLight,
                 ]),
           ),
           child: Padding(

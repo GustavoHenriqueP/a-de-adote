@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -23,12 +24,8 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
   final _cnpj = TextEditingController();
   var _isLoading = false;
 
-  final maskCNPJFormatter = MaskTextInputFormatter(
-      mask: 'xx.xxx.xxx/xxxx-xx',
-      filter: {'x': RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
-
   void salvar() async {
+    final navigator = Navigator.of(context);
     final valid = _formKey.currentState?.validate() ?? false;
     if (valid) {
       try {
@@ -42,8 +39,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
           _isLoading = false;
           ongModel = ong;
         });
-        //ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, '/informacoes', arguments: ongModel);
+        navigator.pushNamed('/informacoes', arguments: ongModel);
       } catch (e) {
         setState(() {
           _isLoading = false;
@@ -68,10 +64,10 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
   Widget build(BuildContext context) {
     //TODO Passar gerência de estado para Bloc
     return Scaffold(
-      backgroundColor: ProjectColors.secundary,
+      backgroundColor: ProjectColors.secondary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secundary,
+          systemNavigationBarColor: ProjectColors.secondary,
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -120,7 +116,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           StandardFormInput(
                             controller: _cnpj,
                             labelText: 'CNPJ',
-                            mask: [maskCNPJFormatter],
+                            mask: [context.maskFormatters.maskCNPJFormatter],
                             inputType: TextInputType.number,
                             validator: (value) {
                               if ((value!.isEmpty) || (value.length < 18)) {

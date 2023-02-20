@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -29,16 +30,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   final _uf = TextEditingController();
 
   late OngModel? ongModel;
-
-  final maskTelFormatter = MaskTextInputFormatter(
-      mask: '(xx) xxxxx-xxxx',
-      filter: {'x': RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
-
-  final maskCEPFormatter = MaskTextInputFormatter(
-      mask: 'xx.xxx-xxx',
-      filter: {'x': RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
 
   @override
   void initState() {
@@ -94,10 +85,10 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ProjectColors.secundary,
+      backgroundColor: ProjectColors.secondary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secundary,
+          systemNavigationBarColor: ProjectColors.secondary,
         ),
         child: Center(
           child: Padding(
@@ -182,7 +173,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                             controller: _telefone,
                             labelText: 'Telefone',
                             fullSelectionText: true,
-                            mask: [maskTelFormatter],
+                            mask: [context.maskFormatters.maskTelFormatter],
                             inputType: TextInputType.phone,
                             validator: (value) {
                               if ((value!.isEmpty) || (value.length < 14)) {
@@ -198,7 +189,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                             controller: _cep,
                             labelText: 'CEP',
                             fullSelectionText: true,
-                            mask: [maskCEPFormatter],
+                            mask: [context.maskFormatters.maskCEPFormatter],
                             inputType: TextInputType.number,
                             validator: (value) {
                               if ((value!.isEmpty) || (value.length < 10)) {
