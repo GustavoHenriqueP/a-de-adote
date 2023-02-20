@@ -23,8 +23,7 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
 
   void salvar() {
     if (_formKey.currentState!.validate()) {
-      print(ongModel);
-      Navigator.of(context, rootNavigator: true).pushNamed('/login');
+      Navigator.of(context, rootNavigator: true).popAndPushNamed('/login');
     }
   }
 
@@ -48,10 +47,10 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ProjectColors.secundary,
+      backgroundColor: ProjectColors.secondary,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secundary,
+          systemNavigationBarColor: ProjectColors.secondary,
         ),
         child: Center(
           child: SingleChildScrollView(

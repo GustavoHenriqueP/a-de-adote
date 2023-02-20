@@ -10,10 +10,10 @@ class InitialPageAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ProjectColors.secundaryLight,
+      backgroundColor: ProjectColors.secondaryLight,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secundaryLight,
+          systemNavigationBarColor: ProjectColors.secondaryLight,
         ),
         child: Container(
           decoration: const BoxDecoration(
@@ -21,8 +21,8 @@ class InitialPageAnimation extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  ProjectColors.secundary,
-                  ProjectColors.secundaryLight,
+                  ProjectColors.secondary,
+                  ProjectColors.secondaryLight,
                 ]),
           ),
           child: Center(
@@ -104,7 +104,7 @@ class InitialPageAnimation extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             decoration: const BoxDecoration(
-                              color: ProjectColors.secundary,
+                              color: ProjectColors.secondary,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(6),
                               ),

@@ -81,7 +81,7 @@ class _StandardFormInputState extends State<StandardFormInput> {
           fillColor: ProjectColors.light.withOpacity(0.2),
           hintText: widget.hintText,
           hintStyle: const TextStyle(
-            color: ProjectColors.secundary,
+            color: ProjectColors.secondary,
           ),
           labelText: widget.labelText,
           labelStyle: ProjectFonts.pLight,
