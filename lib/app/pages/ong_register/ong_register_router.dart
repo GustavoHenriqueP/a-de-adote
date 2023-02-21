@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_router.dart';
 import 'package:a_de_adote/app/pages/ong_register/signup_form/ong_signup_form.dart';
 import 'package:flutter/material.dart';
 import '../../core/ui/widgets/standard_appbar.dart';
@@ -36,7 +37,7 @@ class _OngRegisterRouterState extends State<OngRegisterRouter> {
               Widget page;
               switch (route) {
                 case '/cnpj':
-                  page = const ONGCNPJFormPage();
+                  page = OngCnpjFormRouter.page;
                   break;
                 case '/informacoes':
                   page = const ONGInformationsFormPage();
