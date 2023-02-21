@@ -1,11 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
+
 import 'package:dio/dio.dart';
+
+import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
+
 import '../models/ong_model.dart';
 import 'ong_repository.dart';
 
 class OngRepositoryImpl implements OngRepository {
-  final CustomDio dio = CustomDio();
+  final CustomDio dio;
+
+  OngRepositoryImpl({
+    required this.dio,
+  });
 
   @override
   Future<OngModel> getOng(String cnpj) async {
@@ -21,21 +29,19 @@ class OngRepositoryImpl implements OngRepository {
       } else {
         throw Exception('CNPJ não encontrado.');
       }
-    } catch (e) {
+    } on DioError catch (e) {
       log('Erro ao buscar CNPJ', error: e);
-      if (e is DioError) {
-        if (e.type == DioErrorType.badResponse) {
-          return throw Exception(
-              'Servidores ocupados. Tente novamente daqui 1 min.');
-        }
-        if (e.type == DioErrorType.connectionTimeout ||
-            e.type == DioErrorType.sendTimeout ||
-            e.type == DioErrorType.receiveTimeout) {
-          return throw Exception('Tempo de busca excedido. Tente novamente.');
-        }
-        if (e.type == DioErrorType.unknown) {
-          return throw Exception('Erro ao buscar CNPJ.');
-        }
+      if (e.response?.statusCode == 429) {
+        return throw Exception(
+            'Servidores ocupados. Tente novamente daqui 1 min.');
+      }
+      if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.sendTimeout ||
+          e.type == DioErrorType.receiveTimeout) {
+        return throw Exception('Tempo de busca excedido. Tente novamente.');
+      }
+      if (e.type == DioErrorType.unknown) {
+        return throw Exception('Erro ao buscar CNPJ.');
       }
       rethrow;
     }
