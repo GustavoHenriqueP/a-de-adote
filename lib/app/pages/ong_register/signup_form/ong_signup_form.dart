@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:a_de_adote/app/core/bloc/auth/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/bloc/auth/auth_state.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
@@ -46,97 +51,114 @@ class _ONGSignUpFormState extends State<ONGSignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ProjectColors.secondary,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          systemNavigationBarColor: ProjectColors.secondary,
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height / 2,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Último passo!',
-                              style: ProjectFonts.h3LightBold,
+    return BlocListener<AuthController, AuthState>(
+      listener: (context, state) {
+        state.status.matchAny(
+          any: () => null,
+          authenticated: () => log(state.ongModel!.toJson()),
+        );
+      },
+      child: Scaffold(
+        backgroundColor: ProjectColors.secondary,
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            systemNavigationBarColor: ProjectColors.secondary,
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height / 2,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Último passo!',
+                                style: ProjectFonts.h3LightBold,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Vamos agora criar seu usuário.',
+                                style: ProjectFonts.h5Light,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 45),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            LoginFormInput(
+                              type: 'login',
+                              controller: _email,
+                              labelText: 'E-mail',
+                              fullSelectionText: true,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            LoginFormInput(
+                              type: 'signup_senha',
+                              controller: _senha,
+                              labelText: 'Senha',
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            LoginFormInput(
+                              type: 'signup_senha',
+                              controller: _confirmarSenha,
+                              labelText: 'Confirmar Senha',
+                              validator: (value) {
+                                if (value != _senha.text) {
+                                  return 'Senhas não conferem!';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            FormButton(
+                              formKey: _formKey,
+                              text: 'CADASTRAR',
+                              action: () {
+                                if (_formKey.currentState!.validate()) {
+                                  final ong =
+                                      ongModel.copyWith(email: _email.text);
+                                  context
+                                      .read<AuthController>()
+                                      .signUpOng(ong, _senha.text);
+                                  //Navigator.of(context, rootNavigator: true).popAndPushNamed('/login');
+                                }
+                              }, //salvar,
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Vamos agora criar seu usuário.',
-                              style: ProjectFonts.h5Light,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 45),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          LoginFormInput(
-                            type: 'login',
-                            controller: _email,
-                            labelText: 'E-mail',
-                            fullSelectionText: true,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          LoginFormInput(
-                            type: 'signup_senha',
-                            controller: _senha,
-                            labelText: 'Senha',
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          LoginFormInput(
-                            type: 'signup_senha',
-                            controller: _confirmarSenha,
-                            labelText: 'Confirmar Senha',
-                            validator: (value) {
-                              if (value != _senha.text) {
-                                return 'Senhas não conferem!';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          FormButton(
-                            formKey: _formKey,
-                            text: 'CADASTRAR',
-                            action: salvar,
-                          ),
-                        ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
