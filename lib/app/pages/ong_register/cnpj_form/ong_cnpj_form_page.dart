@@ -1,19 +1,13 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_controller.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/rest_client/custom_dio.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
 import '../../../core/ui/widgets/standard_form_input.dart';
-import '../../../models/ong_model.dart';
-import '../../../repositories/ong_repository.dart';
-import '../../../repositories/ong_repository_impl.dart';
 
 class ONGCNPJFormPage extends StatefulWidget {
   const ONGCNPJFormPage({super.key});
