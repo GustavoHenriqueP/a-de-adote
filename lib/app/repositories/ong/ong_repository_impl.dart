@@ -52,9 +52,9 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
-  Future<void> createOng(OngModel ong, String uid) async {
+  Future<void> createOng(OngModel ong) async {
     try {
-      await _firebaseFirestore.collection('ong').doc(uid).set(ong.toMap());
+      await _firebaseFirestore.collection('ong').doc(ong.id).set(ong.toMap());
     } on FirebaseException catch (e, s) {
       log('Erro ao criar documento ong', error: e, stackTrace: s);
       throw FirestoreException('Erro ao cadastrar.');

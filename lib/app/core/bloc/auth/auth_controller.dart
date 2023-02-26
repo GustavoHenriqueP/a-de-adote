@@ -22,12 +22,13 @@ class AuthController extends Cubit<AuthState> {
         email: ong.email,
         password: password,
       );
-      await _ongRepository.createOng(ong, ongUser!.uid);
+      final ongModel = ong.copyWith(id: ongUser?.uid);
+      await _ongRepository.createOng(ongModel);
       emit(
         state.copyWith(
           status: AuthStatus.authenticated,
           authUser: ongUser,
-          ongModel: ong.copyWith(id: ongUser.uid),
+          ongModel: ongModel,
         ),
       );
     } catch (e, s) {
