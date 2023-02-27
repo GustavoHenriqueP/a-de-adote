@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 
 import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
 
+import '../core/constantes/labels.dart';
 import '../models/ong_model.dart';
 import 'ong_repository.dart';
 
@@ -25,23 +26,23 @@ class OngRepositoryImpl implements OngRepository {
       } else if (result.data['situacao'] != 'ATIVA' &&
           result.data['status'] != 'ERROR') {
         throw Exception(
-            'CNPJ com situação inapta. Por favor, insira um CNPJ ativo.');
+            Labels.cnpjInapto);
       } else {
-        throw Exception('CNPJ não encontrado.');
+        throw Exception(Labels.cnpjNaoEncontrado);
       }
     } on DioError catch (e) {
-      log('Erro ao buscar CNPJ', error: e);
+      log(Labels.erroCnpj, error: e);
       if (e.response?.statusCode == 429) {
         return throw Exception(
-            'Servidores ocupados. Tente novamente daqui 1 min.');
+            Labels.servidoresOcupados);
       }
       if (e.type == DioErrorType.connectionTimeout ||
           e.type == DioErrorType.sendTimeout ||
           e.type == DioErrorType.receiveTimeout) {
-        return throw Exception('Tempo de busca excedido. Tente novamente.');
+        return throw Exception(Labels.timeout);
       }
       if (e.type == DioErrorType.unknown) {
-        return throw Exception('Erro ao buscar CNPJ.');
+        return throw Exception(Labels.erroCnpj);
       }
       rethrow;
     }

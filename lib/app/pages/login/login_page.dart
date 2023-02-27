@@ -1,7 +1,9 @@
 import 'dart:ui';
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 import 'package:a_de_adote/app/pages/login/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../core/constantes/labels.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/form_button.dart';
@@ -93,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                                 LoginFormInput(
                                   type: 'login',
                                   controller: _email,
-                                  labelText: 'E-mail',
+                                  labelText: Labels.email,
                                 ),
                                 const SizedBox(
                                   height: 15,
@@ -101,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                 LoginFormInput(
                                   type: 'senha',
                                   controller: _senha,
-                                  labelText: 'Senha',
+                                  labelText: Labels.senha,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -116,9 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                                                 .withOpacity(0.2),
                                           ),
                                         ),
+                                        // ignore: avoid_returning_null_for_void
                                         onPressed: (() => null),
-                                        child: const Text(
-                                            'Esqueci minha senha.',
+                                        child: const Text(Botoes.recuperarSenha,
                                             style: ProjectFonts.smallLight),
                                       ),
                                     ),
@@ -129,13 +131,14 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 FormButton(
                                   formKey: _formKey,
-                                  text: 'ENTRAR',
+                                  text: Botoes.entrar,
                                   action: login,
                                 ),
                                 const SizedBox(
                                   height: 2,
                                 ),
                                 TextButton(
+                                  // ignore: avoid_returning_null_for_void
                                   onPressed: (() => null),
                                   style: ButtonStyle(
                                     overlayColor: MaterialStateProperty.all(
@@ -146,10 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                                     text: const TextSpan(
                                       children: [
                                         TextSpan(
-                                            text: 'Ainda não possui cadastro? ',
+                                            text: Labels.naoPossuiCadastro,
                                             style: ProjectFonts.smallLight),
                                         TextSpan(
-                                          text: 'Crie uma conta.',
+                                          text: Labels.crieConta,
                                           style: TextStyle(
                                             fontSize: 12,
                                             color: ProjectColors.primaryLight,
@@ -188,10 +191,10 @@ class _LoginPageState extends State<LoginPage> {
                         text: const TextSpan(
                           children: [
                             TextSpan(
-                                text: 'Não é uma ONG? ',
+                                text: Labels.naoEOng,
                                 style: ProjectFonts.smallLight),
                             TextSpan(
-                              text: 'Entrar como Adotante.',
+                              text: Labels.entrarComoAdotante,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ProjectColors.light,
