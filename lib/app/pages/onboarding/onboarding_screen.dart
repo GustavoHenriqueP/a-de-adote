@@ -1,7 +1,9 @@
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 import 'package:a_de_adote/app/pages/onboarding/onboarding_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/constantes/labels.dart';
 import '../../core/ui/styles/project_colors.dart';
 import '../../core/ui/styles/project_fonts.dart';
 import '../../core/ui/widgets/animated_button.dart';
@@ -92,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           curve: Curves.ease,
                         ),
                         child: const Text(
-                          'PULAR',
+                          Botoes.pular,
                           style: ProjectFonts.smallLightBold,
                         ),
                       ),
@@ -126,8 +128,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Esse é um texto para quem selecionou que é Adotante!'
-                                      : 'Esse é um texto para quem selecionou que é ONG!',
+                                      ? Labels.msg1Adotante
+                                      : Labels.msg1Ong,
                                   style: ProjectFonts.h5LightBold,
                                 ),
                                 const SizedBox(
@@ -135,9 +137,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Um texto feito para quem quer adotar' *
-                                          3
-                                      : 'Um texto para elas, as ONGS!' * 3,
+                                      ? Labels.informativoAdotante
+                                      : Labels.informativoOng,
                                   style: ProjectFonts.pLight,
                                 )
                               ],
@@ -163,8 +164,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Esse é um texto para quem selecionou que é Adotante!'
-                                      : 'Esse é um texto para quem selecionou que é ONG!',
+                                      ? Labels.msg2Adotante
+                                      : Labels.msg2Ong,
                                   style: ProjectFonts.h5LightBold,
                                 ),
                                 const SizedBox(
@@ -172,9 +173,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Um texto feito para quem quer adotar' *
-                                          3
-                                      : 'Um texto para elas, as ONGS!' * 3,
+                                      ? Labels.informativoAdotante
+                                      : Labels.informativoOng,
                                   style: ProjectFonts.pLight,
                                 )
                               ],
@@ -200,8 +200,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Esse é um texto para quem selecionou que é Adotante!'
-                                      : 'Esse é um texto para quem selecionou que é ONG!',
+                                      ? Labels.msg3Adotante
+                                      : Labels.msg3Ong,
                                   style: ProjectFonts.h5LightBold,
                                 ),
                                 const SizedBox(
@@ -209,9 +209,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ),
                                 Text(
                                   _option == 'adotante'
-                                      ? 'Um texto feito para quem quer adotar' *
-                                          3
-                                      : 'Um texto para elas, as ONGS!' * 3,
+                                      ? Labels.informativoAdotante
+                                      : Labels.informativoOng,
                                   style: ProjectFonts.pLight,
                                 )
                               ],
@@ -243,7 +242,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Text(
-                                      'PRÓXIMO',
+                                      Botoes.proximo,
                                       style: ProjectFonts.pLightBold,
                                     ),
                                     SizedBox(
