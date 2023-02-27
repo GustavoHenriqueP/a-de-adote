@@ -1,19 +1,15 @@
-import 'dart:developer';
-
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constantes/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_controller.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/rest_client/custom_dio.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
 import '../../../core/ui/widgets/standard_form_input.dart';
-import '../../../models/ong_model.dart';
-import '../../../repositories/ong_repository.dart';
-import '../../../repositories/ong_repository_impl.dart';
 
 class ONGCNPJFormPage extends StatefulWidget {
   const ONGCNPJFormPage({super.key});
@@ -81,7 +77,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  'Vamos começar!',
+                                  Labels.iniciar,
                                   style: ProjectFonts.h3LightBold,
                                 ),
                               ],
@@ -93,7 +89,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  'Insira abaixo o CNPJ da ONG',
+                                  Labels.insiraCnpj,
                                   style: ProjectFonts.h5Light,
                                 ),
                               ],
@@ -109,14 +105,14 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                             children: [
                               StandardFormInput(
                                 controller: _cnpj,
-                                labelText: 'CNPJ',
+                                labelText: Labels.cnpj,
                                 mask: [
                                   context.maskFormatters.maskCNPJFormatter
                                 ],
                                 inputType: TextInputType.number,
                                 validator: (value) {
                                   if ((value!.isEmpty) || (value.length < 18)) {
-                                    return 'Informe um CNPJ válido!';
+                                    return Labels.cnpjValido;
                                   }
                                   return null;
                                 },
@@ -126,7 +122,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               ),
                               FormButton(
                                 formKey: _formKey,
-                                text: 'CONTINUAR',
+                                text: Botoes.proximo,
                                 action: () {
                                   final valid =
                                       _formKey.currentState?.validate() ??

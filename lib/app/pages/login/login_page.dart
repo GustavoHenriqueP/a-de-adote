@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 import 'package:a_de_adote/app/pages/login/widgets/login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -116,9 +117,10 @@ class _LoginPageState extends State<LoginPage> {
                                                 .withOpacity(0.2),
                                           ),
                                         ),
+                                        // ignore: avoid_returning_null_for_void
                                         onPressed: (() => null),
                                         child: const Text(
-                                            'Esqueci minha senha.',
+                                            Botoes.recuperarSenha,
                                             style: ProjectFonts.smallLight),
                                       ),
                                     ),
@@ -136,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                   height: 2,
                                 ),
                                 TextButton(
+                                  // ignore: avoid_returning_null_for_void
                                   onPressed: (() => null),
                                   style: ButtonStyle(
                                     overlayColor: MaterialStateProperty.all(
