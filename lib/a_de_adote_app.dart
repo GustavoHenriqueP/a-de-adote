@@ -1,6 +1,7 @@
 import 'package:a_de_adote/app/core/provider/application_binding.dart';
 import 'package:a_de_adote/app/core/ui/theme/theme_config.dart';
 import 'package:flutter/material.dart';
+import 'app/core/constantes/labels.dart';
 import 'app/pages/home/main_page.dart';
 import 'app/pages/initial/initial_page_animation.dart';
 import 'app/pages/login/login_page.dart';
@@ -15,7 +16,7 @@ class AdeAdoteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ApplicationBinding(
       child: MaterialApp(
-        title: 'A de Adote',
+        title: Labels.titulo,
         debugShowCheckedModeBanner: false,
         theme: ThemeConfig.theme,
         routes: {

@@ -1,6 +1,7 @@
 class Labels {
-
-  //INITIAL PAGE ANIMATION
+  //A DE ADOTE APP
+  static const titulo = "A de Adote";
+  //ONBOARDING SCREEN
   static const msg1Adotante =
       "Esse é um texto para quem selecionou que é Adotante!";
   static const msg2Adotante =
@@ -44,4 +45,25 @@ class Labels {
   static const complemento = "Complemento";
   static const uf = "UF";
 
+  //LOGIN PAGE
+  static const login = "Login";
+  static const email = "E-mail";
+  static const senha = "Senha";
+  static const crieConta = "Crie uma conta";
+  static const naoPossuiCadastro = "Ainda não possui acadstro?";
+  static const entrarComoAdotante = "Entrar como adotante.";
+  static const naoEOng = "Não é uma ONG?";
+
+  //LOGIN FORM INPUT
+  static const emailValido = "Informe um e-mail válido!";
+  static const senhaValida = "Informe uma senha válida";
+
+  //ONG REPOSITORY IMPL - ERROS
+  static const cnpjInapto =
+      "CNPJ com situação inapta. Por favor, insira um CNPJ ativo.";
+  static const cnpjNaoEncontrado = "CNPJ não encontrado.";
+  static const erroCnpj = "Erro ao buscar CNPJ";
+  static const servidoresOcupados =
+      "Servidores ocupados. Tente novamente daqui 1 min.";
+  static const timeout = "Tempo de busca excedido. Tente novamente.";
 }

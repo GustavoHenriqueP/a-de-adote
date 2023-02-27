@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/constantes/labels.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 
@@ -110,11 +111,11 @@ class _LoginFormInputState extends State<LoginFormInput> {
               (value) {
                 if (widget.type == 'login') {
                   if (value!.isEmpty) {
-                    return 'Informe um e-mail válido!';
+                    return Labels.emailValido;
                   }
                 } else {
                   if (value!.isEmpty || value.length < 6) {
-                    return 'Informe uma senha válida!';
+                    return Labels.senhaValida;
                   }
                 }
                 return null;
