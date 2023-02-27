@@ -5,4 +5,5 @@ class Botoes {
   static const recuperarSenha = "Esqueci minha senha";
   static const pular = "PULAR";
   static const proximo = "PRÓXIMO";
+  static const entrar = "ENTRAR";
 }
