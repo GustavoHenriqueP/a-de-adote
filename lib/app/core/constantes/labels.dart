@@ -49,9 +49,9 @@ class Labels {
   static const login = "Login";
   static const email = "E-mail";
   static const senha = "Senha";
-  static const crieConta = "Crie uma conta";
-  static const naoPossuiCadastro = "Ainda não possui acadstro?";
-  static const entrarComoAdotante = "Entrar como adotante.";
+  static const crieConta = " Crie uma conta";
+  static const naoPossuiCadastro = " Ainda não possui cadastro?";
+  static const entrarComoAdotante = " Entrar como adotante.";
   static const naoEOng = "Não é uma ONG?";
 
   //LOGIN FORM INPUT
