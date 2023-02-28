@@ -120,8 +120,10 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                         // ignore: avoid_returning_null_for_void
                                         onPressed: (() => null),
-                                        child: const Text(Botoes.recuperarSenha,
-                                            style: ProjectFonts.smallLight),
+                                        child: const Text(
+                                          Botoes.recuperarSenha,
+                                          style: ProjectFonts.smallLight,
+                                        ),
                                       ),
                                     ),
                                   ],
