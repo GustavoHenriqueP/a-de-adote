@@ -1,12 +1,8 @@
 import 'dart:developer';
-
 import 'package:a_de_adote/app/repositories/auth/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
-class AuthException implements Exception {
-  String message;
-  AuthException(this.message);
-}
+import '../../core/exceptions/auth_exception.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final auth.FirebaseAuth _firebaseAuth;
