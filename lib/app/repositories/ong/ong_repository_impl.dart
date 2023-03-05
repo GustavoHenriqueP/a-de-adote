@@ -2,13 +2,9 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
+import '../../core/exceptions/firestore_exception.dart';
 import '../../models/ong_model.dart';
 import 'ong_repository.dart';
-
-class FirestoreException implements Exception {
-  String message;
-  FirestoreException(this.message);
-}
 
 class OngRepositoryImpl implements OngRepository {
   final CustomDio dio;
