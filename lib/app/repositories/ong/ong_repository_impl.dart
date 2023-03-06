@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:a_de_adote/app/repositories/database/db_firestore.dart';
+import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
@@ -8,12 +10,19 @@ import 'ong_repository.dart';
 
 class OngRepositoryImpl implements OngRepository {
   final CustomDio dio;
-  final FirebaseFirestore _firebaseFirestore;
+  late FirebaseFirestore db;
+  late AuthService auth;
 
   OngRepositoryImpl({
     required this.dio,
-    FirebaseFirestore? firebaseFirestore,
-  }) : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
+    required this.auth,
+  }) {
+    _startFirestore();
+  }
+
+  _startFirestore() {
+    db = DbFirestore.instance;
+  }
 
   @override
   Future<OngModel> getOngDataFromWeb(String cnpj) async {
@@ -50,7 +59,7 @@ class OngRepositoryImpl implements OngRepository {
   @override
   Future<void> createOng(OngModel ong) async {
     try {
-      await _firebaseFirestore.collection('ong').doc(ong.id).set(ong.toMap());
+      await db.collection('ong').doc(ong.id).set(ong.toMap());
     } on FirebaseException catch (e, s) {
       log('Erro ao criar documento ong', error: e, stackTrace: s);
       throw FirestoreException('Erro ao cadastrar.');
@@ -58,28 +67,34 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
-  Stream<OngModel> getOng(String ongId) {
-    try {
-      log('Getting user data from Cloud Firestore');
-      return _firebaseFirestore
+  Future<List<OngModel>> getOngs() async {
+    final snapshot = await db.collection('ong').get();
+    final ongs = snapshot.docs
+        .map(
+          (ong) => OngModel.fromMap(ong.data()),
+        )
+        .toList();
+    return ongs;
+  }
+
+  @override
+  Future<OngModel> getCurrentOngUser() async {
+    if (auth.ongUser != null) {
+      final snapshot = await db
           .collection('ong')
-          .doc(ongId)
-          .snapshots()
-          .map((snap) => OngModel.fromSnapshot(snap));
-    } on FirebaseException catch (e, s) {
-      log('Erro ao buscar documento ong', error: e, stackTrace: s);
-      throw FirestoreException('Erro ao buscar Ong.');
+          .where('id', isEqualTo: auth.ongUser!.uid)
+          .get();
+      final currentOngUser = OngModel.fromMap(snapshot.docs.last.data());
+      return currentOngUser;
+    } else {
+      throw Exception('Não foi possível encontar a ONG');
     }
   }
 
   @override
   Future<void> updateOng(OngModel ong) async {
     try {
-      return _firebaseFirestore
-          .collection('ong')
-          .doc(ong.id)
-          .update(ong.toMap())
-          .then(
+      return db.collection('ong').doc(ong.id).update(ong.toMap()).then(
             (_) => log('User document updated.'),
           );
     } on FirebaseException catch (e, s) {
