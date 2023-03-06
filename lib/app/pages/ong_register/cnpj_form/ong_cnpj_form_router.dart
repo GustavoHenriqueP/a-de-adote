@@ -13,6 +13,7 @@ class OngCnpjFormRouter {
           Provider<OngRepository>(
             create: ((context) => OngRepositoryImpl(
                   dio: context.read(),
+                  auth: context.read(),
                 )),
           ),
           Provider<OngCnpjFormController>(
