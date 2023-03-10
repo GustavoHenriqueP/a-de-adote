@@ -1,7 +1,8 @@
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
+import 'package:a_de_adote/app/core/constantes/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../core/ui/styles/project_colors.dart';
 import '../../../core/ui/styles/project_fonts.dart';
 import '../../../core/ui/widgets/form_button.dart';
@@ -108,7 +109,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
                             Text(
-                              'Essa seria a ONG?',
+                              Labels.confirmacaoOng,
                               style: ProjectFonts.h4LightBold,
                             ),
                           ],
@@ -121,7 +122,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           children: const [
                             Flexible(
                               child: Text(
-                                'Por favor, fique à vontade para alterar os dados caso necessário!',
+                                Labels.alterarDados,
                                 style: ProjectFonts.h6Light,
                               ),
                             ),
@@ -141,12 +142,12 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                         children: [
                           StandardFormInput(
                             controller: _nomeFantasia,
-                            labelText: 'Nome Fantasia',
+                            labelText: Labels.nomeFantasia,
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(50)],
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Informe um nome válido!';
+                                return Labels.nomeValido;
                               }
                               return null;
                             },
@@ -156,12 +157,12 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           StandardFormInput(
                             controller: _razaoSocial,
-                            labelText: 'Razão Social',
+                            labelText: Labels.razaoSocial,
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(150)],
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Informe uma razão social válida!';
+                                return Labels.razaoValida;
                               }
                               return null;
                             },
@@ -171,13 +172,13 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           StandardFormInput(
                             controller: _telefone,
-                            labelText: 'Telefone',
+                            labelText: Labels.tel,
                             fullSelectionText: true,
                             mask: [context.maskFormatters.maskTelFormatter],
                             inputType: TextInputType.phone,
                             validator: (value) {
                               if ((value!.isEmpty) || (value.length < 14)) {
-                                return 'Informe um telefone válido!';
+                                return Labels.telValido;
                               }
                               return null;
                             },
@@ -187,13 +188,13 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           StandardFormInput(
                             controller: _cep,
-                            labelText: 'CEP',
+                            labelText: Labels.cep,
                             fullSelectionText: true,
                             mask: [context.maskFormatters.maskCEPFormatter],
                             inputType: TextInputType.number,
                             validator: (value) {
                               if ((value!.isEmpty) || (value.length < 10)) {
-                                return 'Informe um CEP válido!';
+                                return Labels.cepValido;
                               }
                               return null;
                             },
@@ -208,12 +209,12 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 flex: 4,
                                 child: StandardFormInput(
                                   controller: _logradouro,
-                                  labelText: 'Logradouro',
+                                  labelText: Labels.logradouro,
                                   fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(100)],
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Informe um logradouro válido!';
+                                      return Labels.logValido;
                                     }
                                     return null;
                                   },
@@ -225,7 +226,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                               Expanded(
                                 child: StandardFormInput(
                                   controller: _numero,
-                                  labelText: 'N°',
+                                  labelText: Labels.n,
                                   fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -234,7 +235,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                   inputType: TextInputType.number,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Inválido!';
+                                      return Labels.invalido;
                                     }
                                     return null;
                                   },
@@ -247,12 +248,12 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           StandardFormInput(
                             controller: _bairro,
-                            labelText: 'Bairro',
+                            labelText: Labels.bairro,
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(30)],
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Informe um bairro válido!';
+                                return Labels.bairroValido;
                               }
                               return null;
                             },
@@ -262,7 +263,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           StandardFormInput(
                             controller: _complemento,
-                            labelText: 'Complemento',
+                            labelText: Labels.complemento,
                             fullSelectionText: true,
                             mask: [LengthLimitingTextInputFormatter(100)],
                           ),
@@ -276,12 +277,12 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                 flex: 4,
                                 child: StandardFormInput(
                                   controller: _cidade,
-                                  labelText: 'Cidade',
+                                  labelText: Labels.cidade,
                                   fullSelectionText: true,
                                   mask: [LengthLimitingTextInputFormatter(30)],
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Informe uma cidade válida!';
+                                      return Labels.cidadeValida;
                                     }
                                     return null;
                                   },
@@ -293,7 +294,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                               Expanded(
                                 child: StandardFormInput(
                                   controller: _uf,
-                                  labelText: 'UF',
+                                  labelText: Labels.uf,
                                   fullSelectionText: true,
                                   mask: [
                                     FilteringTextInputFormatter.allow(
@@ -307,7 +308,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                                   capitalization: TextCapitalization.characters,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Inválido!';
+                                      return Labels.invalido;
                                     }
                                     return null;
                                   },
@@ -320,7 +321,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           FormButton(
                             formKey: _formKey,
-                            text: 'CONTINUAR',
+                            text: Botoes.proximo,
                             action: salvar,
                           ),
                         ],
