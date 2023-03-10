@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/core/constantes/botoes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/ui/styles/project_colors.dart';
@@ -89,7 +90,7 @@ class InitialPageAnimation extends StatelessWidget {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    'SOU ADOTANTE',
+                                    Botoes.souAdotante,
                                     style: ProjectFonts.pLightBold,
                                   ),
                                 ],
@@ -127,7 +128,7 @@ class InitialPageAnimation extends StatelessWidget {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    'SOU UMA ONG',
+                                    Botoes.souOng,
                                     style: ProjectFonts.pLightBold,
                                   ),
                                 ],

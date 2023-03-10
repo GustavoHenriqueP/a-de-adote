@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                               'assets/images/logos/logo_completo_white.png',
                               fit: BoxFit.fill,
                             ),
-                          ),
+                          ),  
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 45),
                             child: Form(

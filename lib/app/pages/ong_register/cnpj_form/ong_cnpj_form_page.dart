@@ -76,7 +76,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  'Vamos começar!',
+                                  Labels.iniciar,
                                   style: ProjectFonts.h3LightBold,
                                 ),
                               ],
@@ -88,7 +88,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  'Insira abaixo o CNPJ da ONG',
+                                  Labels.insiraCnpj,
                                   style: ProjectFonts.h5Light,
                                 ),
                               ],
@@ -104,14 +104,14 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                             children: [
                               StandardFormInput(
                                 controller: _cnpj,
-                                labelText: 'CNPJ',
+                                labelText: Labels.cnpj,
                                 mask: [
                                   context.maskFormatters.maskCNPJFormatter
                                 ],
                                 inputType: TextInputType.number,
                                 validator: (value) {
                                   if ((value!.isEmpty) || (value.length < 18)) {
-                                    return 'Informe um CNPJ válido!';
+                                    return Labels.cnpjValido;
                                   }
                                   return null;
                                 },
@@ -121,7 +121,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                               ),
                               FormButton(
                                 formKey: _formKey,
-                                text: 'CONTINUAR',
+                                text: Botoes.proximo,
                                 action: () {
                                   final valid =
                                       _formKey.currentState?.validate() ??
