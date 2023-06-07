@@ -30,7 +30,7 @@ class StandardSliverSearchBar extends StatelessWidget
       ),
       child: SliverAppBar(
         backgroundColor: ProjectColors.light,
-        title: SearchBar(
+        title: StandardSearchBar(
           listaNomes: listaNomes,
           searchFunction: searchFunction,
         ),

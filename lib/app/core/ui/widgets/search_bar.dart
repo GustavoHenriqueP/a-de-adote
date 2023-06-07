@@ -4,11 +4,11 @@ import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class SearchBar extends StatelessWidget {
+class StandardSearchBar extends StatelessWidget {
   final List<String> listaNomes;
   final void Function(String option) searchFunction;
 
-  SearchBar({
+  StandardSearchBar({
     super.key,
     required this.listaNomes,
     required this.searchFunction,
