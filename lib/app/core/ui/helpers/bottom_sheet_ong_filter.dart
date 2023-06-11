@@ -62,9 +62,9 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         Labels.municipio,
                         style: ProjectFonts.smallSecundaryDarkBold,

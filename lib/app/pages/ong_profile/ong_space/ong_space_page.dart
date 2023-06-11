@@ -203,9 +203,9 @@ class _OngSpacePageState extends State<OngSpacePage>
                                       color: ProjectColors.danger,
                                     ),
                                   )
-                                : Column(
+                                : const Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.photo_camera_outlined,
                                         size: 36,

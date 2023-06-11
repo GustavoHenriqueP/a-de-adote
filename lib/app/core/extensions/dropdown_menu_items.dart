@@ -14,12 +14,12 @@ class DropdownMenuItems {
     return _instance!;
   }
 
-  List<DropdownMenuItem<String>> get especies => [
+  List<DropdownMenuItem<String>> get especies => const [
         DropdownMenuItem(
           value: 'Cachorro',
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 MaterialCommunityIcons.dog,
                 color: ProjectColors.light,
@@ -38,7 +38,7 @@ class DropdownMenuItems {
           value: 'Gato',
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 MaterialCommunityIcons.cat,
                 color: ProjectColors.light,
@@ -57,7 +57,7 @@ class DropdownMenuItems {
           value: 'Pássaro',
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 MaterialCommunityIcons.bird,
                 color: ProjectColors.light,
@@ -76,7 +76,7 @@ class DropdownMenuItems {
           value: 'Outro',
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 Icons.pets,
                 color: ProjectColors.light,
@@ -93,29 +93,29 @@ class DropdownMenuItems {
         ),
       ];
 
-  List<DropdownMenuItem<String>> get porte => [
-        const DropdownMenuItem(
+  List<DropdownMenuItem<String>> get porte => const [
+        DropdownMenuItem(
           value: 'Mini',
           child: Text(
             'Mini',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'Pequeno',
           child: Text(
             'Pequeno',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'Médio',
           child: Text(
             'Médio',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'Grande',
           child: Text(
             'Grande',
@@ -124,15 +124,15 @@ class DropdownMenuItems {
         ),
       ];
 
-  List<DropdownMenuItem<String>> get unidadeIdade => [
-        const DropdownMenuItem(
+  List<DropdownMenuItem<String>> get unidadeIdade => const [
+        DropdownMenuItem(
           value: 'meses',
           child: Text(
             'meses',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'anos',
           child: Text(
             'anos',
@@ -141,15 +141,15 @@ class DropdownMenuItems {
         ),
       ];
 
-  List<DropdownMenuItem<String>> get sexo => [
-        const DropdownMenuItem(
+  List<DropdownMenuItem<String>> get sexo => const [
+        DropdownMenuItem(
           value: 'Masculino',
           child: Text(
             'Masculino',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'Feminino',
           child: Text(
             'Feminino',
@@ -158,22 +158,22 @@ class DropdownMenuItems {
         ),
       ];
 
-  List<DropdownMenuItem<String>> get donationOption => [
-        const DropdownMenuItem(
+  List<DropdownMenuItem<String>> get donationOption => const [
+        DropdownMenuItem(
           value: 'CNPJ',
           child: Text(
             'CNPJ',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'Celular',
           child: Text(
             'Celular',
             style: ProjectFonts.pLight,
           ),
         ),
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: 'E-mail',
           child: Text(
             'E-mail',

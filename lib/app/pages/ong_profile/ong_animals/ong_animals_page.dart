@@ -100,7 +100,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                     ],
                   )
                 : lengthListPets == 0
-                    ? Center(
+                    ? const Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +108,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Icon(
                                   MaterialCommunityIcons.dog,
                                   size: 18,
@@ -142,7 +142,7 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Flexible(
                                   child: Text(
                                     Labels.naoPossuiCadastrados,

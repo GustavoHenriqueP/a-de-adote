@@ -108,9 +108,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             Labels.ong,
                             style: ProjectFonts.smallSecundaryDarkBold,
@@ -142,9 +142,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           Labels.especie,
                           style: ProjectFonts.smallSecundaryDarkBold,
@@ -260,9 +260,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           Labels.sexo,
                           style: ProjectFonts.smallSecundaryDarkBold,
@@ -312,9 +312,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           Labels.porte,
                           style: ProjectFonts.smallSecundaryDarkBold,

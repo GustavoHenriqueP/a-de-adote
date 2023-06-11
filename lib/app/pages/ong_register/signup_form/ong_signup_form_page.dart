@@ -88,13 +88,13 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      const Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   Labels.ultimoPasso,
                                   style: ProjectFonts.h3LightBold,
@@ -103,10 +103,10 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   Labels.criarUsuario,
                                   style: ProjectFonts.h5Light,

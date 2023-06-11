@@ -71,11 +71,11 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                         right: 30.0,
                         bottom: MediaQuery.of(context).size.height * 0.2,
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 Labels.iniciar,
                                 style: ProjectFonts.h3LightBold,
@@ -84,7 +84,7 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 Labels.insiraCnpj,
                                 style: ProjectFonts.h5Light,

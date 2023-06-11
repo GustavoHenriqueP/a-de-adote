@@ -394,9 +394,9 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                               );
                             }
                           },
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 Buttons.falarComOng,
                                 style: ProjectFonts.pLightBold,

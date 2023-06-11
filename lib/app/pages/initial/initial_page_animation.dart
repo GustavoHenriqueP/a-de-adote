@@ -83,9 +83,9 @@ class InitialPageAnimation extends StatelessWidget {
                                   Radius.circular(6),
                                 ),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.favorite,
                                     size: 25,
@@ -121,9 +121,9 @@ class InitialPageAnimation extends StatelessWidget {
                                   Radius.circular(6),
                                 ),
                               ),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.pets,
                                     size: 25,

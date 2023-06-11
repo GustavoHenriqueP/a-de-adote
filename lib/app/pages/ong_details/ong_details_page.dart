@@ -310,9 +310,9 @@ class OngDetailsPage extends StatelessWidget {
                       },
                     );
                   },
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text(
                         Buttons.verAnimais,
                         style: ProjectFonts.pLightBold,

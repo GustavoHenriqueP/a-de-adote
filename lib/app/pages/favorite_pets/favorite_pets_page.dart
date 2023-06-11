@@ -109,19 +109,19 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
                               Widget? child) {
                             return Visibility(
                               visible: canBeVisible,
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     MaterialCommunityIcons.paw,
                                     size: 18,
                                     color: ProjectColors.light,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Flexible(
                                         child: Text(
                                           Labels.naoPossuiFavoritos,

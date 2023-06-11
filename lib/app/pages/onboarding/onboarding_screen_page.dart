@@ -261,10 +261,10 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Text(
                                       Buttons.proximo,
                                       style: ProjectFonts.pLightBold,

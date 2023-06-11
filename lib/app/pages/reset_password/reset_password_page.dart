@@ -76,13 +76,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      const Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   Labels.esqueceuSenha,
                                   style: ProjectFonts.h3LightBold,
@@ -91,10 +91,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   Labels.insiraEmail,
                                   style: ProjectFonts.h5Light,

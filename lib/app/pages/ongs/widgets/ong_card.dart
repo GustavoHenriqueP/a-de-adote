@@ -88,7 +88,7 @@ class OngCard extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 30,
-                        width: 110,
+                        width: 120,
                         child: ElevatedButton(
                           onPressed: () {
                             final filter = {

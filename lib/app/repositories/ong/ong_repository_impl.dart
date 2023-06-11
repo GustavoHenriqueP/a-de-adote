@@ -49,17 +49,17 @@ class OngRepositoryImpl implements OngRepository {
       } else {
         throw Exception(Labels.cnpjNaoEncontrado);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       log(Labels.erroCnpj, error: e);
       if (e.response?.statusCode == 429) {
         return throw Exception(Labels.servidoresOcupados);
       }
-      if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.sendTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
         return throw Exception(Labels.timeout);
       }
-      if (e.type == DioErrorType.unknown) {
+      if (e.type == DioExceptionType.unknown) {
         return throw Exception(Labels.erroCnpj);
       }
       rethrow;

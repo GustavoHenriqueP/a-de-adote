@@ -59,9 +59,9 @@ class _AnimatedButtonState extends State<AnimatedButton>
               Radius.circular(6),
             ),
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 Buttons.vamosComecar,
                 style: ProjectFonts.pLightBold,

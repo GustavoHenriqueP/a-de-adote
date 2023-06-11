@@ -104,13 +104,13 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
+                  const Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               Labels.confirmacaoOng,
                               style: ProjectFonts.h4LightBold,
@@ -119,10 +119,10 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        padding: EdgeInsets.symmetric(horizontal: 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Flexible(
                               child: Text(
                                 Labels.alterarDados,
