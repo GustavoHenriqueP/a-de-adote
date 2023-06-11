@@ -158,6 +158,23 @@ class DropdownMenuItems {
         ),
       ];
 
+  List<DropdownMenuItem<String>> get sexoAbreviado => const [
+        DropdownMenuItem(
+          value: 'Masculino',
+          child: Text(
+            'Masc.',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+        DropdownMenuItem(
+          value: 'Feminino',
+          child: Text(
+            'Fem.',
+            style: ProjectFonts.pLight,
+          ),
+        ),
+      ];
+
   List<DropdownMenuItem<String>> get donationOption => const [
         DropdownMenuItem(
           value: 'CNPJ',

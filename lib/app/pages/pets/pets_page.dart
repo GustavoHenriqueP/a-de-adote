@@ -2,7 +2,6 @@ import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_pet_filter.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
-import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_shimmer_effect.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_sliver_appbar.dart';
@@ -79,13 +78,6 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                               searchFunction: context
                                   .read<PetsController>()
                                   .loadPetsSearched,
-                              bottom: PreferredSize(
-                                preferredSize: Size(
-                                  MediaQuery.of(context).size.width,
-                                  MediaQuery.of(context).size.height * 0.05,
-                                ),
-                                child: const ContainerResearch(),
-                              ),
                             );
                           },
                         )
@@ -96,13 +88,6 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                             context.read<PetsController>().clearPetsFiltered();
                             _isSearchBar.value = true;
                           },
-                          bottom: PreferredSize(
-                            preferredSize: Size(
-                              MediaQuery.of(context).size.width,
-                              MediaQuery.of(context).size.height * 0.05,
-                            ),
-                            child: const ContainerResearch(),
-                          ),
                         ),
                 ];
               },
@@ -160,9 +145,12 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                         ? lengthListPetsSearched
                                         : lengthListPets,
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   mainAxisSpacing: 10,
-                                  mainAxisExtent: 181,
+                                  mainAxisExtent:
+                                      MediaQuery.textScaleFactorOf(context) > 1
+                                          ? 198
+                                          : 181,
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 5,
                                 ),

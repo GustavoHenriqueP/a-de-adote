@@ -106,9 +106,6 @@ class Labels {
   static const ongNaoEncontrada = "Não foi possível encontar a ONG";
   static const erroUpdateOng = "Erro ao atualizar ong.";
 
-  //CONTAINER RESEARCH + STANDARD DRAWER
-  static const responderPesquisa = "Responda nossa pesquisa!";
-
   //SEARCHBAR + STANDARD SEARCHBAR
   static const pesquisarNome = "Pesquise um nome";
 
@@ -179,7 +176,7 @@ class Labels {
   static const enderecoField = "Endereço: ";
   static const doacaoPix = "Doação - Pix";
   static const pixVazio = "Sem informações de Pix.";
-  static const pixCopiado = "PixCopiado!";
+  static const pixCopiado = "Pix copiado!";
   static const informacoesOngVazia = "Sem informações sobre a ONG.";
 
   //ONG ANIMALS PAGE + PET DETAILS PAGE
@@ -204,7 +201,7 @@ class Labels {
   //PET DETAILS PAGE + PET EDIT PAGE + PET REGISTER PAGE
   static const removidoFavoritos = "Removido dos favoritos";
   static const adicionadoFavoritos = "Adicionado aos favoritos";
-  static const idadeAprox = "Idade Aprox.";
+  static const idadeAprox = "Idade";
   static const castrado = "Castrado";
   static const antirrabica = "Antirrábica";
   static const v3 = "V3";

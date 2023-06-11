@@ -107,10 +107,13 @@ class OngAnimalCard extends StatelessWidget {
                             const SizedBox(
                               width: 2,
                             ),
-                            Text(
-                              pet.especie,
-                              style: ProjectFonts.smallSecundaryDark.copyWith(
-                                color: const Color(0xFF646464),
+                            Flexible(
+                              child: Text(
+                                pet.especie,
+                                style: ProjectFonts.smallSecundaryDark.copyWith(
+                                  color: const Color(0xFF646464),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
                           ],

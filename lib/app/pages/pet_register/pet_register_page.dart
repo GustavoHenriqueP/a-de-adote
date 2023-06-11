@@ -46,7 +46,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollController.jumpTo(37);
+      _scrollController.jumpTo(60);
     });
   }
 
@@ -226,7 +226,12 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                         String? value, Widget? child) {
                                       return StandardDropdown(
                                         labelText: Labels.sexo,
-                                        items: context.dropdownMenuItems.sexo,
+                                        items: MediaQuery.textScaleFactorOf(
+                                                    context) >
+                                                1.15
+                                            ? context
+                                                .dropdownMenuItems.sexoAbreviado
+                                            : context.dropdownMenuItems.sexo,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _sexo.value = selected;

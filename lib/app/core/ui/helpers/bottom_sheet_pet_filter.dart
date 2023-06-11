@@ -272,8 +272,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                     ValueListenableBuilder(
                       valueListenable: _sexo,
                       builder: (BuildContext context, int sexo, Widget? child) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        return Wrap(
+                          spacing: 5,
+                          runSpacing: 5,
                           children: [
                             RadioRow(
                               labelText: Labels.ambos,

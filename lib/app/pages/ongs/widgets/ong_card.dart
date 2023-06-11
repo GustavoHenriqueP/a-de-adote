@@ -64,27 +64,29 @@ class OngCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              ong.fantasia,
-                              style: ProjectFonts.h6SecundaryDarkBold
-                                  .copyWith(overflow: TextOverflow.ellipsis),
-                            ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              '${ong.municipio.stringAdjusted} - ${ong.uf}',
-                              style: ProjectFonts.smallSecundaryDark.copyWith(
-                                color: const Color(0xFF646464),
-                                overflow: TextOverflow.ellipsis,
+                      Flexible(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                ong.fantasia,
+                                style: ProjectFonts.h6SecundaryDarkBold
+                                    .copyWith(overflow: TextOverflow.ellipsis),
                               ),
                             ),
-                          ),
-                        ],
+                            Flexible(
+                              child: Text(
+                                '${ong.municipio.stringAdjusted} - ${ong.uf}',
+                                style: ProjectFonts.smallSecundaryDark.copyWith(
+                                  color: const Color(0xFF646464),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 30,

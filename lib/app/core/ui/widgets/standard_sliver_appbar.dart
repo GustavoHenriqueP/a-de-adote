@@ -12,7 +12,7 @@ class StandardSliverAppbar extends StatelessWidget
   const StandardSliverAppbar({
     super.key,
     required this.title,
-    required this.bottom,
+    this.bottom,
     this.canPop,
     this.alternateAppbar,
   });
@@ -34,7 +34,6 @@ class StandardSliverAppbar extends StatelessWidget
           title,
           style: ProjectFonts.h6Light,
         ),
-        pinned: true,
         floating: true,
         snap: true,
         automaticallyImplyLeading: canPop ?? true,

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:a_de_adote/app/core/constants/labels.dart';
-import 'package:a_de_adote/app/core/ui/widgets/container_research.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_controller.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_state.dart';
 import 'package:animations/animations.dart';
@@ -42,16 +41,9 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, innerBoxIsScrolled) {
             return [
-              StandardSliverAppbar(
+              const StandardSliverAppbar(
                 title: Labels.titleFavoritos,
                 canPop: false,
-                bottom: PreferredSize(
-                  preferredSize: Size(
-                    MediaQuery.of(context).size.width,
-                    MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  child: const ContainerResearch(),
-                ),
               ),
             ];
           },

@@ -45,7 +45,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollController.jumpTo(37);
+      _scrollController.jumpTo(60);
 
       petModel = ModalRoute.of(context)?.settings.arguments as PetModel;
       String initialUnidadeIdadeValue =
@@ -250,7 +250,12 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                         String? value, Widget? child) {
                                       return StandardDropdown(
                                         labelText: Labels.sexo,
-                                        items: context.dropdownMenuItems.sexo,
+                                        items: MediaQuery.textScaleFactorOf(
+                                                    context) >
+                                                1.15
+                                            ? context
+                                                .dropdownMenuItems.sexoAbreviado
+                                            : context.dropdownMenuItems.sexo,
                                         value: value!,
                                         dropdownCallback: (selected) {
                                           _sexo.value = selected;

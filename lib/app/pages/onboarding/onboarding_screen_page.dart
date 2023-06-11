@@ -117,41 +117,45 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   MediaQuery.of(context).size.height * 0.02,
                               horizontal: 25,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Image(
-                                    image: AssetImage(
-                                      _option == 'adotante'
-                                          ? 'assets/images/onboarding/2.png'
-                                          : 'assets/images/onboarding/5.png',
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Image(
+                                      image: AssetImage(
+                                        _option == 'adotante'
+                                            ? 'assets/images/onboarding/2.png'
+                                            : 'assets/images/onboarding/5.png',
+                                      ),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.4,
-                                    width: MediaQuery.of(context).size.height *
-                                        0.4,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.msg1Adotante
-                                      : Labels.msg1Ong,
-                                  style: ProjectFonts.h5LightBold,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.informativoAdotante1
-                                      : Labels.informativoOng1,
-                                  style: ProjectFonts.pLight,
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.msg1Adotante
+                                        : Labels.msg1Ong,
+                                    style: ProjectFonts.h5LightBold,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.informativoAdotante1
+                                        : Labels.informativoOng1,
+                                    style: ProjectFonts.pLight,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           Padding(
@@ -160,41 +164,45 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   MediaQuery.of(context).size.height * 0.02,
                               horizontal: 25,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Image(
-                                    image: AssetImage(
-                                      _option == 'adotante'
-                                          ? 'assets/images/onboarding/3.png'
-                                          : 'assets/images/onboarding/4.png',
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Image(
+                                      image: AssetImage(
+                                        _option == 'adotante'
+                                            ? 'assets/images/onboarding/3.png'
+                                            : 'assets/images/onboarding/4.png',
+                                      ),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.4,
-                                    width: MediaQuery.of(context).size.height *
-                                        0.4,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.msg2Adotante
-                                      : Labels.msg2Ong,
-                                  style: ProjectFonts.h5LightBold,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.informativoAdotante2
-                                      : Labels.informativoOng2,
-                                  style: ProjectFonts.pLight,
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.msg2Adotante
+                                        : Labels.msg2Ong,
+                                    style: ProjectFonts.h5LightBold,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.informativoAdotante2
+                                        : Labels.informativoOng2,
+                                    style: ProjectFonts.pLight,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           Padding(
@@ -203,41 +211,45 @@ class _OnboardingScreenPageState extends State<OnboardingScreenPage> {
                                   MediaQuery.of(context).size.height * 0.02,
                               horizontal: 25,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Image(
-                                    image: AssetImage(
-                                      _option == 'adotante'
-                                          ? 'assets/images/onboarding/1.png'
-                                          : 'assets/images/onboarding/6.png',
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Image(
+                                      image: AssetImage(
+                                        _option == 'adotante'
+                                            ? 'assets/images/onboarding/1.png'
+                                            : 'assets/images/onboarding/6.png',
+                                      ),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.4,
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.4,
-                                    width: MediaQuery.of(context).size.height *
-                                        0.4,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.msg3Adotante
-                                      : Labels.msg3Ong,
-                                  style: ProjectFonts.h5LightBold,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  _option == 'adotante'
-                                      ? Labels.informativoAdotante3
-                                      : Labels.informativoOng3,
-                                  style: ProjectFonts.pLight,
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.msg3Adotante
+                                        : Labels.msg3Ong,
+                                    style: ProjectFonts.h5LightBold,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    _option == 'adotante'
+                                        ? Labels.informativoAdotante3
+                                        : Labels.informativoOng3,
+                                    style: ProjectFonts.pLight,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],

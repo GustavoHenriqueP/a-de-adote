@@ -107,50 +107,54 @@ class PetCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Row(
-                          children: [
-                            Icon(
-                              pet.especie == Labels.cachorro
-                                  ? MaterialCommunityIcons.dog
-                                  : pet.especie == Labels.gato
-                                      ? MaterialCommunityIcons.cat
-                                      : pet.especie == Labels.passaro
-                                          ? MaterialCommunityIcons.bird
-                                          : pet.especie == Labels.outros
-                                              ? MaterialCommunityIcons.paw
-                                              : MaterialCommunityIcons.paw,
-                              size: 14,
-                              color: const Color(0xFF646464),
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            Flexible(
-                              child: Text(
-                                pet.especie,
-                                style: ProjectFonts.smallSecundaryDark.copyWith(
-                                  color: const Color(0xFF646464),
-                                  overflow: TextOverflow.ellipsis,
+                  Visibility(
+                    visible: true,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Icon(
+                                pet.especie == Labels.cachorro
+                                    ? MaterialCommunityIcons.dog
+                                    : pet.especie == Labels.gato
+                                        ? MaterialCommunityIcons.cat
+                                        : pet.especie == Labels.passaro
+                                            ? MaterialCommunityIcons.bird
+                                            : pet.especie == Labels.outros
+                                                ? MaterialCommunityIcons.paw
+                                                : MaterialCommunityIcons.paw,
+                                size: 14,
+                                color: const Color(0xFF646464),
+                              ),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  pet.especie,
+                                  style:
+                                      ProjectFonts.smallSecundaryDark.copyWith(
+                                    color: const Color(0xFF646464),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          pet.idadeAproximada,
-                          style: ProjectFonts.smallSecundaryDark.copyWith(
-                            color: const Color(0xFF646464),
-                            overflow: TextOverflow.ellipsis,
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: Text(
+                            pet.idadeAproximada,
+                            style: ProjectFonts.smallSecundaryDark.copyWith(
+                              color: const Color(0xFF646464),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -14,7 +14,7 @@ class StandardSliverSearchBar extends StatelessWidget
     required this.listaNomes,
     required this.searchFunction,
     required this.backButtonFunction,
-    required this.bottom,
+    this.bottom,
   });
 
   @override

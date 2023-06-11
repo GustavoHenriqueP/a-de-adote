@@ -25,7 +25,10 @@ class CheckboxRow extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: labelStyle ?? ProjectFonts.pLight,
+          style: labelStyle ??
+              (MediaQuery.textScaleFactorOf(context) > 1
+                  ? ProjectFonts.smallLight
+                  : ProjectFonts.pLight),
         ),
         SizedBox(
           width: gap ?? 0,

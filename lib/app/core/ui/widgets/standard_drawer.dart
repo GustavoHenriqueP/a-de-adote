@@ -4,7 +4,6 @@ import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/pages/home/tabs_state.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
-import 'package:a_de_adote/app/services/research_launch_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,12 +54,11 @@ class _StandardDrawerState extends State<StandardDrawer>
                     ListTile(
                       onTap: () async {
                         Navigator.of(context).pop();
-                        await ResearchLaunchService.openForm();
                       },
                       title: Row(
                         children: [
                           const Icon(
-                            Icons.open_in_new,
+                            Icons.info_outline,
                             size: 22,
                             color: ProjectColors.secondaryDark,
                           ),
@@ -68,9 +66,14 @@ class _StandardDrawerState extends State<StandardDrawer>
                             width: 5,
                           ),
                           Text(
-                            Labels.responderPesquisa,
-                            style: ProjectFonts.pSecundaryDark
-                                .copyWith(fontWeight: FontWeight.w600),
+                            Labels.sobre,
+                            style: ProjectFonts.pSecundaryDark.copyWith(
+                              fontSize:
+                                  MediaQuery.textScaleFactorOf(context) > 1
+                                      ? 14
+                                      : 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ],
                       ),

@@ -29,7 +29,7 @@ class _InitalAnimationState extends State<InitalAnimation>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: MediaQuery.textScaleFactorOf(context) > 1 ? 300 : 350,
       child: Lottie.asset(
         'assets/lottie/initial_animation.json',
         controller: _controller,

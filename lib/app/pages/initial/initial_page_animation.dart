@@ -1,5 +1,6 @@
-import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/pages/initial/widgets/button_sou_adotante.dart';
+import 'package:a_de_adote/app/pages/initial/widgets/button_sou_ong.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/ui/styles/project_colors.dart';
@@ -20,12 +21,13 @@ class InitialPageAnimation extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  ProjectColors.secondary,
-                  ProjectColors.secondaryLight,
-                ]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ProjectColors.secondary,
+                ProjectColors.secondaryLight,
+              ],
+            ),
           ),
           child: Center(
             child: Padding(
@@ -46,100 +48,52 @@ class InitialPageAnimation extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      RichText(
+                      Flexible(
+                        child: RichText(
                           text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: Labels.boasVindas,
-                            style: ProjectFonts.h5LightBold,
+                            children: [
+                              TextSpan(
+                                text: Labels.boasVindas,
+                                style: ProjectFonts.h5LightBold,
+                              ),
+                              TextSpan(
+                                text: Labels.selecioneOpcao,
+                                style: ProjectFonts.h6Light,
+                              ),
+                            ],
                           ),
-                          TextSpan(
-                            text: Labels.selecioneOpcao,
-                            style: ProjectFonts.h6Light,
-                          ),
-                        ],
-                      )),
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(6),
-                            ),
-                            onTap: (() {
-                              Navigator.pushNamed(context, '/onboarding',
-                                  arguments: 'adotante');
-                            }),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              decoration: const BoxDecoration(
-                                color: ProjectColors.primary,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.favorite,
-                                    size: 25,
-                                    color: ProjectColors.light,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    Buttons.souAdotante,
-                                    style: ProjectFonts.pLightBold,
-                                  ),
-                                ],
-                              ),
-                            ),
+                    child: Visibility(
+                      visible: MediaQuery.textScaleFactorOf(context) > 1 ||
+                          MediaQuery.devicePixelRatioOf(context) > 2.75,
+                      replacement: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: ButtonSouAdotante(),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(6),
-                            ),
-                            onTap: (() {
-                              Navigator.pushNamed(context, '/onboarding',
-                                  arguments: 'ong');
-                            }),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              decoration: const BoxDecoration(
-                                color: ProjectColors.secondary,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.pets,
-                                    size: 25,
-                                    color: ProjectColors.light,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    Buttons.souOng,
-                                    style: ProjectFonts.pLightBold,
-                                  ),
-                                ],
-                              ),
-                            ),
+                          SizedBox(
+                            width: 15,
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: ButtonSouOng(),
+                          ),
+                        ],
+                      ),
+                      child: const Wrap(
+                        spacing: 15,
+                        runSpacing: 10,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          ButtonSouAdotante(),
+                          ButtonSouOng(),
+                        ],
+                      ),
                     ),
                   ),
                 ],

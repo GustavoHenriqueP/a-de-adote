@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../core/ui/helpers/bottom_sheet_ong_filter.dart';
 import '../../core/ui/styles/project_colors.dart';
-import '../../core/ui/widgets/container_research.dart';
 import '../../core/ui/widgets/standard_sliver_appbar.dart';
 import '../../core/ui/widgets/standard_sliver_search_bar.dart';
 
@@ -79,13 +78,6 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                               searchFunction: context
                                   .read<OngsController>()
                                   .loadOngsSearched,
-                              bottom: PreferredSize(
-                                preferredSize: Size(
-                                  MediaQuery.of(context).size.width,
-                                  MediaQuery.of(context).size.height * 0.05,
-                                ),
-                                child: const ContainerResearch(),
-                              ),
                             );
                           },
                         )
@@ -96,13 +88,6 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                             context.read<OngsController>().clearOngsFiltered();
                             _isSearchBar.value = true;
                           },
-                          bottom: PreferredSize(
-                            preferredSize: Size(
-                              MediaQuery.of(context).size.width,
-                              MediaQuery.of(context).size.height * 0.05,
-                            ),
-                            child: const ContainerResearch(),
-                          ),
                         ),
                 ];
               },
