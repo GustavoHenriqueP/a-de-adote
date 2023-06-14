@@ -31,12 +31,28 @@ class PetRepositoryImpl implements PetRepository {
 
   @override
   Future<List<PetModel>> getPets() async {
+    List<PetModel> listaPets = [];
     try {
-      List<PetModel> listaPets = [];
-      final ongCollection = await db.collection('ong').get();
+      QuerySnapshot<Map<String, dynamic>> ongCollection;
+      ongCollection = await db.collection('ong').get(
+            const GetOptions(source: Source.cache),
+          );
+      if (ongCollection.docs.isEmpty) {
+        log('Indo para o servidor - ONGs');
+        ongCollection = await db.collection('ong').get();
+      }
+
       if (ongCollection.docs.isNotEmpty) {
         for (var ong in ongCollection.docs) {
-          final pets = await db.collection('ong/${ong.id}/animais').get();
+          QuerySnapshot<Map<String, dynamic>> pets;
+          pets = await db.collection('ong/${ong.id}/animais').get(
+                const GetOptions(source: Source.cache),
+              );
+          if (pets.docs.isEmpty) {
+            log('Indo para o servidor - Pets');
+            pets = await db.collection('ong/${ong.id}/animais').get();
+          }
+
           if (pets.docs.isNotEmpty) {
             listaPets.addAll(
               pets.docs
