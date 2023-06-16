@@ -23,6 +23,8 @@ class FavoritePetsPage extends StatefulWidget {
 
 class _FavoritePetsPageState extends State<FavoritePetsPage> {
   bool _isLoading = true;
+  final ValueNotifier<bool> _loadMessage = ValueNotifier(false);
+  final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
 
   @override
   void initState() {
@@ -30,6 +32,13 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<FavoritePetsController>().loadFavoritePets(true);
     });
+  }
+
+  @override
+  void dispose() {
+    _loadMessage.dispose();
+    _loadShimmerEffect.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,33 +79,47 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
             ),
             builder: (context, state) {
               int lengthFavoriteList = state.listFavoritePets.length;
-              ValueNotifier<bool> loadMessage = ValueNotifier(false);
 
               if (lengthFavoriteList == 0) {
                 Timer(
                   const Duration(milliseconds: 100),
-                  () => loadMessage.value = true,
+                  () => _loadMessage.value = true,
+                );
+              }
+
+              if (_isLoading) {
+                Timer(
+                  const Duration(milliseconds: 100),
+                  () => _loadShimmerEffect.value = true,
                 );
               }
 
               return _isLoading
-                  ? GridView.builder(
-                      padding: const EdgeInsets.all(12),
-                      itemCount: 8,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: 17,
-                        mainAxisExtent: 175,
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                      ),
-                      itemBuilder: (context, index) {
-                        return const StandardShimmerEffect();
-                      },
-                    )
+                  ? ValueListenableBuilder(
+                      valueListenable: _loadShimmerEffect,
+                      builder: (BuildContext context, bool canBeVisible,
+                          Widget? child) {
+                        return Visibility(
+                          visible: canBeVisible,
+                          child: GridView.builder(
+                            padding: const EdgeInsets.all(12),
+                            itemCount: 8,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 17,
+                              mainAxisExtent: 175,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 12,
+                            ),
+                            itemBuilder: (context, index) {
+                              return const StandardShimmerEffect();
+                            },
+                          ),
+                        );
+                      })
                   : lengthFavoriteList == 0
                       ? ValueListenableBuilder(
-                          valueListenable: loadMessage,
+                          valueListenable: _loadMessage,
                           builder: (BuildContext context, bool canBeVisible,
                               Widget? child) {
                             return Visibility(

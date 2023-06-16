@@ -30,26 +30,32 @@ class PetRepositoryImpl implements PetRepository {
   }
 
   @override
-  Future<List<PetModel>> getPets() async {
+  Future<List<PetModel>> getPets({required bool refresh}) async {
     List<PetModel> listaPets = [];
     try {
       QuerySnapshot<Map<String, dynamic>> ongCollection;
-      ongCollection = await db.collection('ong').get(
-            const GetOptions(source: Source.cache),
-          );
+      if (!refresh) {
+        ongCollection = await db
+            .collection('ong')
+            .get(const GetOptions(source: Source.cache));
+      } else {
+        ongCollection = await db.collection('ong').get();
+      }
       if (ongCollection.docs.isEmpty) {
-        log('Indo para o servidor - ONGs');
         ongCollection = await db.collection('ong').get();
       }
 
       if (ongCollection.docs.isNotEmpty) {
         for (var ong in ongCollection.docs) {
           QuerySnapshot<Map<String, dynamic>> pets;
-          pets = await db.collection('ong/${ong.id}/animais').get(
-                const GetOptions(source: Source.cache),
-              );
+          if (!refresh) {
+            pets = await db
+                .collection('ong/${ong.id}/animais')
+                .get(const GetOptions(source: Source.cache));
+          } else {
+            pets = await db.collection('ong/${ong.id}/animais').get();
+          }
           if (pets.docs.isEmpty) {
-            log('Indo para o servidor - Pets');
             pets = await db.collection('ong/${ong.id}/animais').get();
           }
 
@@ -78,8 +84,15 @@ class PetRepositoryImpl implements PetRepository {
   Future<List<PetModel>> getCurrentUserPets() async {
     try {
       List<PetModel> listaPets = [];
-      final snapshot =
-          await db.collection('ong/${auth.ongUser?.uid}/animais').get();
+      QuerySnapshot<Map<String, dynamic>> snapshot;
+      snapshot = await db
+          .collection('ong/${auth.ongUser?.uid}/animais')
+          .get(const GetOptions(source: Source.cache));
+      if (snapshot.docs.isEmpty) {
+        log('Indo para o servidor...');
+        snapshot =
+            await db.collection('ong/${auth.ongUser?.uid}/animais').get();
+      }
       if (snapshot.docs.isNotEmpty) {
         listaPets = snapshot.docs
             .map(

@@ -17,7 +17,7 @@ class FavoritePetsController extends Cubit<FavoritePetsState> {
         emit(state.copyWith(status: FavoritePetsStatus.loading));
       }
       SharedPreferences sp = await SharedPreferences.getInstance();
-      List<PetModel> listPets = await _petRepository.getPets();
+      List<PetModel> listPets = await _petRepository.getPets(refresh: false);
       List<String>? listIds = sp.getStringList('favoriteList');
 
       listIds = listIds ?? [];

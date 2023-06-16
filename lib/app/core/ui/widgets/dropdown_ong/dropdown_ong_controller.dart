@@ -13,7 +13,7 @@ class DropdownOngController extends Cubit<DropdownOngState> {
   Future<void> dropdownLoadAllOngs() async {
     try {
       emit(state.copyWith(status: DropdownOngStatus.loading));
-      final listOngs = await _ongRepository.getOngs();
+      final listOngs = await _ongRepository.getOngs(refresh: false);
       emit(
         state.copyWith(
           status: DropdownOngStatus.loaded,

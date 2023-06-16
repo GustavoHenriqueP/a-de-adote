@@ -12,10 +12,12 @@ class PetsController extends Cubit<PetsState> {
     this._petRepository,
   ) : super(PetsState.initial());
 
-  Future<void> loadAllPets() async {
+  Future<void> loadAllPets({required bool refresh}) async {
     try {
-      emit(state.copyWith(status: PetsStatus.loading));
-      final listPets = await _petRepository.getPets();
+      refresh
+          ? emit(state.copyWith(status: PetsStatus.refreshing))
+          : emit(state.copyWith(status: PetsStatus.loading));
+      final listPets = await _petRepository.getPets(refresh: refresh);
       state.listPets = listPets;
       if (FiltersState.petCurrentFilters == null) {
         emit(state.copyWith(status: PetsStatus.loaded));

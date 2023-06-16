@@ -77,14 +77,30 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
-  Future<List<OngModel>> getOngs() async {
-    final snapshot = await db.collection('ong').get();
-    final ongs = snapshot.docs
-        .map(
-          (ong) => OngModel.fromMap(ong.data()),
-        )
-        .toList();
-    return ongs;
+  Future<List<OngModel>> getOngs({required bool refresh}) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (!refresh) {
+        snapshot = await db
+            .collection('ong')
+            .get(const GetOptions(source: Source.cache));
+      } else {
+        snapshot = await db.collection('ong').get();
+      }
+      if (snapshot.docs.isEmpty) {
+        snapshot = await db.collection('ong').get();
+      }
+
+      List<OngModel> ongs = snapshot.docs
+          .map(
+            (ong) => OngModel.fromMap(ong.data()),
+          )
+          .toList();
+      return ongs;
+    } on FirebaseException catch (e, s) {
+      log('Ocorreu um erro ao carregar as ONGs', error: e, stackTrace: s);
+      throw FirestoreException('Ocorreu um erro ao carregar as ONGs');
+    }
   }
 
   @override
@@ -107,8 +123,16 @@ class OngRepositoryImpl implements OngRepository {
   Future<OngModel> getCurrentOngUser() async {
     try {
       if (auth.ongUser != null) {
-        final snapshot =
-            await db.collection('ong').doc(auth.ongUser!.uid).get();
+        DocumentSnapshot<Map<String, dynamic>> snapshot;
+        snapshot = await db
+            .collection('ong')
+            .doc(auth.ongUser!.uid)
+            .get(const GetOptions(source: Source.cache));
+        if (snapshot.data() == null) {
+          log('Indo para o servidor...');
+          snapshot = await db.collection('ong').doc(auth.ongUser!.uid).get();
+        }
+
         final currentOngUser = OngModel.fromMap(snapshot.data()!);
         return currentOngUser;
       } else {

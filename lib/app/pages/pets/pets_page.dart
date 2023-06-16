@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/bottom_sheet_pet_filter.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
@@ -25,18 +27,20 @@ class PetsPage extends StatefulWidget {
 class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
   final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = true;
+  final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<PetsController>().loadAllPets();
+      context.read<PetsController>().loadAllPets(refresh: false);
     });
   }
 
   @override
   void dispose() {
     _isSearchBar.dispose();
+    _loadShimmerEffect.dispose();
     super.dispose();
   }
 
@@ -110,6 +114,7 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                   any: () => false,
                   initial: () => false,
                   loading: () => true,
+                  refreshing: () => true,
                   loaded: () => true,
                   loadedSearched: () => true,
                   loadedFiltered: () => true,
@@ -119,76 +124,87 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                   int lengthListPetsSearched = state.listPetsSearched.length;
                   int lengthListPetsFiltered = state.listPetsFiltered.length;
 
+                  if (_isLoading) {
+                    Timer(
+                      const Duration(milliseconds: 100),
+                      () => _loadShimmerEffect.value = true,
+                    );
+                  }
+
                   return _isLoading
-                      ? GridView.builder(
-                          padding: const EdgeInsets.all(12),
-                          itemCount: 8,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 17,
-                            mainAxisExtent: 175,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                          ),
-                          itemBuilder: (context, index) {
-                            return const StandardShimmerEffect();
-                          },
-                        )
-                      : Column(
-                          children: [
-                            Expanded(
+                      ? ValueListenableBuilder(
+                          valueListenable: _loadShimmerEffect,
+                          builder: (BuildContext context, bool canBeVisible,
+                              Widget? child) {
+                            return Visibility(
+                              visible: canBeVisible,
                               child: GridView.builder(
-                                padding: const EdgeInsets.all(10),
-                                itemCount: lengthListPetsFiltered != 0
-                                    ? lengthListPetsFiltered
-                                    : lengthListPetsSearched != 0
-                                        ? lengthListPetsSearched
-                                        : lengthListPets,
+                                padding: const EdgeInsets.all(12),
+                                itemCount: 8,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  mainAxisSpacing: 10,
-                                  mainAxisExtent:
-                                      MediaQuery.textScaleFactorOf(context) > 1
-                                          ? 198
-                                          : 181,
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisSpacing: 17,
+                                  mainAxisExtent: 175,
                                   crossAxisCount: 2,
-                                  crossAxisSpacing: 5,
+                                  crossAxisSpacing: 12,
                                 ),
                                 itemBuilder: (context, index) {
-                                  return OpenContainer(
-                                    tappable: false,
-                                    closedColor: Colors.transparent,
-                                    closedElevation: 0,
-                                    closedShape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    transitionDuration:
-                                        const Duration(milliseconds: 500),
-                                    transitionType:
-                                        ContainerTransitionType.fade,
-                                    openBuilder: (context, _) =>
-                                        PetDetailsRouter(
-                                      pet: state.listPetsFiltered.isNotEmpty
-                                          ? state.listPetsFiltered[index]
-                                          : state.listPetsSearched.isNotEmpty
-                                              ? state.listPetsSearched[index]
-                                              : state.listPets[index],
-                                    ).page,
-                                    closedBuilder:
-                                        (context, VoidCallback openContainer) =>
-                                            PetCard(
-                                      pet: state.listPetsFiltered.isNotEmpty
-                                          ? state.listPetsFiltered[index]
-                                          : state.listPetsSearched.isNotEmpty
-                                              ? state.listPetsSearched[index]
-                                              : state.listPets[index],
-                                      onTap: openContainer,
-                                    ),
-                                  );
+                                  return const StandardShimmerEffect();
                                 },
                               ),
+                            );
+                          })
+                      : RefreshIndicator.adaptive(
+                          onRefresh: () => context
+                              .read<PetsController>()
+                              .loadAllPets(refresh: true),
+                          child: GridView.builder(
+                            padding: const EdgeInsets.all(10),
+                            itemCount: lengthListPetsFiltered != 0
+                                ? lengthListPetsFiltered
+                                : lengthListPetsSearched != 0
+                                    ? lengthListPetsSearched
+                                    : lengthListPets,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 10,
+                              mainAxisExtent:
+                                  MediaQuery.textScaleFactorOf(context) > 1
+                                      ? 198
+                                      : 181,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 5,
                             ),
-                          ],
+                            itemBuilder: (context, index) {
+                              return OpenContainer(
+                                tappable: false,
+                                closedColor: Colors.transparent,
+                                closedElevation: 0,
+                                closedShape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                transitionDuration:
+                                    const Duration(milliseconds: 500),
+                                transitionType: ContainerTransitionType.fade,
+                                openBuilder: (context, _) => PetDetailsRouter(
+                                  pet: state.listPetsFiltered.isNotEmpty
+                                      ? state.listPetsFiltered[index]
+                                      : state.listPetsSearched.isNotEmpty
+                                          ? state.listPetsSearched[index]
+                                          : state.listPets[index],
+                                ).page,
+                                closedBuilder:
+                                    (context, VoidCallback openContainer) =>
+                                        PetCard(
+                                  pet: state.listPetsFiltered.isNotEmpty
+                                      ? state.listPetsFiltered[index]
+                                      : state.listPetsSearched.isNotEmpty
+                                          ? state.listPetsSearched[index]
+                                          : state.listPets[index],
+                                  onTap: openContainer,
+                                ),
+                              );
+                            },
+                          ),
                         );
                 },
               ),

@@ -8,6 +8,7 @@ part 'ongs_state.g.dart';
 enum OngsStatus {
   initial,
   loading,
+  refreshing,
   loaded,
   loadedSearched,
   loadedFiltered,

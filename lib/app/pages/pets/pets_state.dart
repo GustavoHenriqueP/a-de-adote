@@ -8,6 +8,7 @@ part 'pets_state.g.dart';
 enum PetsStatus {
   initial,
   loading,
+  refreshing,
   loaded,
   loadedSearched,
   loadedFiltered,
