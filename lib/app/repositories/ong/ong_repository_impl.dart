@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/repositories/database/cache_control.dart';
 import 'package:a_de_adote/app/repositories/database/db_firestore.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -80,13 +81,20 @@ class OngRepositoryImpl implements OngRepository {
   Future<List<OngModel>> getOngs({required bool refresh}) async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot;
+
       if (!refresh) {
-        snapshot = await db
-            .collection('ong')
-            .get(const GetOptions(source: Source.cache));
+        final bool updateCache = await CacheControl.canUpdateCacheOngs();
+        if (!updateCache) {
+          snapshot = await db
+              .collection('ong')
+              .get(const GetOptions(source: Source.cache));
+        } else {
+          snapshot = await db.collection('ong').get();
+        }
       } else {
         snapshot = await db.collection('ong').get();
       }
+
       if (snapshot.docs.isEmpty) {
         snapshot = await db.collection('ong').get();
       }

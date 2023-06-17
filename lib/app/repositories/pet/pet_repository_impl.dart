@@ -6,6 +6,7 @@ import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:crypto/crypto.dart';
 import '../../core/exceptions/firestore_exception.dart';
 import '../../services/auth_service.dart';
+import '../database/cache_control.dart';
 import '../database/db_firestore.dart';
 
 class PetRepositoryImpl implements PetRepository {
@@ -34,13 +35,20 @@ class PetRepositoryImpl implements PetRepository {
     List<PetModel> listaPets = [];
     try {
       QuerySnapshot<Map<String, dynamic>> ongCollection;
+
       if (!refresh) {
-        ongCollection = await db
-            .collection('ong')
-            .get(const GetOptions(source: Source.cache));
+        final bool updateCacheOngs = await CacheControl.canUpdateCacheOngs();
+        if (!updateCacheOngs) {
+          ongCollection = await db
+              .collection('ong')
+              .get(const GetOptions(source: Source.cache));
+        } else {
+          ongCollection = await db.collection('ong').get();
+        }
       } else {
         ongCollection = await db.collection('ong').get();
       }
+
       if (ongCollection.docs.isEmpty) {
         ongCollection = await db.collection('ong').get();
       }
@@ -49,9 +57,15 @@ class PetRepositoryImpl implements PetRepository {
         for (var ong in ongCollection.docs) {
           QuerySnapshot<Map<String, dynamic>> pets;
           if (!refresh) {
-            pets = await db
-                .collection('ong/${ong.id}/animais')
-                .get(const GetOptions(source: Source.cache));
+            final bool updateCachePets =
+                await CacheControl.canUpdateCachePets();
+            if (!updateCachePets) {
+              pets = await db
+                  .collection('ong/${ong.id}/animais')
+                  .get(const GetOptions(source: Source.cache));
+            } else {
+              pets = await db.collection('ong/${ong.id}/animais').get();
+            }
           } else {
             pets = await db.collection('ong/${ong.id}/animais').get();
           }
