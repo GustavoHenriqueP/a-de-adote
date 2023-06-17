@@ -21,6 +21,7 @@ import 'package:like_button/like_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/ui/helpers/alert_dialog_confirmation_message.dart';
 import '../../models/pet_model.dart';
+import '../../repositories/database/cache_control.dart';
 
 class PetDetailsPage extends StatefulWidget {
   final PetModel pet;
@@ -370,8 +371,10 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 try {
                                   OngRepository ongRepository =
                                       OngRepositoryImpl(
-                                          dio: context.read(),
-                                          auth: context.read());
+                                    dio: context.read(),
+                                    auth: context.read(),
+                                    cacheControl: context.read<CacheControl>(),
+                                  );
                                   final ong = await ongRepository
                                       .getOngById(state.pet!.ongId!);
                                   await WhatsappLaunchService.openWhatsApp(

@@ -7,6 +7,7 @@ import 'package:a_de_adote/app/core/ui/widgets/dropdown_ong/dropdown_ong_widget.
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository_impl.dart';
 
+import '../../../../repositories/database/cache_control.dart';
 import '../../../../services/auth_service.dart';
 import 'dropdown_ong_controller.dart';
 
@@ -25,6 +26,7 @@ class DropdownOngRouter {
             create: ((context) => OngRepositoryImpl(
                   dio: context.read<CustomDio>(),
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<DropdownOngController>(

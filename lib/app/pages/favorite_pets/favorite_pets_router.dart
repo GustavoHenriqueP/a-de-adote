@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_controller.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_page.dart';
+import 'package:a_de_adote/app/repositories/database/cache_control.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class FavoritePetsRouter {
           Provider<PetRepository>(
             create: ((context) => PetRepositoryImpl(
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<FavoritePetsController>(

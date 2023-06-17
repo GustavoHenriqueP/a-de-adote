@@ -10,11 +10,13 @@ import '../database/cache_control.dart';
 import '../database/db_firestore.dart';
 
 class PetRepositoryImpl implements PetRepository {
-  late FirebaseFirestore db;
   final AuthService auth;
+  final CacheControl cacheControl;
+  late FirebaseFirestore db;
 
   PetRepositoryImpl({
     required this.auth,
+    required this.cacheControl,
   }) {
     _startFirestore();
   }
@@ -36,56 +38,73 @@ class PetRepositoryImpl implements PetRepository {
     try {
       QuerySnapshot<Map<String, dynamic>> ongCollection;
 
-      if (!refresh) {
-        final bool updateCacheOngs = await CacheControl.canUpdateCacheOngs();
-        if (!updateCacheOngs) {
+      if (refresh) {
+        ongCollection = await db.collection('ong').get();
+
+        if (ongCollection.docs.isNotEmpty) {
+          for (var ong in ongCollection.docs) {
+            QuerySnapshot<Map<String, dynamic>> pets;
+            pets = await db.collection('ong/${ong.id}/animais').get();
+
+            if (pets.docs.isNotEmpty) {
+              listaPets.addAll(
+                pets.docs
+                    .map(
+                      (pet) => PetModel.fromMap(
+                        pet.data(),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+          }
+        }
+      } else {
+        final bool updateCacheOngs = await cacheControl.canUpdateCacheOngs();
+        final bool updateCachePets = await cacheControl.canUpdateCachePets();
+
+        if (!updateCacheOngs && !updateCachePets) {
           ongCollection = await db
               .collection('ong')
               .get(const GetOptions(source: Source.cache));
+
+          if (ongCollection.docs.isEmpty) {
+            ongCollection = await db.collection('ong').get();
+          }
         } else {
           ongCollection = await db.collection('ong').get();
         }
-      } else {
-        ongCollection = await db.collection('ong').get();
-      }
 
-      if (ongCollection.docs.isEmpty) {
-        ongCollection = await db.collection('ong').get();
-      }
-
-      if (ongCollection.docs.isNotEmpty) {
-        for (var ong in ongCollection.docs) {
-          QuerySnapshot<Map<String, dynamic>> pets;
-          if (!refresh) {
-            final bool updateCachePets =
-                await CacheControl.canUpdateCachePets();
+        if (ongCollection.docs.isNotEmpty) {
+          for (var ong in ongCollection.docs) {
+            QuerySnapshot<Map<String, dynamic>> pets;
             if (!updateCachePets) {
               pets = await db
                   .collection('ong/${ong.id}/animais')
                   .get(const GetOptions(source: Source.cache));
+
+              if (pets.docs.isEmpty) {
+                pets = await db.collection('ong/${ong.id}/animais').get();
+              }
             } else {
               pets = await db.collection('ong/${ong.id}/animais').get();
             }
-          } else {
-            pets = await db.collection('ong/${ong.id}/animais').get();
-          }
-          if (pets.docs.isEmpty) {
-            pets = await db.collection('ong/${ong.id}/animais').get();
-          }
 
-          if (pets.docs.isNotEmpty) {
-            listaPets.addAll(
-              pets.docs
-                  .map(
-                    (pet) => PetModel.fromMap(
-                      pet.data(),
-                    ),
-                  )
-                  .toList(),
-            );
+            if (pets.docs.isNotEmpty) {
+              listaPets.addAll(
+                pets.docs
+                    .map(
+                      (pet) => PetModel.fromMap(
+                        pet.data(),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
           }
         }
       }
+
       return listaPets;
     } on FirebaseException catch (e, s) {
       log('Houve um erro ao listar os pets.', error: e, stackTrace: s);

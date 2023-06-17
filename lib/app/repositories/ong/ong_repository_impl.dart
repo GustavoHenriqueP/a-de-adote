@@ -13,11 +13,13 @@ import 'ong_repository.dart';
 class OngRepositoryImpl implements OngRepository {
   final CustomDio dio;
   final AuthService auth;
+  final CacheControl cacheControl;
   late FirebaseFirestore db;
 
   OngRepositoryImpl({
     required this.dio,
     required this.auth,
+    required this.cacheControl,
   }) {
     _startFirestore();
   }
@@ -83,7 +85,7 @@ class OngRepositoryImpl implements OngRepository {
       QuerySnapshot<Map<String, dynamic>> snapshot;
 
       if (!refresh) {
-        final bool updateCache = await CacheControl.canUpdateCacheOngs();
+        final bool updateCache = await cacheControl.canUpdateCacheOngs();
         if (!updateCache) {
           snapshot = await db
               .collection('ong')
