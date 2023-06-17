@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'db_firestore.dart';
 
 class CacheControl {
@@ -16,7 +13,6 @@ class CacheControl {
       final snapshot = await DbFirestore.instance.collection('variaveis').get();
       int? maximumTimeCache = snapshot.docs.first.data()['maximumTimeCache'];
       _maximumTime = maximumTimeCache ?? 8;
-      log(_maximumTime.toString());
     } on FirebaseException catch (_) {
       _maximumTime = 8;
     }
@@ -34,7 +30,6 @@ class CacheControl {
 
     DateTime lastCacheDateTime = DateTime.parse(lastCacheString);
     int timeDifference = DateTime.now().difference(lastCacheDateTime).inHours;
-    log(_maximumTime.toString());
     if (timeDifference >= _maximumTime) {
       await sp.setString('lastCacheDateOngs', DateTime.now().toIso8601String());
       return true;
