@@ -95,6 +95,10 @@ class OngRepositoryImpl implements OngRepository {
         }
       } else {
         snapshot = await db.collection('ong').get();
+        if (snapshot.metadata.isFromCache) {
+          throw FirestoreException(
+              'Não foi possível atualizar as informações. Verifique sua conexão à internet.');
+        }
       }
 
       if (snapshot.docs.isEmpty) {

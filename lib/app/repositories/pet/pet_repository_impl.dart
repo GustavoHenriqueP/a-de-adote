@@ -40,7 +40,10 @@ class PetRepositoryImpl implements PetRepository {
 
       if (refresh) {
         ongCollection = await db.collection('ong').get();
-
+        if (ongCollection.metadata.isFromCache) {
+          throw FirestoreException(
+              'Não foi possível atualizar as informações. Verifique sua conexão à internet.');
+        }
         if (ongCollection.docs.isNotEmpty) {
           for (var ong in ongCollection.docs) {
             QuerySnapshot<Map<String, dynamic>> pets;
@@ -122,7 +125,6 @@ class PetRepositoryImpl implements PetRepository {
           .collection('ong/${auth.ongUser?.uid}/animais')
           .get(const GetOptions(source: Source.cache));
       if (snapshot.docs.isEmpty) {
-        log('Indo para o servidor...');
         snapshot =
             await db.collection('ong/${auth.ongUser?.uid}/animais').get();
       }
