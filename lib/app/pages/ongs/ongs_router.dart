@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/pages/ongs/ongs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/rest_client/custom_dio.dart';
+import '../../repositories/database/cache_control.dart';
 import '../../repositories/ong/ong_repository.dart';
 import '../../repositories/ong/ong_repository_impl.dart';
 import '../../services/auth_service.dart';
@@ -16,6 +17,7 @@ class OngsRouter {
             create: (context) => OngRepositoryImpl(
               dio: context.read<CustomDio>(),
               auth: context.read<AuthService>(),
+              cacheControl: context.read<CacheControl>(),
             ),
           ),
           Provider<OngsController>(

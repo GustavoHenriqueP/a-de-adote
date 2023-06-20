@@ -1,3 +1,4 @@
+import 'package:a_de_adote/app/repositories/database/cache_control.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +10,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final sp = await SharedPreferences.getInstance();
-  runApp(AdeAdoteApp(sp: sp));
+
+  try {
+    await CacheControl.initializingCacheControl();
+  } on FirebaseException catch (_) {
+  } finally {
+    final sp = await SharedPreferences.getInstance();
+    runApp(AdeAdoteApp(sp: sp));
+  }
 }

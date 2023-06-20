@@ -21,6 +21,7 @@ import 'package:like_button/like_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/ui/helpers/alert_dialog_confirmation_message.dart';
 import '../../models/pet_model.dart';
+import '../../repositories/database/cache_control.dart';
 
 class PetDetailsPage extends StatefulWidget {
   final PetModel pet;
@@ -370,8 +371,10 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                 try {
                                   OngRepository ongRepository =
                                       OngRepositoryImpl(
-                                          dio: context.read(),
-                                          auth: context.read());
+                                    dio: context.read(),
+                                    auth: context.read(),
+                                    cacheControl: context.read<CacheControl>(),
+                                  );
                                   final ong = await ongRepository
                                       .getOngById(state.pet!.ongId!);
                                   await WhatsappLaunchService.openWhatsApp(
@@ -421,24 +424,32 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.02,
-                    top: MediaQuery.of(context).size.height * 0.04,
+                    left: MediaQuery.of(context).size.width * 0.04,
+                    top: MediaQuery.of(context).size.height * 0.05,
                   ),
                   child: Align(
                     alignment: AlignmentDirectional.topStart,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 24,
-                        color: ProjectColors.light,
-                      ),
-                      onPressed: () {
+                    child: InkWell(
+                      onTap: () {
                         if (widget.isEditable ?? false) {
                           Navigator.pop(context, _edited);
                         } else {
                           Navigator.of(context).pop();
                         }
                       },
+                      child: Container(
+                        height: 32,
+                        width: 32,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ProjectColors.primaryLight.withOpacity(0.2),
+                        ),
+                        child: const Icon(
+                          Icons.arrow_back,
+                          size: 24,
+                          color: ProjectColors.light,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -448,16 +459,24 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                           widget.pet.ongId,
                   child: Padding(
                     padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width * 0.02,
-                      top: MediaQuery.of(context).size.height * 0.04,
+                      right: MediaQuery.of(context).size.width * 0.04,
+                      top: MediaQuery.of(context).size.height * 0.05,
                     ),
                     child: Align(
                       alignment: AlignmentDirectional.topEnd,
                       child: PopupMenuButton(
-                        icon: const Icon(
-                          Icons.more_vert,
-                          size: 24,
-                          color: ProjectColors.light,
+                        child: Container(
+                          height: 32,
+                          width: 32,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ProjectColors.primaryLight.withOpacity(0.2),
+                          ),
+                          child: const Icon(
+                            Icons.more_vert,
+                            size: 24,
+                            color: ProjectColors.light,
+                          ),
                         ),
                         itemBuilder: (context) => [
                           PopupMenuItem(

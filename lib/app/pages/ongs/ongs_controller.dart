@@ -13,10 +13,12 @@ class OngsController extends Cubit<OngsState> {
     this._ongRepository,
   ) : super(OngsState.initial());
 
-  Future<void> loadAllOngs() async {
+  Future<void> loadAllOngs({required bool refresh}) async {
     try {
-      emit(state.copyWith(status: OngsStatus.loading));
-      final listOngs = await _ongRepository.getOngs();
+      refresh
+          ? emit(state.copyWith(status: OngsStatus.refreshing))
+          : emit(state.copyWith(status: OngsStatus.loading));
+      final listOngs = await _ongRepository.getOngs(refresh: refresh);
       state.listOngs = listOngs;
       if (FiltersState.ongCurrentFilters == null) {
         emit(state.copyWith(status: OngsStatus.loaded));

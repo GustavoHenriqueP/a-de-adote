@@ -336,18 +336,26 @@ class OngDetailsPage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              top: MediaQuery.of(context).size.height * 0.04,
+              left: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.height * 0.05,
             ),
             child: Align(
               alignment: AlignmentDirectional.topStart,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 24,
-                  color: ProjectColors.light,
+              child: InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
+                  height: 32,
+                  width: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ProjectColors.primaryLight.withOpacity(0.2),
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 24,
+                    color: ProjectColors.light,
+                  ),
                 ),
-                onPressed: () => Navigator.of(context).pop(),
               ),
             ),
           ),

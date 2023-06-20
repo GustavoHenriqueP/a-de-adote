@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_drawer.dart';
@@ -25,18 +27,20 @@ class OngsPage extends StatefulWidget {
 class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
   final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = true;
+  final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<OngsController>().loadAllOngs();
+      context.read<OngsController>().loadAllOngs(refresh: false);
     });
   }
 
   @override
   void dispose() {
     _isSearchBar.dispose();
+    _loadShimmerEffect.dispose();
     super.dispose();
   }
 
@@ -119,61 +123,81 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
                   int lengthListOngsSearched = state.listOngsSearched.length;
                   int lengthListOngsFiltered = state.listOngsFiltered.length;
 
+                  if (_isLoading) {
+                    Timer(
+                      const Duration(milliseconds: 100),
+                      () => _loadShimmerEffect.value = true,
+                    );
+                  }
+
                   return _isLoading
-                      ? ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: 2,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(top: index == 0 ? 0 : 15.0),
-                              child: const SizedBox(
-                                height: 285,
-                                child: StandardShimmerEffect(),
+                      ? ValueListenableBuilder(
+                          valueListenable: _loadShimmerEffect,
+                          builder: (BuildContext context, bool canBeVisible,
+                              Widget? child) {
+                            return Visibility(
+                              visible: canBeVisible,
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(10),
+                                itemCount: 2,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        top: index == 0 ? 0 : 15.0),
+                                    child: const SizedBox(
+                                      height: 285,
+                                      child: StandardShimmerEffect(),
+                                    ),
+                                  );
+                                },
                               ),
                             );
-                          },
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: lengthListOngsFiltered != 0
-                              ? lengthListOngsFiltered
-                              : lengthListOngsSearched != 0
-                                  ? lengthListOngsSearched
-                                  : lengthListOngs,
-                          itemBuilder: (context, index) {
-                            return OpenContainer(
-                              tappable: false,
-                              closedColor: Colors.transparent,
-                              closedElevation: 0,
-                              closedShape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              transitionDuration:
-                                  const Duration(milliseconds: 500),
-                              transitionType: ContainerTransitionType.fade,
-                              openBuilder: (context, _) => OngDetailsPage(
-                                ong: state.listOngsFiltered.isNotEmpty
-                                    ? state.listOngsFiltered[index]
-                                    : state.listOngsSearched.isNotEmpty
-                                        ? state.listOngsSearched[index]
-                                        : state.listOngs[index],
-                              ),
-                              closedBuilder:
-                                  (context, VoidCallback openContainer) =>
-                                      Padding(
-                                padding:
-                                    EdgeInsets.only(top: index == 0 ? 0 : 10.0),
-                                child: OngCard(
+                          })
+                      : RefreshIndicator.adaptive(
+                          onRefresh: () => context
+                              .read<OngsController>()
+                              .loadAllOngs(refresh: true),
+                          child: ListView.builder(
+                            padding: const EdgeInsets.all(10),
+                            itemCount: lengthListOngsFiltered != 0
+                                ? lengthListOngsFiltered
+                                : lengthListOngsSearched != 0
+                                    ? lengthListOngsSearched
+                                    : lengthListOngs,
+                            itemBuilder: (context, index) {
+                              return OpenContainer(
+                                tappable: false,
+                                closedColor: Colors.transparent,
+                                closedElevation: 0,
+                                closedShape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                transitionDuration:
+                                    const Duration(milliseconds: 500),
+                                transitionType: ContainerTransitionType.fade,
+                                openBuilder: (context, _) => OngDetailsPage(
                                   ong: state.listOngsFiltered.isNotEmpty
                                       ? state.listOngsFiltered[index]
                                       : state.listOngsSearched.isNotEmpty
                                           ? state.listOngsSearched[index]
                                           : state.listOngs[index],
-                                  onTap: openContainer,
                                 ),
-                              ),
-                            );
-                          },
+                                closedBuilder:
+                                    (context, VoidCallback openContainer) =>
+                                        Padding(
+                                  padding: EdgeInsets.only(
+                                      top: index == 0 ? 0 : 10.0),
+                                  child: OngCard(
+                                    ong: state.listOngsFiltered.isNotEmpty
+                                        ? state.listOngsFiltered[index]
+                                        : state.listOngsSearched.isNotEmpty
+                                            ? state.listOngsSearched[index]
+                                            : state.listOngs[index],
+                                    onTap: openContainer,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         );
                 },
               ),

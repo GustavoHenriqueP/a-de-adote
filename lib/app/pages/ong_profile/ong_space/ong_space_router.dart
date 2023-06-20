@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/repositories/pet/pet_repository_impl.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../repositories/database/cache_control.dart';
 import '../../../repositories/ong/ong_repository.dart';
 import '../../../repositories/ong/ong_repository_impl.dart';
 import '../../../repositories/photos/photos_repository.dart';
@@ -19,11 +20,13 @@ class OngSpaceRouter {
             create: ((context) => OngRepositoryImpl(
                   dio: context.read(),
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<PetRepository>(
             create: ((context) => PetRepositoryImpl(
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<PhotosRepository>(

@@ -6,14 +6,17 @@ import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:crypto/crypto.dart';
 import '../../core/exceptions/firestore_exception.dart';
 import '../../services/auth_service.dart';
+import '../database/cache_control.dart';
 import '../database/db_firestore.dart';
 
 class PetRepositoryImpl implements PetRepository {
-  late FirebaseFirestore db;
   final AuthService auth;
+  final CacheControl cacheControl;
+  late FirebaseFirestore db;
 
   PetRepositoryImpl({
     required this.auth,
+    required this.cacheControl,
   }) {
     _startFirestore();
   }
@@ -30,26 +33,81 @@ class PetRepositoryImpl implements PetRepository {
   }
 
   @override
-  Future<List<PetModel>> getPets() async {
+  Future<List<PetModel>> getPets({required bool refresh}) async {
+    List<PetModel> listaPets = [];
     try {
-      List<PetModel> listaPets = [];
-      final ongCollection = await db.collection('ong').get();
-      if (ongCollection.docs.isNotEmpty) {
-        for (var ong in ongCollection.docs) {
-          final pets = await db.collection('ong/${ong.id}/animais').get();
-          if (pets.docs.isNotEmpty) {
-            listaPets.addAll(
-              pets.docs
-                  .map(
-                    (pet) => PetModel.fromMap(
-                      pet.data(),
-                    ),
-                  )
-                  .toList(),
-            );
+      QuerySnapshot<Map<String, dynamic>> ongCollection;
+
+      if (refresh) {
+        ongCollection = await db.collection('ong').get();
+        if (ongCollection.metadata.isFromCache) {
+          throw FirestoreException(
+              'Não foi possível atualizar as informações. Verifique sua conexão à internet.');
+        }
+        if (ongCollection.docs.isNotEmpty) {
+          for (var ong in ongCollection.docs) {
+            QuerySnapshot<Map<String, dynamic>> pets;
+            pets = await db.collection('ong/${ong.id}/animais').get();
+
+            if (pets.docs.isNotEmpty) {
+              listaPets.addAll(
+                pets.docs
+                    .map(
+                      (pet) => PetModel.fromMap(
+                        pet.data(),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+          }
+        }
+      } else {
+        final bool updateCacheOngs = await cacheControl.canUpdateCacheOngs();
+        final bool updateCachePets = await cacheControl.canUpdateCachePets();
+
+        if (!updateCacheOngs && !updateCachePets) {
+          ongCollection = await db
+              .collection('ong')
+              .get(const GetOptions(source: Source.cache));
+
+          if (ongCollection.docs.isEmpty) {
+            ongCollection = await db.collection('ong').get();
+          }
+        } else {
+          ongCollection = await db.collection('ong').get();
+        }
+
+        if (ongCollection.docs.isNotEmpty) {
+          for (var ong in ongCollection.docs) {
+            QuerySnapshot<Map<String, dynamic>> pets;
+            if (!updateCachePets) {
+              pets = await db
+                  .collection('ong/${ong.id}/animais')
+                  .get(const GetOptions(source: Source.cache));
+
+              if (pets.docs.isEmpty) {
+                pets = await db.collection('ong/${ong.id}/animais').get();
+              }
+            } else {
+              pets = await db.collection('ong/${ong.id}/animais').get();
+            }
+
+            if (pets.docs.isNotEmpty) {
+              listaPets.addAll(
+                pets.docs
+                    .map(
+                      (pet) => PetModel.fromMap(
+                        pet.data(),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
           }
         }
       }
+
       return listaPets;
     } on FirebaseException catch (e, s) {
       log('Houve um erro ao listar os pets.', error: e, stackTrace: s);
@@ -62,8 +120,14 @@ class PetRepositoryImpl implements PetRepository {
   Future<List<PetModel>> getCurrentUserPets() async {
     try {
       List<PetModel> listaPets = [];
-      final snapshot =
-          await db.collection('ong/${auth.ongUser?.uid}/animais').get();
+      QuerySnapshot<Map<String, dynamic>> snapshot;
+      snapshot = await db
+          .collection('ong/${auth.ongUser?.uid}/animais')
+          .get(const GetOptions(source: Source.cache));
+      if (snapshot.docs.isEmpty) {
+        snapshot =
+            await db.collection('ong/${auth.ongUser?.uid}/animais').get();
+      }
       if (snapshot.docs.isNotEmpty) {
         listaPets = snapshot.docs
             .map(

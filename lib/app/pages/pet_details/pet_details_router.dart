@@ -5,6 +5,7 @@ import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../repositories/database/cache_control.dart';
 import '../../services/auth_service.dart';
 
 class PetDetailsRouter {
@@ -21,6 +22,7 @@ class PetDetailsRouter {
           Provider<PetRepository>(
             create: ((context) => PetRepositoryImpl(
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<PetDetailsController>(

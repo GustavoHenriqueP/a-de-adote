@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/core/rest_client/custom_dio.dart';
 import 'package:a_de_adote/app/pages/home/tabs_state.dart';
+import 'package:a_de_adote/app/repositories/database/cache_control.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ class ApplicationBinding extends StatelessWidget {
       providers: [
         Provider(
           create: (context) => CustomDio(),
+        ),
+        Provider(
+          create: (context) => CacheControl(),
         ),
         ChangeNotifierProvider(
           create: (context) => AuthService(),

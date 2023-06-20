@@ -6,6 +6,8 @@ import 'package:a_de_adote/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../repositories/database/cache_control.dart';
+
 class OngAnimalsRouter {
   OngAnimalsRouter._();
 
@@ -14,6 +16,7 @@ class OngAnimalsRouter {
           Provider<PetRepository>(
             create: ((context) => PetRepositoryImpl(
                   auth: context.read<AuthService>(),
+                  cacheControl: context.read<CacheControl>(),
                 )),
           ),
           Provider<OngAnimalsController>(
