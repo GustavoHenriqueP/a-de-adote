@@ -2,7 +2,7 @@ import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:flutter/material.dart';
 
-import 'helpers/address_fields_helper_state.dart';
+import 'helpers/body_visibility_helper_state.dart';
 
 // ignore: must_be_immutable
 class CustomExpansionButtonTile extends StatefulWidget {
@@ -52,7 +52,7 @@ class _CustomExpansionButtonTileState extends State<CustomExpansionButtonTile>
               borderRadius: BorderRadius.circular(6),
               onTap: () {
                 _isExpanded.value = !_isExpanded.value;
-                AddressFieldsHelperState.bodyIsVisible = _isExpanded.value;
+                BodyVisibilityHelperState.bodyIsVisible = _isExpanded.value;
 
                 if (!expanded) {
                   _controllerBody.forward();

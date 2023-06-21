@@ -2,7 +2,7 @@ import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/pages/ong_register/informations_form/widgets/custom_expansion_button_tile.dart';
-import 'package:a_de_adote/app/pages/ong_register/informations_form/widgets/helpers/address_fields_helper_state.dart';
+import 'package:a_de_adote/app/pages/ong_register/informations_form/widgets/helpers/body_visibility_helper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/ui/styles/project_colors.dart';
@@ -65,7 +65,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
 
   void salvar() {
     if (_formKey.currentState!.validate()) {
-      if (!AddressFieldsHelperState.bodyIsVisible) {
+      if (!BodyVisibilityHelperState.bodyIsVisible) {
         _cep.text = '';
         _logradouro.text = '';
         _numero.text = '';

@@ -1,3 +1,3 @@
-class AddressFieldsHelperState {
+class BodyVisibilityHelperState {
   static bool bodyIsVisible = false;
 }
