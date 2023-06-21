@@ -9,10 +9,10 @@ class OngModel extends Equatable {
   final String nome;
   final String? telefone;
   final String? whatsapp;
-  final String cep;
-  final String logradouro;
-  final String numero;
-  final String bairro;
+  final String? cep;
+  final String? logradouro;
+  final String? numero;
+  final String? bairro;
   final String? complemento;
   final String municipio;
   final String uf;
@@ -28,10 +28,10 @@ class OngModel extends Equatable {
     required this.nome,
     this.telefone,
     this.whatsapp,
-    required this.cep,
-    required this.logradouro,
-    required this.numero,
-    required this.bairro,
+    this.cep,
+    this.logradouro,
+    this.numero,
+    this.bairro,
     this.complemento,
     required this.municipio,
     required this.uf,
@@ -111,10 +111,11 @@ class OngModel extends Equatable {
       nome: map['nome'] as String,
       telefone: map['telefone'] != null ? map['telefone'] as String : null,
       whatsapp: map['whatsapp'] != null ? map['whatsapp'] as String : null,
-      cep: map['cep'] as String,
-      logradouro: map['logradouro'] as String,
-      numero: map['numero'] as String,
-      bairro: map['bairro'] as String,
+      cep: map['cep'] != null ? map['cep'] as String : null,
+      logradouro:
+          map['logradouro'] != null ? map['logradouro'] as String : null,
+      numero: map['numero'] != null ? map['numero'] as String : null,
+      bairro: map['bairro'] != null ? map['bairro'] as String : null,
       complemento:
           map['complemento'] != null ? map['complemento'] as String : null,
       municipio: map['municipio'] as String,

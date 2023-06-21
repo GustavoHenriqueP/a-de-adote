@@ -47,6 +47,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
   void dispose() {
     isExpanded.dispose();
     _controllerArrow.dispose();
+    _controllerBody.dispose();
     super.dispose();
   }
 

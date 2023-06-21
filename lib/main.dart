@@ -13,7 +13,7 @@ Future<void> main() async {
 
   try {
     await CacheControl.initializingCacheControl();
-  } on FirebaseException catch (_) {
+  } catch (_) {
   } finally {
     final sp = await SharedPreferences.getInstance();
     runApp(AdeAdoteApp(sp: sp));

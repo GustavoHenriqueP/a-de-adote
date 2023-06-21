@@ -1,6 +1,8 @@
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
+import 'package:a_de_adote/app/pages/ong_register/informations_form/widgets/custom_expansion_button_tile.dart';
+import 'package:a_de_adote/app/pages/ong_register/informations_form/widgets/helpers/address_fields_helper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/ui/styles/project_colors.dart';
@@ -41,11 +43,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
       _nomeFantasia.text = ongModel?.fantasia ?? '';
       _razaoSocial.text = ongModel?.nome ?? '';
       _telefone.text = ongModel?.telefone ?? '';
-      _cep.text = ongModel?.cep ?? '';
-      _logradouro.text = ongModel?.logradouro ?? '';
-      _numero.text = ongModel?.numero ?? '';
-      _bairro.text = ongModel?.bairro ?? '';
-      _complemento.text = ongModel?.complemento ?? '';
       _cidade.text = ongModel?.municipio ?? '';
       _uf.text = ongModel?.uf ?? '';
     });
@@ -68,6 +65,14 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
 
   void salvar() {
     if (_formKey.currentState!.validate()) {
+      if (!AddressFieldsHelperState.bodyIsVisible) {
+        _cep.text = '';
+        _logradouro.text = '';
+        _numero.text = '';
+        _bairro.text = '';
+        _complemento.text = '';
+      }
+
       var model = ongModel?.copyWith(
         fantasia: _nomeFantasia.text,
         nome: _razaoSocial.text,
@@ -81,6 +86,7 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
         municipio: _cidade.text,
         uf: _uf.text,
       );
+
       Navigator.pushNamed(context, '/usuario', arguments: model);
     }
   }
@@ -180,85 +186,6 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           const SizedBox(
                             height: 15,
                           ),
-                          StandardFormInput(
-                            controller: _cep,
-                            labelText: Labels.cep,
-                            mask: [context.maskFormatters.maskCEPFormatter],
-                            inputType: TextInputType.number,
-                            validator: (value) {
-                              if ((value!.isEmpty) || (value.length < 10)) {
-                                return Labels.cepValido;
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 4,
-                                child: StandardFormInput(
-                                  controller: _logradouro,
-                                  labelText: Labels.logradouro,
-                                  mask: [LengthLimitingTextInputFormatter(100)],
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return Labels.logValido;
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Expanded(
-                                child: StandardFormInput(
-                                  controller: _numero,
-                                  labelText: Labels.n,
-                                  mask: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(4),
-                                  ],
-                                  inputType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return Labels.invalido;
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          StandardFormInput(
-                            controller: _bairro,
-                            labelText: Labels.bairro,
-                            mask: [LengthLimitingTextInputFormatter(30)],
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return Labels.bairroValido;
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          StandardFormInput(
-                            controller: _complemento,
-                            labelText: Labels.complemento,
-                            mask: [LengthLimitingTextInputFormatter(100)],
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -305,6 +232,104 @@ class _ONGInformationsFormPageState extends State<ONGInformationsFormPage> {
                           ),
                           const SizedBox(
                             height: 15,
+                          ),
+                          CustomExpansionButtonTile(
+                            title: 'Endereço Completo (Opcional)',
+                            bodyPadding:
+                                const EdgeInsets.symmetric(vertical: 10),
+                            body: Column(
+                              children: [
+                                StandardFormInput(
+                                  controller: _cep,
+                                  labelText: Labels.cep,
+                                  mask: [
+                                    context.maskFormatters.maskCEPFormatter
+                                  ],
+                                  inputType: TextInputType.number,
+                                  validator: (value) {
+                                    if ((value!.isEmpty) &&
+                                        (value.length < 10)) {
+                                      return Labels.cepValido;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: StandardFormInput(
+                                        controller: _logradouro,
+                                        labelText: Labels.logradouro,
+                                        mask: [
+                                          LengthLimitingTextInputFormatter(100)
+                                        ],
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return Labels.logValido;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Expanded(
+                                      child: StandardFormInput(
+                                        controller: _numero,
+                                        labelText: Labels.n,
+                                        mask: [
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(4),
+                                        ],
+                                        inputType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return Labels.invalido;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                StandardFormInput(
+                                  controller: _bairro,
+                                  labelText: Labels.bairro,
+                                  mask: [LengthLimitingTextInputFormatter(30)],
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return Labels.bairroValido;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                StandardFormInput(
+                                  controller: _complemento,
+                                  labelText: Labels.complemento,
+                                  mask: [LengthLimitingTextInputFormatter(100)],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
                           ),
                           FormButton(
                             formKey: _formKey,

@@ -45,10 +45,10 @@ mixin UpdateDialogOngData<T extends StatefulWidget> on State<T> {
     _nomeFantasia.text = ong.fantasia;
     _telefone.text = ong.telefone ?? '';
     _whatsapp.text = ong.whatsapp ?? '';
-    _cep.text = ong.cep;
-    _logradouro.text = ong.logradouro;
-    _numero.text = ong.numero;
-    _bairro.text = ong.bairro;
+    _cep.text = ong.cep ?? '';
+    _logradouro.text = ong.logradouro ?? '';
+    _numero.text = ong.numero ?? '';
+    _bairro.text = ong.bairro ?? '';
     _complemento.text = ong.complemento ?? '';
     _cidade.text = ong.municipio;
     _uf.text = ong.uf;

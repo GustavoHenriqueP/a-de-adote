@@ -22,8 +22,13 @@ class OngDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String enderecoConcat =
-        '${ong.logradouro.stringAdjusted}, ${ong.numero} - ${ong.bairro.stringAdjusted} / ${ong.municipio.stringAdjusted} - ${ong.uf} / ${ong.cep}';
+    String enderecoConcat;
+    if (ong.logradouro != null && ong.logradouro != '') {
+      enderecoConcat =
+          '${ong.logradouro?.stringAdjusted}, ${ong.numero} - ${ong.bairro?.stringAdjusted} / ${ong.municipio.stringAdjusted} - ${ong.uf} / ${ong.cep}';
+    } else {
+      enderecoConcat = '${ong.municipio.stringAdjusted} - ${ong.uf}';
+    }
 
     return Scaffold(
       drawer: const StandardDrawer(),
@@ -89,77 +94,158 @@ class OngDetailsPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                for (int i = 0; i < 5; i++)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: i == 4 ? 0.0 : 4.0,
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.info_outline_rounded,
+                                      color: ProjectColors.light,
+                                      size: 18,
                                     ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          i == 0
-                                              ? Icons.info_outline_rounded
-                                              : i == 1
-                                                  ? Icons.email_outlined
-                                                  : i == 2
-                                                      ? Icons.phone_outlined
-                                                      : i == 3
-                                                          ? MaterialCommunityIcons
-                                                              .whatsapp
-                                                          : i == 4
-                                                              ? Icons
-                                                                  .home_outlined
-                                                              : null,
-                                          color: ProjectColors.light,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Flexible(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: i == 0
-                                                      ? Labels.cnpjField
-                                                      : i == 1
-                                                          ? Labels.emailField
-                                                          : i == 2
-                                                              ? Labels.telField
-                                                              : i == 3
-                                                                  ? Labels
-                                                                      .whatsAppField
-                                                                  : i == 4
-                                                                      ? Labels
-                                                                          .enderecoField
-                                                                      : '',
-                                                  style:
-                                                      ProjectFonts.pLightBold,
-                                                ),
-                                                TextSpan(
-                                                  text: i == 0
-                                                      ? ong.cnpj
-                                                      : i == 1
-                                                          ? ong.email
-                                                          : i == 2
-                                                              ? ong.telefone ??
-                                                                  '-'
-                                                              : i == 3
-                                                                  ? ong.whatsapp ??
-                                                                      '-'
-                                                                  : i == 4
-                                                                      ? enderecoConcat
-                                                                      : '',
-                                                  style: ProjectFonts.pLight,
-                                                ),
-                                              ],
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: Labels.cnpjField,
+                                              style: ProjectFonts.pLightBold,
                                             ),
-                                          ),
+                                            TextSpan(
+                                              text: ong.cnpj,
+                                              style: ProjectFonts.pLight,
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.email_outlined,
+                                      color: ProjectColors.light,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: Labels.emailField,
+                                              style: ProjectFonts.pLightBold,
+                                            ),
+                                            TextSpan(
+                                              text: ong.email,
+                                              style: ProjectFonts.pLight,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.phone_outlined,
+                                      color: ProjectColors.light,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: Labels.telField,
+                                              style: ProjectFonts.pLightBold,
+                                            ),
+                                            TextSpan(
+                                              text: ong.telefone ?? ' -',
+                                              style: ProjectFonts.pLight,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      MaterialCommunityIcons.whatsapp,
+                                      color: ProjectColors.light,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: Labels.whatsAppField,
+                                              style: ProjectFonts.pLightBold,
+                                            ),
+                                            TextSpan(
+                                              text: ong.whatsapp ?? ' -',
+                                              style: ProjectFonts.pLight,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.home_outlined,
+                                      color: ProjectColors.light,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: Labels.enderecoField,
+                                              style: ProjectFonts.pLightBold,
+                                            ),
+                                            TextSpan(
+                                              text: enderecoConcat,
+                                              style: ProjectFonts.pLight,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
