@@ -133,8 +133,9 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                             style: ProjectFonts.h5LightBold,
                                           ),
                                           Visibility(
-                                            visible:
-                                                state.pet?.idMicrochip != null,
+                                            visible: state.pet?.idMicrochip !=
+                                                    null &&
+                                                state.pet?.nome != null,
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
