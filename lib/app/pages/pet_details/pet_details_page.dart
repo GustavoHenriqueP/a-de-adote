@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
@@ -45,6 +47,27 @@ class _PetDetailsPageState extends State<PetDetailsPage>
   void initState() {
     super.initState();
     context.read<PetDetailsController>().loadPetState(widget.pet);
+  }
+
+  String getWhatsAppMessage(PetModel pet) {
+    String petReference;
+    if (pet.nome != null && pet.idMicrochip != null) {
+      petReference = '${pet.nome} - № ID: ${pet.idMicrochip}';
+      log(petReference);
+    } else if (pet.nome != null && pet.idMicrochip == null) {
+      petReference = '${pet.nome}';
+      log(petReference);
+    } else if (pet.nome == null && pet.idMicrochip != null) {
+      petReference = '№ ID: ${pet.idMicrochip}';
+      log(petReference);
+    } else {
+      petReference = 'NI';
+    }
+
+    final String message =
+        'Olá! Vim pelo app A de Adote. Adorei o(a) _*$petReference*_ e gostaria de saber mais detalhes dele/dela.';
+
+    return message;
   }
 
   @override
@@ -422,7 +445,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                   await WhatsappLaunchService.openWhatsApp(
                                       ong.whatsapp!
                                           .replaceAll(RegExp(r'[^0-9]'), ''),
-                                      'Olá! Vim pelo app A de Adote. Adorei o(a) _*${state.pet!.nome}*_ e gostaria de saber mais detalhes dele/dela.');
+                                      getWhatsAppMessage(state.pet!));
                                 } on FirestoreException catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
