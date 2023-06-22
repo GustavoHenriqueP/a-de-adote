@@ -128,8 +128,7 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                         children: [
                                           Text(
                                             state.pet?.nome ??
-                                                state.pet?.idMicrochip ??
-                                                'NI',
+                                                '#${state.pet?.idMicrochip ?? 'NI'}',
                                             style: ProjectFonts.h5LightBold,
                                           ),
                                           Visibility(
