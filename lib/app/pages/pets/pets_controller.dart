@@ -48,9 +48,22 @@ class PetsController extends Cubit<PetsState> {
         ),
       );
     } else {
-      final listPetsSearched = state.listPets
-          .where((pet) => pet.nome.toLowerCase() == option.toLowerCase())
-          .toList();
+      final listPetsSearched = state.listPets.where((pet) {
+        if (pet.nome != null) {
+          bool testName = pet.nome?.toLowerCase() == option.toLowerCase();
+          if (testName) {
+            return testName;
+          } else {
+            if (pet.idMicrochip != null) {
+              return pet.idMicrochip?.toLowerCase() == option.toLowerCase();
+            }
+          }
+        } else if (pet.idMicrochip != null) {
+          return pet.idMicrochip?.toLowerCase() == option.toLowerCase();
+        }
+
+        return false;
+      }).toList();
       if (listPetsSearched.isNotEmpty) {
         emit(
           state.copyWith(

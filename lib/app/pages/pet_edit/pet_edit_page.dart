@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validatorless/validatorless.dart';
 import '../../core/ui/helpers/bottom_sheet_image_source.dart';
+import '../../core/ui/styles/project_fonts.dart';
 
 class PetEditPage extends StatefulWidget {
   const PetEditPage({super.key});
@@ -28,6 +29,8 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   PetModel? petModel;
   final _formKey = GlobalKey<FormState>();
   final _nome = TextEditingController();
+  final ValueNotifier<bool> _hasMicrochip = ValueNotifier(false);
+  final _idMicrochip = TextEditingController();
   final ValueNotifier<String?> _especie = ValueNotifier('Cachorro');
   final ValueNotifier<String?> _porte = ValueNotifier('Pequeno');
   final ValueNotifier<String?> _unidadeIdade = ValueNotifier('meses');
@@ -45,7 +48,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollController.jumpTo(60);
+      _scrollController.jumpTo(120);
 
       petModel = ModalRoute.of(context)?.settings.arguments as PetModel;
       String initialUnidadeIdadeValue =
@@ -56,7 +59,11 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
         initialUnidadeIdadeValue = 'meses';
       }
 
-      _nome.text = petModel!.nome;
+      if (petModel!.idMicrochip != null) {
+        _hasMicrochip.value = true;
+      }
+      _nome.text = petModel!.nome ?? '';
+      _idMicrochip.text = petModel!.idMicrochip ?? '';
       _especie.value = petModel!.especie;
       _porte.value = petModel!.porte;
       _unidadeIdade.value = initialUnidadeIdadeValue;
@@ -71,6 +78,25 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
 
       context.read<PetEditController>().updateStateToLoaded();
     });
+  }
+
+  @override
+  void dispose() {
+    _nome.dispose();
+    _hasMicrochip.dispose();
+    _idMicrochip.dispose();
+    _especie.dispose();
+    _porte.dispose();
+    _unidadeIdade.dispose();
+    _sexo.dispose();
+    _idadeAproximada.dispose();
+    _castrado.dispose();
+    _vacina1.dispose();
+    _vacina2.dispose();
+    _vacina3.dispose();
+    _sobre.dispose();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -195,6 +221,79 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                               validator: Validatorless.required(
                                 Labels.nomeAnimalValido,
                               ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ValueListenableBuilder(
+                              valueListenable: _hasMicrochip,
+                              builder: (BuildContext context, bool value,
+                                  Widget? child) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          'CHIP',
+                                          style: ProjectFonts.smallLight,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: 30,
+                                          width: 30,
+                                          color: ProjectColors.lightDark,
+                                          child: Transform.scale(
+                                            scale: 1.9,
+                                            child: Checkbox(
+                                              value: value,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              onChanged: (state) {
+                                                _hasMicrochip.value = state!;
+                                                _idMicrochip.text = '';
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: StandardFormInput(
+                                        controller: _idMicrochip,
+                                        labelText: '№ de Microchip',
+                                        hintText: 'Opcional se digitar um nome',
+                                        maxLength: 30,
+                                        inputType: TextInputType.number,
+                                        enabled: value,
+                                        mask: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        validator: Validatorless.multiple(
+                                          [
+                                            Validatorless.number(
+                                              Labels.nomeAnimalValido,
+                                            ),
+                                            (String? value) {
+                                              if ((value?.isEmpty ?? true) &&
+                                                  _nome.text.isEmpty) {
+                                                return Labels.nomeAnimalValido;
+                                              }
+                                              return null;
+                                            },
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                             const SizedBox(
                               height: 10,

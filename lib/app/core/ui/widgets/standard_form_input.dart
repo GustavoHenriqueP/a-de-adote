@@ -9,6 +9,7 @@ class StandardFormInput extends StatefulWidget {
   final String? hintText;
   final int? maxLength;
   final bool? fullSelectionText;
+  final bool? enabled;
   final Widget? trailing;
   final List<TextInputFormatter>? mask;
   final TextInputType? inputType;
@@ -22,6 +23,7 @@ class StandardFormInput extends StatefulWidget {
     this.hintText,
     this.maxLength,
     this.fullSelectionText,
+    this.enabled,
     this.trailing,
     this.mask,
     this.inputType,
@@ -59,6 +61,7 @@ class _StandardFormInputState extends State<StandardFormInput> {
         style: ProjectFonts.pLight,
         maxLength: widget.maxLength,
         decoration: InputDecoration(
+            enabled: widget.enabled ?? true,
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
@@ -75,6 +78,15 @@ class _StandardFormInputState extends State<StandardFormInput> {
                 color: ProjectColors.danger,
               ),
             ),
+            disabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(6),
+              ),
+              borderSide: BorderSide(
+                width: 1,
+                color: ProjectColors.darkLight,
+              ),
+            ),
             isCollapsed: true,
             contentPadding:
                 const EdgeInsets.only(left: 14, top: 16, bottom: 16),
@@ -84,14 +96,19 @@ class _StandardFormInputState extends State<StandardFormInput> {
               ),
             ),
             filled: true,
-            fillColor: ProjectColors.light.withOpacity(0.2),
+            fillColor: (widget.enabled ?? true)
+                ? ProjectColors.light.withOpacity(0.2)
+                : const Color.fromARGB(255, 102, 102, 102).withOpacity(0.8),
             counterText: '',
             hintText: widget.hintText,
             hintStyle: const TextStyle(
               color: ProjectColors.secondary,
             ),
             labelText: widget.labelText,
-            labelStyle: ProjectFonts.pLight,
+            labelStyle: (widget.enabled ?? true)
+                ? ProjectFonts.pLight
+                : ProjectFonts.pLight
+                    .copyWith(color: const Color.fromARGB(255, 190, 190, 190)),
             errorStyle: const TextStyle(
               color: ProjectColors.danger,
               fontWeight: FontWeight.bold,

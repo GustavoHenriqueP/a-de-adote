@@ -79,7 +79,7 @@ class OngAnimalCard extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Text(
-                                pet.nome,
+                                pet.nome ?? '#${pet.idMicrochip ?? 'NI'}',
                                 style:
                                     ProjectFonts.h6SecundaryDarkBold.copyWith(
                                   overflow: TextOverflow.ellipsis,

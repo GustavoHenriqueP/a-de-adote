@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/dropdown_menu_items.dart';
 import 'package:a_de_adote/app/core/ui/helpers/alert_dialog_alert.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
+import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:a_de_adote/app/core/ui/widgets/checkbox_row.dart';
 import 'package:a_de_adote/app/core/ui/widgets/expanded_form_input.dart';
 import 'package:a_de_adote/app/core/ui/widgets/form_button.dart';
@@ -29,6 +30,8 @@ class _PetRegisterPageState extends State<PetRegisterPage>
     with BottomSheetImageSource, AlertDialogAlert {
   final _formKey = GlobalKey<FormState>();
   final _nome = TextEditingController();
+  final ValueNotifier<bool> _hasMicrochip = ValueNotifier(false);
+  final _idMicrochip = TextEditingController();
   final ValueNotifier<String?> _especie = ValueNotifier('Cachorro');
   final ValueNotifier<String?> _porte = ValueNotifier('Pequeno');
   final ValueNotifier<String?> _unidadeIdade = ValueNotifier('meses');
@@ -46,8 +49,27 @@ class _PetRegisterPageState extends State<PetRegisterPage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scrollController.jumpTo(60);
+      _scrollController.jumpTo(120);
     });
+  }
+
+  @override
+  void dispose() {
+    _nome.dispose();
+    _hasMicrochip.dispose();
+    _idMicrochip.dispose();
+    _especie.dispose();
+    _porte.dispose();
+    _unidadeIdade.dispose();
+    _sexo.dispose();
+    _idadeAproximada.dispose();
+    _castrado.dispose();
+    _vacina1.dispose();
+    _vacina2.dispose();
+    _vacina3.dispose();
+    _sobre.dispose();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -167,10 +189,88 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                             StandardFormInput(
                               controller: _nome,
                               labelText: Labels.nomeAnimal,
+                              hintText: 'Opcional se digitar um № de Microchip',
                               maxLength: 30,
-                              validator: Validatorless.required(
-                                Labels.nomeAnimalValido,
-                              ),
+                              validator: (String? value) {
+                                if ((value?.isEmpty ?? true) &&
+                                    _idMicrochip.text.isEmpty) {
+                                  return Labels.nomeAnimalValido;
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ValueListenableBuilder(
+                              valueListenable: _hasMicrochip,
+                              builder: (BuildContext context, bool value,
+                                  Widget? child) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          'CHIP',
+                                          style: ProjectFonts.smallLight,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: 30,
+                                          width: 30,
+                                          color: ProjectColors.lightDark,
+                                          child: Transform.scale(
+                                            scale: 1.9,
+                                            child: Checkbox(
+                                              value: value,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              onChanged: (state) {
+                                                _hasMicrochip.value = state!;
+                                                _idMicrochip.text = '';
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: StandardFormInput(
+                                        controller: _idMicrochip,
+                                        labelText: '№ de Microchip',
+                                        hintText: 'Opcional se digitar um nome',
+                                        maxLength: 30,
+                                        inputType: TextInputType.number,
+                                        enabled: value,
+                                        mask: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        validator: Validatorless.multiple(
+                                          [
+                                            Validatorless.number(
+                                              Labels.nomeAnimalValido,
+                                            ),
+                                            (String? value) {
+                                              if ((value?.isEmpty ?? true) &&
+                                                  _nome.text.isEmpty) {
+                                                return Labels.nomeAnimalValido;
+                                              }
+                                              return null;
+                                            },
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                             const SizedBox(
                               height: 10,
@@ -402,7 +502,12 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                       }
 
                                       final PetModel pet = PetModel(
-                                        nome: _nome.text,
+                                        nome: _nome.text == ''
+                                            ? null
+                                            : _nome.text,
+                                        idMicrochip: _idMicrochip.text == ''
+                                            ? null
+                                            : _idMicrochip.text,
                                         idadeAproximada:
                                             '${_idadeAproximada.text} $unidadeIdadeValue',
                                         especie: _especie.value!,

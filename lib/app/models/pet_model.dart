@@ -2,7 +2,8 @@ class PetModel {
   final String? id;
   final String? ongId;
   final String? ongNome;
-  final String nome;
+  final String? nome;
+  final String? idMicrochip;
   final String idadeAproximada;
   final String porte;
   final String especie;
@@ -16,7 +17,8 @@ class PetModel {
     this.id,
     this.ongId,
     this.ongNome,
-    required this.nome,
+    this.nome,
+    this.idMicrochip,
     required this.idadeAproximada,
     required this.porte,
     required this.especie,
@@ -32,6 +34,7 @@ class PetModel {
     String? ongId,
     String? ongNome,
     String? nome,
+    String? idMicrochip,
     String? idadeAproximada,
     String? porte,
     String? especie,
@@ -46,6 +49,7 @@ class PetModel {
       ongId: ongId ?? this.ongId,
       ongNome: ongNome ?? this.ongNome,
       nome: nome ?? this.nome,
+      idMicrochip: nome ?? this.idMicrochip,
       idadeAproximada: idadeAproximada ?? this.idadeAproximada,
       porte: porte ?? this.porte,
       especie: especie ?? this.especie,
@@ -63,6 +67,7 @@ class PetModel {
       'ongId': ongId,
       'ongNome': ongNome,
       'nome': nome,
+      'idMicrochip': idMicrochip,
       'idadeAproximada': idadeAproximada,
       'porte': porte,
       'especie': especie,
@@ -79,7 +84,9 @@ class PetModel {
       id: map['id'] != null ? map['id'] as String : null,
       ongId: map['ongId'] != null ? map['ongId'] as String : null,
       ongNome: map['ongNome'] != null ? map['ongNome'] as String : null,
-      nome: map['nome'] as String,
+      nome: map['nome'] != null ? map['nome'] as String : null,
+      idMicrochip:
+          map['idMicrochip'] != null ? map['idMicrochip'] as String : null,
       idadeAproximada: map['idadeAproximada'] as String,
       porte: map['porte'] as String,
       especie: map['especie'] as String,
@@ -95,6 +102,6 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(id: $id, ongId: $ongId, ongNome: $ongNome, nome: $nome, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(id: $id, ongId: $ongId, ongNome: $ongNome, nome: $nome, nome: $idMicrochip, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
 }

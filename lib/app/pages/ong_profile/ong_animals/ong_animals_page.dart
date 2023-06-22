@@ -32,6 +32,13 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
     });
   }
 
+  List<String> joinNameAndIdList(List<String?> names, List<String?> ids) {
+    List<String> result = [];
+    result.addAll(names.where((nomePet) => nomePet != null).cast());
+    result.addAll(ids.where((idPet) => idPet != null).cast());
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -160,9 +167,13 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                             padding: const EdgeInsets.only(
                                 left: 10, right: 10, top: 10, bottom: 0),
                             child: StandardSearchBar(
-                              listaNomes: state.listPets
-                                  .map((pet) => pet.nome)
-                                  .toList(),
+                              listaNomes: joinNameAndIdList(
+                                  state.listPets
+                                      .map((pet) => pet.nome)
+                                      .toList(),
+                                  state.listPets
+                                      .map((pet) => pet.idMicrochip)
+                                      .toList()),
                               searchFunction: context
                                   .read<OngAnimalsController>()
                                   .loadPetsSearched,

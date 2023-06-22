@@ -216,7 +216,8 @@ class Labels {
   static const meses = "meses";
   static const titleEditarAnimal = "Editar animal";
   static const nomeAnimal = "Nome";
-  static const nomeAnimalValido = "Por favor, insira um nome!";
+  static const nomeAnimalValido =
+      "Por favor, insira um nome ou № de microchip!";
   static const especieValida = "Por favor, insira uma espécie!";
   static const porteValido = "Por favor, insira um porte!";
   static const valorInvalido = "Valor inválido!";

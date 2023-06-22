@@ -121,9 +121,46 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        state.pet!.nome,
-                                        style: ProjectFonts.h5LightBold,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            state.pet?.nome ??
+                                                state.pet?.idMicrochip ??
+                                                'NI',
+                                            style: ProjectFonts.h5LightBold,
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                state.pet?.idMicrochip != null,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                const CircleAvatar(
+                                                  radius: 3,
+                                                  backgroundColor: ProjectColors
+                                                      .primaryLight,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  '#${state.pet?.idMicrochip ?? ''}',
+                                                  style: ProjectFonts.pLight
+                                                      .copyWith(
+                                                    color: const Color.fromARGB(
+                                                        255, 207, 207, 207),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Text(
                                         state.pet!.ongNome ?? '-',
@@ -311,6 +348,11 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                                   : Labels.v5,
                                               infoState: state
                                                   .pet!.vacinas!['vacina3']),
+                                          InfoChip(
+                                              info: 'Microchip',
+                                              infoState:
+                                                  state.pet!.idMicrochip !=
+                                                      null),
                                         ],
                                       ),
                                     ),

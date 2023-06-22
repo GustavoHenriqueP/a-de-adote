@@ -45,6 +45,13 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
     super.dispose();
   }
 
+  List<String> joinNameAndIdList(List<String?> names, List<String?> ids) {
+    List<String> result = [];
+    result.addAll(names.where((nomePet) => nomePet != null).cast());
+    result.addAll(ids.where((idPet) => idPet != null).cast());
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -68,9 +75,13 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                       ? BlocBuilder<PetsController, PetsState>(
                           builder: (context, state) {
                             return StandardSliverSearchBar(
-                              listaNomes: state.listPets
-                                  .map((pet) => pet.nome)
-                                  .toList(),
+                              listaNomes: joinNameAndIdList(
+                                  state.listPets
+                                      .map((pet) => pet.nome)
+                                      .toList(),
+                                  state.listPets
+                                      .map((pet) => pet.idMicrochip)
+                                      .toList()),
                               backButtonFunction: () {
                                 context
                                     .read<PetsController>()
