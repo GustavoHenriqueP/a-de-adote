@@ -1,5 +1,6 @@
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/project_colors.dart';
@@ -9,6 +10,10 @@ import 'filters_state.dart';
 
 mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<String?> _municipio = ValueNotifier('Todos');
+
+  Map<String, dynamic> defaultFilter = {
+    'municipio': 'Todos',
+  };
 
   @override
   void dispose() {
@@ -131,7 +136,9 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         filters = {
                           'municipio': _municipio.value,
                         };
-                        FiltersState.setOngCurrentFilters(filters);
+                        if (!mapEquals(filters, defaultFilter)) {
+                          FiltersState.setOngCurrentFilters(filters);
+                        }
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(

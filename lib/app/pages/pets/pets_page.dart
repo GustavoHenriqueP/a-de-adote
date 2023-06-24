@@ -320,21 +320,49 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
         ),
         floatingActionButton: BlocBuilder<PetsController, PetsState>(
           builder: (context, state) {
-            return FloatingActionButton(
-              backgroundColor: ProjectColors.primary,
-              onPressed: () async => context
-                  .read<PetsController>()
-                  .loadPetsFiltered(
-                      await setPetFilter(true, FiltersState.petCurrentFilters)),
-              child: Badge(
-                isLabelVisible: state.currentFilters != null,
-                backgroundColor: ProjectColors.primaryDark,
-                label: const Text('!'),
-                child: const Icon(
-                  MaterialCommunityIcons.filter_variant,
-                  color: ProjectColors.light,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Visibility(
+                  visible: state.currentFilters != null,
+                  child: Tooltip(
+                    message: 'Remover filtros',
+                    preferBelow: false,
+                    child: FloatingActionButton(
+                      mini: true,
+                      backgroundColor: ProjectColors.lightDark,
+                      onPressed: () async =>
+                          context.read<PetsController>().clearPetsFiltered(),
+                      heroTag: null,
+                      child: const Icon(
+                        Icons.filter_alt_off_outlined,
+                        color: ProjectColors.darkLight,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FloatingActionButton(
+                  backgroundColor: ProjectColors.primary,
+                  onPressed: () async => context
+                      .read<PetsController>()
+                      .loadPetsFiltered(await setPetFilter(
+                          true, FiltersState.petCurrentFilters)),
+                  child: Badge(
+                    isLabelVisible: state.currentFilters != null,
+                    backgroundColor: ProjectColors.primaryDark,
+                    label: const Text('!'),
+                    child: const Icon(
+                      MaterialCommunityIcons.filter_variant,
+                      color: ProjectColors.light,
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         ),
