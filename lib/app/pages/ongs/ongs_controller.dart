@@ -2,6 +2,7 @@ import 'package:a_de_adote/app/models/ong_model.dart';
 import 'package:a_de_adote/app/pages/ongs/ongs_state.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/exceptions/firestore_exception.dart';
 import '../../core/ui/helpers/filters_state.dart';
@@ -72,6 +73,15 @@ class OngsController extends Cubit<OngsState> {
       return;
     }
 
+    final Map<String, dynamic> defaultFilters = {
+      'municipio': 'Todos',
+    };
+
+    if (mapEquals(filters, defaultFilters)) {
+      clearOngsFiltered();
+      return;
+    }
+
     List<OngModel> currentList = state.listOngsSearched.isNotEmpty
         ? state.listOngsSearched
         : state.listOngs;
@@ -93,6 +103,7 @@ class OngsController extends Cubit<OngsState> {
         ),
       );
     } else {
+      FiltersState.ongCurrentFilters = FiltersState.tempOngFilters;
       emit(
         state.copyWith(
           status: OngsStatus.error,
@@ -110,6 +121,7 @@ class OngsController extends Cubit<OngsState> {
   void clearOngsFiltered() {
     state.listOngsFiltered = [];
     state.currentFilters = null;
+    FiltersState.tempOngFilters = null;
     FiltersState.ongCurrentFilters = null;
     emit(
       state.copyWith(status: OngsStatus.loaded),

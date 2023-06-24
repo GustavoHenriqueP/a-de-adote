@@ -1,9 +1,9 @@
-import 'package:a_de_adote/app/core/constants/labels.dart';
+//import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_colors.dart';
 import 'package:a_de_adote/app/core/ui/styles/project_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+//import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/pet_model.dart';
@@ -102,7 +102,7 @@ class PetCard extends StatelessWidget {
                     child: Text(
                       pet.ongNome ?? '-',
                       style: ProjectFonts.smallSecundaryDark.copyWith(
-                        color: const Color(0xFF646464),
+                        //color: const Color(0xFF646464),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -113,6 +113,15 @@ class PetCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
+                          child: Text(
+                            pet.especie,
+                            style: ProjectFonts.smallSecundaryDark.copyWith(
+                              color: const Color(0xFF646464),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        /*Flexible(
                           child: Row(
                             children: [
                               Icon(
@@ -143,7 +152,7 @@ class PetCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
+                        ),*/
                         Flexible(
                           child: Text(
                             pet.idadeAproximada,
@@ -258,7 +267,7 @@ class PetCard extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 10.0),
+          padding: const EdgeInsets.only(top: 20, right: 10.0),
           child: Align(
             alignment: Alignment.centerRight,
             child: FutureBuilder(
@@ -277,11 +286,11 @@ class PetCard extends StatelessWidget {
                   visible:
                       context.read<AuthService>().ongUser == null && isLiked,
                   child: const CircleAvatar(
-                    radius: 6,
+                    radius: 7,
                     backgroundColor: ProjectColors.light,
                     child: Icon(
                       Icons.favorite,
-                      size: 8,
+                      size: 9,
                       color: ProjectColors.primaryLight,
                     ),
                   ),

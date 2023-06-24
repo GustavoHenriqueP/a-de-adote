@@ -159,25 +159,6 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                   ),
                                 ),
                               ),
-                              /*DecorationImage(
-                                image: state.status.matchAny(
-                                  any: () => const AssetImage(
-                                      'assets/images/loaders/filled_fading_balls.gif'),
-                                  loading: () => const AssetImage(
-                                      'assets/images/loaders/filled_fading_balls.gif'),
-                                  petLoaded: () =>
-                                      Image.network(petModel!.fotoUrl!).image,
-                                  imageUpdated: () => Image.file(
-                                    state.image!,
-                                  ).image,
-                                ),
-                                fit: state.status.matchAny(
-                                  initial: () => BoxFit.scaleDown,
-                                  loading: () => BoxFit.scaleDown,
-                                  petUpdated: () => BoxFit.scaleDown,
-                                  any: () => BoxFit.fitWidth,
-                                ),
-                              ),*/
                             ),
                             child: Stack(
                               children: [

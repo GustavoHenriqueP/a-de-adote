@@ -161,6 +161,7 @@ class Labels {
 
   //MAIN PAGE + OTHERS
   static const pets = "Pets";
+  static const animais = "Animais";
   static const ongs = "ONGs";
   static const perfil = "Perfil";
 

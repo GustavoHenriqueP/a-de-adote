@@ -29,7 +29,8 @@ class StandardSliverAppbar extends StatelessWidget
         useMaterial3: false,
       ),
       child: SliverAppBar(
-        backgroundColor: ProjectColors.primary,
+        backgroundColor: ProjectColors.secondaryDark
+            .withOpacity(0.9), //ProjectColors.primary,
         title: Text(
           title,
           style: ProjectFonts.h6Light,

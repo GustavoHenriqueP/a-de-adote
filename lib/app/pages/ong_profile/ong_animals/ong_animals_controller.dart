@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_animals/ong_animals_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
+import 'package:flutter/foundation.dart';
 
 class OngAnimalsController extends Cubit<OngAnimalsState> {
   final PetRepository _petRepository;
@@ -91,6 +92,25 @@ class OngAnimalsController extends Cubit<OngAnimalsState> {
 
   void loadPetsFiltered(Map<String, dynamic>? filters) {
     if (filters == null) {
+      clearPetsFiltered();
+      return;
+    }
+
+    final Map<String, dynamic> defaultFilters = {
+      'ong': 'Todas',
+      'dog': false,
+      'cat': false,
+      'bird': false,
+      'other': false,
+      'idadeMaxima': 20,
+      'sexo': 0,
+      'mini': false,
+      'pequeno': false,
+      'medio': false,
+      'grande': false,
+    };
+
+    if (mapEquals(filters, defaultFilters)) {
       clearPetsFiltered();
       return;
     }

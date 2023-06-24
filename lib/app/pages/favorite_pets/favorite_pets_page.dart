@@ -154,9 +154,18 @@ class _FavoritePetsPageState extends State<FavoritePetsPage> {
                           padding: const EdgeInsets.all(10),
                           itemCount: lengthFavoriteList,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             mainAxisSpacing: 10,
-                            mainAxisExtent: 181,
+                            mainAxisExtent:
+                                MediaQuery.textScaleFactorOf(context) > 1
+                                    ? 198
+                                    : 181,
+
+                            //*Opção mais clean a ser considerada
+                            /*mainAxisExtent:
+                                  MediaQuery.textScaleFactorOf(context) > 1
+                                      ? 180
+                                      : 163,*/
                             crossAxisCount: 2,
                             crossAxisSpacing: 5,
                           ),

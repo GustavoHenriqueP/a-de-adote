@@ -25,8 +25,8 @@ class OngsPage extends StatefulWidget {
 }
 
 class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
-  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = true;
+  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
 
   @override
@@ -206,22 +206,50 @@ class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
         ),
         floatingActionButton: BlocBuilder<OngsController, OngsState>(
           builder: (context, state) {
-            return FloatingActionButton(
-              backgroundColor: ProjectColors.primary,
-              onPressed: () async => context
-                  .read<OngsController>()
-                  .loadOngsFiltered(
-                      (await setOngFilter(FiltersState.ongCurrentFilters))
-                          ?.cast<String, dynamic>()),
-              child: Badge(
-                isLabelVisible: state.currentFilters != null,
-                backgroundColor: ProjectColors.primaryDark,
-                label: const Text('!'),
-                child: const Icon(
-                  MaterialCommunityIcons.filter_variant,
-                  color: ProjectColors.light,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Visibility(
+                  visible: state.currentFilters != null,
+                  child: Tooltip(
+                    message: 'Remover filtro',
+                    preferBelow: false,
+                    child: FloatingActionButton(
+                      mini: true,
+                      backgroundColor: ProjectColors.lightDark,
+                      onPressed: () async =>
+                          context.read<OngsController>().clearOngsFiltered(),
+                      heroTag: null,
+                      child: const Icon(
+                        Icons.filter_alt_off_outlined,
+                        color: ProjectColors.darkLight,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FloatingActionButton(
+                  backgroundColor: ProjectColors.primary,
+                  onPressed: () async => context
+                      .read<OngsController>()
+                      .loadOngsFiltered(
+                          (await setOngFilter(FiltersState.ongCurrentFilters))
+                              ?.cast<String, dynamic>()),
+                  child: Badge(
+                    isLabelVisible: state.currentFilters != null,
+                    backgroundColor: ProjectColors.primaryDark,
+                    label: const Text('!'),
+                    child: const Icon(
+                      MaterialCommunityIcons.filter_variant,
+                      color: ProjectColors.light,
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         ),
