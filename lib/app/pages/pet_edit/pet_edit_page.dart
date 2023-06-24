@@ -11,6 +11,7 @@ import 'package:a_de_adote/app/core/ui/widgets/standard_form_input.dart';
 import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_controller.dart';
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_state.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -142,7 +143,23 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                 color: ProjectColors.primaryLight,
                                 width: 2,
                               ),
-                              image: DecorationImage(
+                              image: state.status.matchAny(
+                                any: () => null,
+                                loading: () => const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/loaders/filled_fading_balls.gif'),
+                                ),
+                                imageUpdated: () => DecorationImage(
+                                  image: Image.file(
+                                    state.image!,
+                                  ).image,
+                                  fit: state.status.matchAny(
+                                    any: () => BoxFit.cover,
+                                    loading: () => BoxFit.scaleDown,
+                                  ),
+                                ),
+                              ),
+                              /*DecorationImage(
                                 image: state.status.matchAny(
                                   any: () => const AssetImage(
                                       'assets/images/loaders/filled_fading_balls.gif'),
@@ -160,10 +177,43 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                   petUpdated: () => BoxFit.scaleDown,
                                   any: () => BoxFit.fitWidth,
                                 ),
-                              ),
+                              ),*/
                             ),
                             child: Stack(
                               children: [
+                                Visibility(
+                                  visible: state.status.matchAny(
+                                    any: () => false,
+                                    initial: () => true,
+                                    petLoaded: () => true,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: CachedNetworkImage(
+                                      width: double.infinity,
+                                      placeholder: (context, url) => Container(
+                                        decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                              'assets/images/loaders/filled_fading_balls.gif',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 700),
+                                      fadeOutDuration:
+                                          const Duration(milliseconds: 300),
+                                      imageUrl: petModel?.fotoUrl ??
+                                          'https://firebasestorage.googleapis.com/v0/b/a-de-adote.appspot.com/o/logos%2Flogo_icon_white_1024.png?alt=media&token=8545f858-a26d-4a17-8b3c-3cdad23ae727',
+                                      fit: state.status.matchAny(
+                                        any: () => BoxFit.cover,
+                                        initial: () => BoxFit.scaleDown,
+                                        loading: () => BoxFit.scaleDown,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: InkWell(
@@ -218,9 +268,13 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                               controller: _nome,
                               labelText: Labels.nomeAnimal,
                               maxLength: 30,
-                              validator: Validatorless.required(
-                                Labels.nomeAnimalValido,
-                              ),
+                              validator: (String? value) {
+                                if ((value?.isEmpty ?? true) &&
+                                    _idMicrochip.text.isEmpty) {
+                                  return Labels.nomeAnimalValido;
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 10,
@@ -253,8 +307,8 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
                                                   MaterialTapTargetSize
                                                       .shrinkWrap,
                                               onChanged: (state) {
-                                                _hasMicrochip.value = state!;
                                                 _idMicrochip.text = '';
+                                                _hasMicrochip.value = state!;
                                               },
                                             ),
                                           ),
@@ -520,6 +574,7 @@ class _PetEditPageState extends State<PetEditPage> with BottomSheetImageSource {
 
                                       final PetModel pet = petModel!.copyWith(
                                         nome: _nome.text,
+                                        idMicrochip: _idMicrochip.text,
                                         idadeAproximada:
                                             '${_idadeAproximada.text} $unidadeIdadeValue',
                                         especie: _especie.value!,

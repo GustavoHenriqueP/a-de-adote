@@ -120,17 +120,19 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                   any: () => const AssetImage(
                                     'assets/images/support/add_a_photo_pet.png',
                                   ),
-                                  loading: () => Image.file(
-                                    state.image!,
-                                  ).image,
+                                  loading: () => const AssetImage(
+                                      'assets/images/loaders/filled_fading_balls.gif'),
+                                  petCreated: () => const AssetImage(
+                                      'assets/images/loaders/filled_fading_balls.gif'),
                                   imageLoaded: () => Image.file(
                                     state.image!,
                                   ).image,
                                 ),
                                 fit: state.status.matchAny(
                                   any: () => BoxFit.scaleDown,
-                                  loading: () => BoxFit.cover,
+                                  loading: () => BoxFit.scaleDown,
                                   imageLoaded: () => BoxFit.cover,
+                                  petCreated: () => BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -502,12 +504,8 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                       }
 
                                       final PetModel pet = PetModel(
-                                        nome: _nome.text == ''
-                                            ? null
-                                            : _nome.text,
-                                        idMicrochip: _idMicrochip.text == ''
-                                            ? null
-                                            : _idMicrochip.text,
+                                        nome: _nome.text,
+                                        idMicrochip: _idMicrochip.text,
                                         idadeAproximada:
                                             '${_idadeAproximada.text} $unidadeIdadeValue',
                                         especie: _especie.value!,

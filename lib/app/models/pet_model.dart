@@ -49,7 +49,7 @@ class PetModel {
       ongId: ongId ?? this.ongId,
       ongNome: ongNome ?? this.ongNome,
       nome: nome ?? this.nome,
-      idMicrochip: nome ?? this.idMicrochip,
+      idMicrochip: idMicrochip ?? this.idMicrochip,
       idadeAproximada: idadeAproximada ?? this.idadeAproximada,
       porte: porte ?? this.porte,
       especie: especie ?? this.especie,
@@ -84,9 +84,14 @@ class PetModel {
       id: map['id'] != null ? map['id'] as String : null,
       ongId: map['ongId'] != null ? map['ongId'] as String : null,
       ongNome: map['ongNome'] != null ? map['ongNome'] as String : null,
-      nome: map['nome'] != null ? map['nome'] as String : null,
+      nome: (map['nome'] != null ? map['nome'] as String : null) == ''
+          ? null
+          : map['nome'],
       idMicrochip:
-          map['idMicrochip'] != null ? map['idMicrochip'] as String : null,
+          (map['idMicrochip'] != null ? map['idMicrochip'] as String : null) ==
+                  ''
+              ? null
+              : map['idMicrochip'],
       idadeAproximada: map['idadeAproximada'] as String,
       porte: map['porte'] as String,
       especie: map['especie'] as String,
@@ -102,6 +107,6 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(id: $id, ongId: $ongId, ongNome: $ongNome, nome: $nome, nome: $idMicrochip, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
+    return 'PetModel(id: $id, ongId: $ongId, ongNome: $ongNome, nome: $nome, idMicrochip: $idMicrochip, idadeAproximada: $idadeAproximada, porte: $porte, especie: $especie, sexo: $sexo, castrado: $castrado, fotoUrl: $fotoUrl, vacinas: $vacinas, descricao: $descricao)';
   }
 }
