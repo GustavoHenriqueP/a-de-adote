@@ -25,8 +25,8 @@ class OngsPage extends StatefulWidget {
 }
 
 class _OngsPageState extends State<OngsPage> with BottomSheetOngFilter {
-  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = true;
+  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
 
   @override

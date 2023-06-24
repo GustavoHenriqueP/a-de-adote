@@ -69,7 +69,7 @@ class _OngProfilePageState extends State<OngProfilePage>
                   bottom: PreferredSize(
                     preferredSize: _tabBar.preferredSize,
                     child: Material(
-                      color: ProjectColors.secondaryDark,
+                      color: Colors.transparent, //ProjectColors.secondaryDark,
                       child: _tabBar,
                     ),
                   ),

@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
               const NavigationDestination(
                 selectedIcon: Icon(Icons.pets),
                 icon: Icon(Icons.pets_outlined),
-                label: Labels.pets,
+                label: Labels.animais,
               ),
               const NavigationDestination(
                 selectedIcon: Icon(Icons.home),

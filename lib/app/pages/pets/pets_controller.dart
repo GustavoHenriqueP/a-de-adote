@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/models/pet_model.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/repositories/pet/pet_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import '../../core/exceptions/firestore_exception.dart';
 
 class PetsController extends Cubit<PetsState> {
@@ -88,6 +89,25 @@ class PetsController extends Cubit<PetsState> {
       return;
     }
 
+    final Map<String, dynamic> defaultFilters = {
+      'ong': 'Todas',
+      'dog': false,
+      'cat': false,
+      'bird': false,
+      'other': false,
+      'idadeMaxima': 20,
+      'sexo': 0,
+      'mini': false,
+      'pequeno': false,
+      'medio': false,
+      'grande': false,
+    };
+
+    if (mapEquals(filters, defaultFilters)) {
+      clearPetsFiltered();
+      return;
+    }
+
     List<PetModel> currentList = state.listPetsSearched.isNotEmpty
         ? state.listPetsSearched
         : state.listPets;
@@ -160,6 +180,7 @@ class PetsController extends Cubit<PetsState> {
         ),
       );
     } else {
+      FiltersState.petCurrentFilters = FiltersState.tempPetFilters;
       emit(
         state.copyWith(
           status: PetsStatus.error,
@@ -177,6 +198,7 @@ class PetsController extends Cubit<PetsState> {
   void clearPetsFiltered() {
     state.listPetsFiltered = [];
     state.currentFilters = null;
+    FiltersState.tempPetFilters = null;
     FiltersState.petCurrentFilters = null;
     emit(
       state.copyWith(status: PetsStatus.loaded),

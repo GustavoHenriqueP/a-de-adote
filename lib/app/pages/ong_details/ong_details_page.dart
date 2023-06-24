@@ -391,7 +391,7 @@ class OngDetailsPage extends StatelessWidget {
                     Timer(
                       const Duration(milliseconds: 500),
                       () {
-                        FiltersState.petCurrentFilters = filter;
+                        FiltersState.setPetCurrentFilters(filter);
                         context.read<TabsState>().setTabIndex(0);
                       },
                     );

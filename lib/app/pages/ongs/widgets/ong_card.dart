@@ -107,7 +107,7 @@ class OngCard extends StatelessWidget {
                               'grande': false,
                             };
 
-                            FiltersState.petCurrentFilters = filter;
+                            FiltersState.setPetCurrentFilters(filter);
                             context.read<TabsState>().setTabIndex(0);
                           },
                           style: ElevatedButton.styleFrom(

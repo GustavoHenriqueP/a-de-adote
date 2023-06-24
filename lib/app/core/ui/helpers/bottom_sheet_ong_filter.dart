@@ -102,7 +102,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                       onPressed: () {
                         _municipio.value = 'Todos';
                         filters = null;
-                        FiltersState.ongCurrentFilters = null;
+                        FiltersState.setOngCurrentFilters(null);
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -131,7 +131,7 @@ mixin BottomSheetOngFilter<T extends StatefulWidget> on State<T> {
                         filters = {
                           'municipio': _municipio.value,
                         };
-                        FiltersState.ongCurrentFilters = filters;
+                        FiltersState.setOngCurrentFilters(filters);
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(

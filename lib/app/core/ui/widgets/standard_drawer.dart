@@ -97,6 +97,8 @@ class _StandardDrawerState extends State<StandardDrawer>
                             if (action == null || action == false) {
                               null;
                             } else {
+                              FiltersState.tempOngFilters = null;
+                              FiltersState.tempPetFilters = null;
                               FiltersState.ongCurrentFilters = null;
                               FiltersState.petCurrentFilters = null;
                               auth.signOut();

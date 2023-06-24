@@ -110,6 +110,7 @@ class OngsController extends Cubit<OngsState> {
   void clearOngsFiltered() {
     state.listOngsFiltered = [];
     state.currentFilters = null;
+    FiltersState.tempOngFilters = null;
     FiltersState.ongCurrentFilters = null;
     emit(
       state.copyWith(status: OngsStatus.loaded),

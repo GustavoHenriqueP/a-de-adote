@@ -13,6 +13,7 @@ import 'package:a_de_adote/app/pages/pet_details/pet_details_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_controller.dart';
 import 'package:a_de_adote/app/pages/pets/pets_state.dart';
 import 'package:a_de_adote/app/pages/pets/widgets/pet_card.dart';
+import 'package:a_de_adote/app/pages/pets/widgets/pet_especie_filter.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +27,13 @@ class PetsPage extends StatefulWidget {
 }
 
 class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
-  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   bool _isLoading = true;
+  final ValueNotifier<bool> _isSearchBar = ValueNotifier(false);
   final ValueNotifier<bool> _loadShimmerEffect = ValueNotifier(false);
+  final ValueNotifier<bool> _dogFilter = ValueNotifier(false);
+  final ValueNotifier<bool> _catFilter = ValueNotifier(false);
+  final ValueNotifier<bool> _birdFilter = ValueNotifier(false);
+  final ValueNotifier<bool> _othersFilter = ValueNotifier(false);
 
   @override
   void initState() {
@@ -38,18 +43,22 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
     });
   }
 
-  @override
-  void dispose() {
-    _isSearchBar.dispose();
-    _loadShimmerEffect.dispose();
-    super.dispose();
-  }
-
   List<String> joinNameAndIdList(List<String?> names, List<String?> ids) {
     List<String> result = [];
     result.addAll(names.where((nomePet) => nomePet != null).cast());
     result.addAll(ids.where((idPet) => idPet != null).cast());
     return result;
+  }
+
+  @override
+  void dispose() {
+    _isSearchBar.dispose();
+    _loadShimmerEffect.dispose();
+    _dogFilter.dispose();
+    _catFilter.dispose();
+    _birdFilter.dispose();
+    _othersFilter.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,12 +106,94 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                             );
                           },
                         )
-                      : StandardSliverAppbar(
-                          title: Labels.pets,
-                          canPop: false,
-                          alternateAppbar: () {
-                            context.read<PetsController>().clearPetsFiltered();
-                            _isSearchBar.value = true;
+                      : BlocBuilder<PetsController, PetsState>(
+                          builder: (context, state) {
+                            Map<String, dynamic> filters = {
+                              'ong': 'Todas',
+                              'dog': false,
+                              'cat': false,
+                              'bird': false,
+                              'other': false,
+                              'idadeMaxima': 20,
+                              'sexo': 0,
+                              'mini': false,
+                              'pequeno': false,
+                              'medio': false,
+                              'grande': false,
+                            };
+                            if (state.currentFilters != null) {
+                              filters = state.currentFilters!;
+                              _dogFilter.value = state.currentFilters!['dog'];
+                              _catFilter.value = state.currentFilters!['cat'];
+                              _birdFilter.value = state.currentFilters!['bird'];
+                              _othersFilter.value =
+                                  state.currentFilters!['other'];
+                            } else {
+                              _dogFilter.value = false;
+                              _catFilter.value = false;
+                              _birdFilter.value = false;
+                              _othersFilter.value = false;
+                            }
+
+                            return StandardSliverAppbar(
+                              title: Labels.animais,
+                              canPop: false,
+                              alternateAppbar: () {
+                                context
+                                    .read<PetsController>()
+                                    .clearPetsFiltered();
+                                _isSearchBar.value = true;
+                              },
+                              bottom: PreferredSize(
+                                preferredSize: const Size(double.infinity, 59),
+                                child: Theme(
+                                  data: ThemeData(useMaterial3: true),
+                                  child: PetEspecieFilter(
+                                    dogFilterState: _dogFilter,
+                                    catFilterState: _catFilter,
+                                    birdFilterState: _birdFilter,
+                                    othersFilterState: _othersFilter,
+                                    dogCallback: (_) {
+                                      _dogFilter.value = !_dogFilter.value;
+                                      filters['dog'] = _dogFilter.value;
+                                      FiltersState.setPetCurrentFilters(
+                                          filters);
+                                      context
+                                          .read<PetsController>()
+                                          .loadPetsFiltered(filters);
+                                    },
+                                    catCallback: (_) {
+                                      _catFilter.value = !_catFilter.value;
+                                      filters['cat'] = _catFilter.value;
+                                      FiltersState.setPetCurrentFilters(
+                                          filters);
+                                      context
+                                          .read<PetsController>()
+                                          .loadPetsFiltered(filters);
+                                    },
+                                    birdCallback: (_) {
+                                      _birdFilter.value = !_birdFilter.value;
+                                      FiltersState.setPetCurrentFilters(
+                                          filters);
+                                      filters['bird'] = _birdFilter.value;
+                                      context
+                                          .read<PetsController>()
+                                          .loadPetsFiltered(filters);
+                                    },
+                                    othersCallback: (_) {
+                                      _othersFilter.value =
+                                          !_othersFilter.value;
+                                      filters['other'] = _othersFilter.value;
+                                      FiltersState.setPetCurrentFilters(
+                                          filters);
+                                      context
+                                          .read<PetsController>()
+                                          .loadPetsFiltered(filters);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                 ];
@@ -190,6 +281,12 @@ class _PetsPageState extends State<PetsPage> with BottomSheetPetFilter {
                                   MediaQuery.textScaleFactorOf(context) > 1
                                       ? 198
                                       : 181,
+
+                              //*Opção mais clean a ser considerada
+                              /*mainAxisExtent:
+                                  MediaQuery.textScaleFactorOf(context) > 1
+                                      ? 180
+                                      : 163,*/
                               crossAxisCount: 2,
                               crossAxisSpacing: 5,
                             ),

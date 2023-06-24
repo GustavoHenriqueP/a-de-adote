@@ -1,6 +1,7 @@
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/ui/helpers/filters_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
@@ -21,6 +22,20 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
   final ValueNotifier<bool> _pequeno = ValueNotifier(false);
   final ValueNotifier<bool> _medio = ValueNotifier(false);
   final ValueNotifier<bool> _grande = ValueNotifier(false);
+
+  final Map<String, dynamic> defaultFilters = {
+    'ong': 'Todas',
+    'dog': false,
+    'cat': false,
+    'bird': false,
+    'other': false,
+    'idadeMaxima': 20,
+    'sexo': 0,
+    'mini': false,
+    'pequeno': false,
+    'medio': false,
+    'grande': false,
+  };
 
   @override
   void dispose() {
@@ -411,7 +426,7 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                           _grande.value = false;
 
                           filters = null;
-                          FiltersState.petCurrentFilters = null;
+                          FiltersState.setPetCurrentFilters(null);
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
@@ -451,7 +466,9 @@ mixin BottomSheetPetFilter<T extends StatefulWidget> on State<T> {
                             'grande': _grande.value,
                           };
 
-                          FiltersState.petCurrentFilters = filters;
+                          if (!mapEquals(filters, defaultFilters)) {
+                            FiltersState.setPetCurrentFilters(filters);
+                          }
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
