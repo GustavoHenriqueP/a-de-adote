@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
@@ -53,13 +51,10 @@ class _PetDetailsPageState extends State<PetDetailsPage>
     String petReference;
     if (pet.nome != null && pet.idMicrochip != null) {
       petReference = '${pet.nome} - № ID: ${pet.idMicrochip}';
-      log(petReference);
     } else if (pet.nome != null && pet.idMicrochip == null) {
       petReference = '${pet.nome}';
-      log(petReference);
     } else if (pet.nome == null && pet.idMicrochip != null) {
       petReference = '№ ID: ${pet.idMicrochip}';
-      log(petReference);
     } else {
       petReference = 'NI';
     }
@@ -139,58 +134,80 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            state.pet?.nome ??
-                                                '#${state.pet?.idMicrochip ?? 'NI'}',
-                                            style: ProjectFonts.h5LightBold,
-                                          ),
-                                          Visibility(
-                                            visible: state.pet?.idMicrochip !=
-                                                    null &&
-                                                state.pet?.nome != null,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const SizedBox(
-                                                  width: 10,
+                                  Flexible(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                state.pet?.nome ??
+                                                    '#${state.pet?.idMicrochip ?? 'NI'}',
+                                                style: ProjectFonts.h5LightBold
+                                                    .copyWith(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
-                                                const CircleAvatar(
-                                                  radius: 3,
-                                                  backgroundColor: ProjectColors
-                                                      .primaryLight,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: state.pet?.idMicrochip !=
+                                                      null &&
+                                                  state.pet?.nome != null,
+                                              child: Flexible(
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    const CircleAvatar(
+                                                      radius: 3,
+                                                      backgroundColor:
+                                                          ProjectColors
+                                                              .primaryLight,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        '#${state.pet?.idMicrochip ?? ''}',
+                                                        style: ProjectFonts
+                                                            .pLight
+                                                            .copyWith(
+                                                          color: const Color
+                                                                  .fromARGB(255,
+                                                              207, 207, 207),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '#${state.pet?.idMicrochip ?? ''}',
-                                                  style: ProjectFonts.pLight
-                                                      .copyWith(
-                                                    color: const Color.fromARGB(
-                                                        255, 207, 207, 207),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            state.pet!.ongNome ?? '-',
+                                            style: ProjectFonts.pLight.copyWith(
+                                              color: ProjectColors.lightDark,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Text(
-                                        state.pet!.ongNome ?? '-',
-                                        style: ProjectFonts.pLight.copyWith(
-                                            color: ProjectColors.lightDark),
-                                      ),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FutureBuilder(
                                     future: SharedPreferences.getInstance(),

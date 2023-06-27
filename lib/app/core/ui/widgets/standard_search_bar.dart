@@ -29,7 +29,7 @@ class StandardSearchBar extends StatelessWidget {
         }
         return listaNomes.where(
           (String option) {
-            return option.toLowerCase().contains(
+            return option.toLowerCase().startsWith(
                   textEditingValue.text.toLowerCase(),
                 );
           },

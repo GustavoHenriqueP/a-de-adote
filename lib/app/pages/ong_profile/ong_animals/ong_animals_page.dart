@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../../core/ui/helpers/alert_dialog_confirmation_message.dart';
 import '../../../core/ui/helpers/bottom_sheet_pet_filter.dart';
+import '../../../models/pet_model.dart';
 
 class OngAnimalsPage extends StatefulWidget {
   const OngAnimalsPage({super.key});
@@ -73,6 +74,12 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
             int lengthListPets = state.listPets.length;
             int lengthListPetsSearched = state.listPetsSearched.length;
             int lengthListPetsFiltered = state.listPetsFiltered.length;
+
+            List<PetModel> currentList = state.listPetsFiltered.isNotEmpty
+                ? state.listPetsFiltered
+                : state.listPetsSearched.isNotEmpty
+                    ? state.listPetsSearched
+                    : state.listPets;
 
             return _isLoading
                 ? Column(
@@ -200,21 +207,21 @@ class _OngAnimalsPageState extends State<OngAnimalsPage>
                                       : lengthListPets,
                               itemBuilder: (context, index) {
                                 return OngAnimalCard(
-                                  pet: state.listPetsFiltered.isNotEmpty
-                                      ? state.listPetsFiltered[index]
-                                      : state.listPetsSearched.isNotEmpty
-                                          ? state.listPetsSearched[index]
-                                          : state.listPets[index],
+                                  pet: currentList[index],
                                   editMethod: () async {
                                     await Navigator.pushNamed(
                                       context,
                                       '/pet_edit',
-                                      arguments: state.listPets[index],
+                                      arguments: currentList[index],
                                     );
                                     // ignore: use_build_context_synchronously
-                                    context
-                                        .read<OngAnimalsController>()
-                                        .loadCurrentUserPets();
+                                    state.status.matchAny(
+                                      any: () async => await context
+                                          .read<OngAnimalsController>()
+                                          .loadCurrentUserPets(),
+                                      loadedSearched: () => null,
+                                      loadedFiltered: () => null,
+                                    );
                                   },
                                   deleteMethod: () async {
                                     bool? action = await confirmAction(
