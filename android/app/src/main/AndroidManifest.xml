@@ -23,7 +23,8 @@
    <application
         android:label="A de Adote"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:roundIcon="@mipmap/round_launcher"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
