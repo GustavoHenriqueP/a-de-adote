@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:a_de_adote/app/core/constants/labels.dart';
+import 'package:a_de_adote/app/core/exceptions/http_request_exception.dart';
 import 'package:a_de_adote/app/repositories/database/cache_control.dart';
 import 'package:a_de_adote/app/repositories/database/db_firestore.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
@@ -70,9 +71,36 @@ class OngRepositoryImpl implements OngRepository {
   }
 
   @override
+  Future<void> saveAcceptanceInfo(String? id) async {
+    Map<String, dynamic> info;
+
+    DateTime date = DateTime.now();
+
+    final snapshot = await db.collection('variaveis').get();
+    final int termsVersion = snapshot.docs.first.data()['termsVersion'];
+    final int policyVersion = snapshot.docs.first.data()['policyVersion'];
+
+    try {
+      final response = await dio.get('https://api.ipify.org');
+      final String userIp = response.data.toString();
+      info = {
+        'date': date,
+        'termsVersion': termsVersion,
+        'policyVersion': policyVersion,
+        'userIp': userIp,
+      };
+    } on DioException catch (e, s) {
+      log(e.message ?? 'Houve um erro ao buscar o IP', error: e, stackTrace: s);
+      throw HttpRequestException('Houve um erro ao buscar o IP');
+    }
+    await db.collection('aceite_usuarios').doc(id).set(info);
+  }
+
+  @override
   Future<void> createOng(OngModel ong) async {
     try {
       await db.collection('ong').doc(ong.id).set(ong.toMap());
+      await saveAcceptanceInfo(ong.id);
     } on FirebaseException catch (e, s) {
       log(Labels.erroDocOng, error: e, stackTrace: s);
       throw FirestoreException(Labels.erroCadastro);
@@ -161,7 +189,19 @@ class OngRepositoryImpl implements OngRepository {
   @override
   Future<void> updateOng(OngModel ong) async {
     try {
-      return db.collection('ong').doc(ong.id).update(ong.toMap());
+      await db.collection('ong').doc(ong.id).update(ong.toMap());
+    } on FirebaseException catch (e, s) {
+      log(Labels.erroUpdateOng, error: e, stackTrace: s);
+      throw FirestoreException(Labels.erroUpdateOng);
+    }
+  }
+
+  @override
+  Future<void> deleteOng(String? id) async {
+    try {
+      if (id != null) {
+        await db.collection('ong').doc(id).delete();
+      }
     } on FirebaseException catch (e, s) {
       log(Labels.erroUpdateOng, error: e, stackTrace: s);
       throw FirestoreException(Labels.erroUpdateOng);

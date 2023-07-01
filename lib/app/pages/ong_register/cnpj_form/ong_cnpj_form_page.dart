@@ -1,6 +1,7 @@
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_controller.dart';
 import 'package:a_de_adote/app/pages/ong_register/cnpj_form/ong_cnpj_form_state.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -153,32 +154,30 @@ class _ONGCNPJFormPageState extends State<ONGCNPJFormPage> {
                           const Divider(
                             color: ProjectColors.lightDark,
                           ),
-                          TextButton(
-                            onPressed: () async {
-                              final navigator =
-                                  Navigator.of(context, rootNavigator: true);
-                              final sp = await SharedPreferences.getInstance();
-                              sp.setString('userType', 'ong');
-                              navigator.popAndPushNamed('/login');
-                            },
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(
-                                ProjectColors.primary.withOpacity(0.2),
-                              ),
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
                             child: RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                       text: Labels.possuiCadastro,
                                       style: ProjectFonts.smallLight),
                                   TextSpan(
                                     text: Labels.fazerLogin,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       color: ProjectColors.primaryLight,
                                       fontWeight: FontWeight.bold,
                                     ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        final navigator = Navigator.of(context,
+                                            rootNavigator: true);
+                                        final sp = await SharedPreferences
+                                            .getInstance();
+                                        sp.setString('userType', 'ong');
+                                        navigator.popAndPushNamed('/login');
+                                      },
                                   ),
                                 ],
                               ),

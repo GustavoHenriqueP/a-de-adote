@@ -6,15 +6,17 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../../constants/buttons.dart';
 
 mixin AlertDialogAlert<T extends StatefulWidget> on State<T> {
-  Future<void> showAlert(String message) async {
+  Future<void> showAlert(String message, bool? alertIcon) async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        icon: const Icon(
-          MaterialCommunityIcons.alert_circle_outline,
-          size: 32,
-          color: ProjectColors.danger,
-        ),
+        icon: !(alertIcon ?? true)
+            ? null
+            : const Icon(
+                MaterialCommunityIcons.alert_circle_outline,
+                size: 32,
+                color: ProjectColors.danger,
+              ),
         content: Text(
           message,
           style: ProjectFonts.pSecundaryDark,

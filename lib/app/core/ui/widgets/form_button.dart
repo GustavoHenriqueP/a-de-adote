@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import '../styles/project_colors.dart';
 import '../styles/project_fonts.dart';
 
-// ignore: must_be_immutable
 class FormButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final String text;
   final Function()? action;
-  bool? isLoading;
+  final bool? disabled;
+  final bool? isLoading;
 
-  FormButton({
+  const FormButton({
     super.key,
     required this.formKey,
     required this.text,
     required this.action,
+    this.disabled,
     this.isLoading,
   });
 
@@ -28,13 +29,19 @@ class _FormButtonState extends State<FormButton> {
       borderRadius: const BorderRadius.all(
         Radius.circular(5),
       ),
-      hoverColor: ProjectColors.primaryDark,
+      hoverColor: !(widget.disabled ?? false)
+          ? ProjectColors.primaryDark
+          : const Color.fromARGB(255, 102, 102, 102),
+      splashColor: !(widget.disabled ?? false) ? null : Colors.transparent,
+      highlightColor: !(widget.disabled ?? false) ? null : Colors.transparent,
       onTap: widget.action,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15.5),
-        decoration: const BoxDecoration(
-          color: ProjectColors.primary,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color: !(widget.disabled ?? false)
+              ? ProjectColors.primary
+              : const Color.fromARGB(255, 102, 102, 102).withOpacity(0.8),
+          borderRadius: const BorderRadius.all(
             Radius.circular(6),
           ),
         ),
@@ -44,8 +51,11 @@ class _FormButtonState extends State<FormButton> {
             (!(widget.isLoading ?? false))
                 ? Text(
                     widget.text,
-                    // ignore: prefer_const_constructors
-                    style: ProjectFonts.pLightBold,
+                    style: !(widget.disabled ?? false)
+                        ? ProjectFonts.pLightBold
+                        : ProjectFonts.pLightBold.copyWith(
+                            color: const Color.fromARGB(255, 190, 190, 190),
+                          ),
                   )
                 : const SizedBox(
                     height: 23,

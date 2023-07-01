@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:a_de_adote/app/pages/login/login_controller.dart';
 import 'package:a_de_adote/app/pages/login/login_state.dart';
 import 'package:a_de_adote/app/pages/login/widgets/login_form_input.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
             state.status.matchAny(
               any: () => null,
               loaded: () => Navigator.pushNamed(context, '/main'),
-              error: (() => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.errorMessage ?? ''),
-                    ),
-                  )),
+              error: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage ?? ''),
+                ),
+              ),
             );
           },
           child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -169,31 +170,28 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     },
                                   ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context, '/register', (_) => true),
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStateProperty.all(
-                                        ProjectColors.primary.withOpacity(0.2),
-                                      ),
-                                    ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
                                     child: RichText(
-                                      text: const TextSpan(
+                                      text: TextSpan(
                                         children: [
-                                          TextSpan(
+                                          const TextSpan(
                                               text: Labels.naoPossuiCadastro,
                                               style: ProjectFonts.smallLight),
                                           TextSpan(
                                             text: Labels.crieConta,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                               color: ProjectColors.primaryLight,
                                               fontWeight: FontWeight.bold,
                                             ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () => Navigator
+                                                  .pushNamedAndRemoveUntil(
+                                                      context,
+                                                      '/register',
+                                                      (_) => true),
                                           ),
                                         ],
                                       ),
@@ -218,31 +216,29 @@ class _LoginPageState extends State<LoginPage> {
                         const Divider(
                           color: ProjectColors.lightDark,
                         ),
-                        TextButton(
-                          onPressed: () async {
-                            final navigator = Navigator.of(context);
-                            final sp = await SharedPreferences.getInstance();
-                            sp.setString('userType', 'adotante');
-                            navigator.popAndPushNamed('/main');
-                          },
-                          style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all(
-                              ProjectColors.primary.withOpacity(0.2),
-                            ),
-                          ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
                           child: RichText(
-                            text: const TextSpan(
+                            text: TextSpan(
                               children: [
-                                TextSpan(
+                                const TextSpan(
                                     text: Labels.naoEOng,
                                     style: ProjectFonts.smallLight),
                                 TextSpan(
                                   text: Labels.entrarComoAdotante,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                     color: ProjectColors.light,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      final navigator = Navigator.of(context);
+                                      final sp =
+                                          await SharedPreferences.getInstance();
+                                      sp.setString('userType', 'adotante');
+                                      navigator.popAndPushNamed('/main');
+                                    },
                                 ),
                               ],
                             ),

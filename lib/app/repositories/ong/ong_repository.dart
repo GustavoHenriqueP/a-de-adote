@@ -7,5 +7,7 @@ abstract class OngRepository {
   Future<OngModel> getOngById(String id);
   Future<OngModel> getCurrentOngUser();
   Future<void> createOng(OngModel ong);
+  Future<void> saveAcceptanceInfo(String id);
   Future<void> updateOng(OngModel ong);
+  Future<void> deleteOng(String? id);
 }

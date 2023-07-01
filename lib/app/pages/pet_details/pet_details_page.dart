@@ -19,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/ui/helpers/alert_dialog_alert.dart';
 import '../../core/ui/helpers/alert_dialog_confirmation_message.dart';
 import '../../models/pet_model.dart';
 import '../../repositories/database/cache_control.dart';
@@ -38,7 +39,7 @@ class PetDetailsPage extends StatefulWidget {
 }
 
 class _PetDetailsPageState extends State<PetDetailsPage>
-    with AlertDialogConfirmationMessage {
+    with AlertDialogConfirmationMessage, AlertDialogAlert {
   bool _edited = false;
 
   @override
@@ -451,10 +452,16 @@ class _PetDetailsPageState extends State<PetDetailsPage>
                             try {
                               if (state.pet!.ongId != null) {
                                 try {
+                                  await showAlert(
+                                      'Ficamos muito felizes que você se interessou por esse animalzinho! Apenas um rápido aviso:\n\nO processo de adoção pode ser diferente para cada Instituição, e é responsabilidade dela cuidar de todos os procedimentos necessários.',
+                                      true);
                                   OngRepository ongRepository =
                                       OngRepositoryImpl(
+                                    // ignore: use_build_context_synchronously
                                     dio: context.read(),
+                                    // ignore: use_build_context_synchronously
                                     auth: context.read(),
+                                    // ignore: use_build_context_synchronously
                                     cacheControl: context.read<CacheControl>(),
                                   );
                                   final ong = await ongRepository

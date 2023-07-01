@@ -3,6 +3,7 @@ import 'package:a_de_adote/app/core/ui/theme/theme_config.dart';
 import 'package:a_de_adote/app/pages/favorite_pets/favorite_pets_router.dart';
 import 'package:a_de_adote/app/pages/initial/initial_page_check.dart';
 import 'package:a_de_adote/app/pages/ong_profile/ong_profile_page.dart';
+import 'package:a_de_adote/app/pages/ong_register/pdf_view/pdf_view_router.dart';
 import 'package:a_de_adote/app/pages/pet_edit/pet_edit_router.dart';
 import 'package:a_de_adote/app/pages/pet_register/pet_register_router.dart';
 import 'package:a_de_adote/app/pages/pets/pets_router.dart';
@@ -32,6 +33,7 @@ class AdeAdoteApp extends StatelessWidget {
           '/': (context) => InitialPageCheck(sp: sp),
           '/onboarding': (_) => OnboardingScreenRouter.page,
           '/register': (_) => const OngRegisterRouter(),
+          '/pdf_view': (_) => PDFViewRouter.page,
           '/login': (_) => LoginRouter.page,
           '/login/reset_password': (_) => ResetPasswordRouter.page,
           '/main': (_) => const MainPage(),

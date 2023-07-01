@@ -488,7 +488,7 @@ class _PetRegisterPageState extends State<PetRegisterPage>
                                                 false) &&
                                             state.image != null;
                                     if (state.image == null) {
-                                      showAlert(Labels.insiraFoto);
+                                      showAlert(Labels.insiraFoto, true);
                                     }
                                     if (valid) {
                                       String unidadeIdadeValue;

@@ -2,6 +2,7 @@ import 'package:a_de_adote/app/core/constants/buttons.dart';
 import 'package:a_de_adote/app/core/constants/labels.dart';
 import 'package:a_de_adote/app/core/extensions/mask_formatters.dart';
 import 'package:a_de_adote/app/core/ui/widgets/standard_form_input.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,7 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
   final _email = TextEditingController();
   final _senha = TextEditingController();
   final _confirmarSenha = TextEditingController();
+  final ValueNotifier<bool> _isChecked = ValueNotifier(false);
   bool _isLoading = false;
 
   late OngModel ongModel;
@@ -116,13 +118,14 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 45),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              StandardFormInput(
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 45),
+                              child: StandardFormInput(
                                 controller: _whatsapp,
                                 labelText: Labels.whatsApp,
                                 mask: [context.maskFormatters.maskTelFormatter],
@@ -139,29 +142,41 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                 validator: Validatorless.required(
                                     Labels.whatsAppValido),
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              LoginFormInput(
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 45),
+                              child: LoginFormInput(
                                 type: 'login',
                                 controller: _email,
                                 labelText: Labels.email,
                                 maxLength: 256,
                                 fullSelectionText: true,
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              LoginFormInput(
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 45),
+                              child: LoginFormInput(
                                 type: 'signup_senha',
                                 controller: _senha,
                                 labelText: Labels.senha,
                                 maxLength: 50,
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              LoginFormInput(
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 45),
+                              child: LoginFormInput(
                                 type: 'signup_senha',
                                 controller: _confirmarSenha,
                                 labelText: Labels.confirmarSenha,
@@ -173,26 +188,114 @@ class _ONGSignUpFormPageState extends State<ONGSignUpFormPage> {
                                   return null;
                                 },
                               ),
-                              const SizedBox(
-                                height: 15,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 33, right: 45),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ValueListenableBuilder(
+                                    valueListenable: _isChecked,
+                                    builder: (BuildContext context, bool value,
+                                        Widget? child) {
+                                      return Checkbox(
+                                        value: value,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        onChanged: (value) =>
+                                            _isChecked.value = value ?? false,
+                                      );
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Flexible(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: 'Confirmo que li e aceito os ',
+                                        style: const TextStyle(
+                                            color: ProjectColors.light),
+                                        children: [
+                                          TextSpan(
+                                            text: 'Termos de Uso e Condições',
+                                            style: const TextStyle(
+                                              color: ProjectColors.primaryLight,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () => Navigator.of(
+                                                      context,
+                                                      rootNavigator: true)
+                                                  .pushNamed('/pdf_view',
+                                                      arguments: 'termos'),
+                                          ),
+                                          const TextSpan(text: ' e '),
+                                          TextSpan(
+                                            text: 'Política de privacidade',
+                                            style: const TextStyle(
+                                              color: ProjectColors.primaryLight,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () => Navigator.of(
+                                                      context,
+                                                      rootNavigator: true)
+                                                  .pushNamed('/pdf_view',
+                                                      arguments: 'politica'),
+                                          ),
+                                          const TextSpan(text: '.'),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              FormButton(
-                                formKey: _formKey,
-                                text: Buttons.cadastrar,
-                                action: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    final ong = ongModel.copyWith(
-                                        email: _email.text,
-                                        whatsapp: _whatsapp.text);
-                                    context
-                                        .read<OngSignupFormController>()
-                                        .signUpOng(ong, _senha.text);
-                                  }
-                                },
-                                isLoading: _isLoading,
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 45),
+                              child: ValueListenableBuilder(
+                                  valueListenable: _isChecked,
+                                  builder: (BuildContext context,
+                                      bool isChecked, Widget? child) {
+                                    return FormButton(
+                                      formKey: _formKey,
+                                      text: Buttons.cadastrar,
+                                      disabled: !isChecked,
+                                      action: !isChecked
+                                          ? () => ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Confirme os Termos de Uso e Política de Privacidade para prosseguir!'),
+                                                ),
+                                              )
+                                          : () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                final ong = ongModel.copyWith(
+                                                    email: _email.text,
+                                                    whatsapp: _whatsapp.text);
+                                                context
+                                                    .read<
+                                                        OngSignupFormController>()
+                                                    .signUpOng(
+                                                        ong, _senha.text);
+                                              }
+                                            },
+                                      isLoading: _isLoading,
+                                    );
+                                  },),
+                            ),
+                          ],
                         ),
                       ),
                     ],

@@ -1,5 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
+import 'package:a_de_adote/app/core/exceptions/firestore_exception.dart';
+import 'package:a_de_adote/app/core/exceptions/http_request_exception.dart';
 import 'package:bloc/bloc.dart';
 import 'package:a_de_adote/app/repositories/ong/ong_repository.dart';
 import 'package:a_de_adote/app/services/auth_service.dart';
@@ -23,8 +23,24 @@ class OngSignupFormController extends Cubit<OngSignupFormState> {
       final ongModel = ong.copyWith(id: _authService.ongUser?.uid);
       await _ongRepository.createOng(ongModel);
       emit(state.copyWith(status: OngSignupFormStatus.userCreated));
-    } on AuthException catch (e, s) {
-      log('Erro ao cadastrar ONG', error: e, stackTrace: s);
+    } on AuthException catch (e) {
+      emit(
+        state.copyWith(
+          status: OngSignupFormStatus.error,
+          errorMessage: e.message,
+        ),
+      );
+    } on FirestoreException catch (e) {
+      await _authService.ongUser?.delete();
+      emit(
+        state.copyWith(
+          status: OngSignupFormStatus.error,
+          errorMessage: e.message,
+        ),
+      );
+    } on HttpRequestException catch (e) {
+      await _ongRepository.deleteOng(_authService.ongUser?.uid);
+      await _authService.ongUser?.delete();
       emit(
         state.copyWith(
           status: OngSignupFormStatus.error,
